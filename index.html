@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Afwan Gibran Muhammad Algiffari · Full-Stack Developer</title>
+  <meta name="description" content="Portfolio Afwan Gibran Muhammad Algiffari. Full-Stack Developer web dan mobile-hybrid dengan fokus pada arsitektur backend, refactoring legacy, dan migrasi database.">
+  <meta property="og:title" content="Afwan Gibran Muhammad Algiffari · Full-Stack Developer">
+  <meta property="og:description" content="Sistem web yang rapi, dari database sampai antarmuka. Portfolio rekayasa web dan sistem hybrid.">
+  <meta property="og:type" content="website">
+
+  <!-- Dual theme-color meta tags -->
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+
+  <!-- Inline SVG Favicon with AG monogram -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071E3'/%3E%3Ctext x='16' y='21' font-family='-apple-system,BlinkMacSystemFont,sans-serif' font-size='14' font-weight='600' fill='%23FFFFFF' text-anchor='middle'%3EAG%3C/text%3E%3C/svg%3E">
+
+  <!-- Google Fonts: Inter & JetBrains Mono as fallbacks -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Early theme script to prevent FOUC -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (saved === 'dark' || (!saved && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+        document.documentElement.classList.add('js');
+      } catch (e) {
+        document.documentElement.classList.add('js');
+      }
+    })();
+  </script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', 'Inter', 'system-ui', 'sans-serif'],
+            mono: ['"SF Mono"', '"JetBrains Mono"', 'ui-monospace', 'monospace'],
+          },
+          colors: {
+            bg: 'var(--bg)',
+            surface: 'var(--surface)',
+            text: 'var(--text)',
+            muted: 'var(--muted)',
+            hairline: 'var(--hairline)',
+            accent: 'var(--accent)',
+            status: 'var(--status)',
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+
+  <style>
+    /* Design Tokens */
+    :root {
+      --bg: #FFFFFF;
+      --surface: #F5F5F7;
+      --text: #1D1D1F;
+      --muted: #6E6E73;
+      --hairline: rgba(0, 0, 0, 0.10);
+      --accent: #0071E3;
+      --status: #30D158;
+      --card-bg-on-surface: #FFFFFF;
+      --card-bg-on-base: #F5F5F7;
+    }
+
+    .dark {
+      --bg: #000000;
+      --surface: #161617;
+      --text: #F5F5F7;
+      --muted: #A1A1A6;
+      --hairline: rgba(255, 255, 255, 0.14);
+      --accent: #2997FF;
+      --status: #30D158;
+      --card-bg-on-surface: #000000;
+      --card-bg-on-base: #161617;
+    }
+
+    /* Base Typography & Resets */
+    html {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 17px;
+      line-height: 1.5;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      margin: 0;
+    }
+
+    /* Focus Rings */
+    *:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* Global Icon Styling */
+    [data-lucide], .lucide {
+      stroke-width: 1.75px !important;
+    }
+
+    /* Headings & Text */
+    .apple-headline {
+      font-size: clamp(2.5rem, 6.5vw, 5rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+    }
+
+    .apple-subhead {
+      font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .apple-eyebrow {
+      font-family: "SF Mono", "JetBrains Mono", ui-monospace, monospace;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* Hairline separators */
+    .hairline-b {
+      border-bottom: 1px solid var(--hairline);
+    }
+    .hairline-t {
+      border-top: 1px solid var(--hairline);
+    }
+    .hairline-r {
+      border-right: 1px solid var(--hairline);
+    }
+    .hairline-l {
+      border-left: 1px solid var(--hairline);
+    }
+    .hairline-all {
+      border: 1px solid var(--hairline);
+    }
+
+    /* Tiles */
+    .apple-tile {
+      border-radius: 28px;
+      border: 1px solid var(--hairline);
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .apple-tile:hover {
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Buttons */
+    .btn-pill-primary {
+      min-height: 44px;
+      border-radius: 9999px;
+      background-color: var(--accent);
+      color: #FFFFFF;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 1.5rem;
+      transition: opacity 0.2s ease, transform 0.1s ease;
+    }
+    .btn-pill-primary:hover {
+      opacity: 0.92;
+    }
+    .btn-pill-primary:active {
+      transform: scale(0.98);
+    }
+
+    .btn-pill-secondary {
+      min-height: 44px;
+      border-radius: 9999px;
+      background-color: transparent;
+      color: var(--text);
+      border: 1px solid var(--hairline);
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 1.5rem;
+      transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+    }
+    .btn-pill-secondary:hover {
+      background-color: var(--hairline);
+    }
+    .btn-pill-secondary:active {
+      transform: scale(0.98);
+    }
+
+    .action-link {
+      color: var(--accent);
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      text-decoration: none;
+      transition: gap 0.2s ease;
+    }
+    .action-link:hover {
+      text-decoration: underline;
+      gap: 0.4rem;
+    }
+
+    /* Restraint Blur: Navbar ONLY */
+    .navbar-glass {
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      background-color: rgba(255, 255, 255, 0.82);
+    }
+    .dark .navbar-glass {
+      background-color: rgba(0, 0, 0, 0.82);
+    }
+
+    /* Status dot pulse */
+    @keyframes pulse-status {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .status-dot-pulse {
+        animation: pulse-status 2.4s ease-in-out infinite;
+      }
+    }
+
+    /* Functional Motion Reveal */
+    @media (prefers-reduced-motion: no-preference) {
+      html.js .reveal {
+        opacity: 0;
+        transform: translateY(24px) scale(0.985);
+        transition: opacity 700ms cubic-bezier(0.28, 0.11, 0.32, 1), transform 700ms cubic-bezier(0.28, 0.11, 0.32, 1);
+        will-change: opacity, transform;
+      }
+      html.js .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Mockup window frame elements */
+    .mockup-window {
+      border-radius: 16px;
+      border: 1px solid var(--hairline);
+      background: var(--bg);
+      overflow: hidden;
+    }
+    .mockup-header {
+      height: 36px;
+      border-bottom: 1px solid var(--hairline);
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+    }
+  </style>
+</head>
+<body class="selection:bg-accent selection:text-white">
+
+  <!-- Accessible Skip Link -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-accent focus:text-white focus:rounded-full focus:shadow-md">
+    Lewati ke konten
+  </a>
+
+  <!-- 1. Navbar (48px, sticky) -->
+  <header id="site-navbar" class="sticky top-0 z-40 w-full h-12 navbar-glass transition-colors duration-200">
+    <div class="max-w-5xl h-full mx-auto px-6 flex items-center justify-between">
+      <!-- Left: Monogram -->
+      <a href="#" class="font-mono font-bold text-base tracking-tight text-text hover:text-accent transition-colors" aria-label="Afwan Gibran Algiffari - Beranda">
+        AG.
+      </a>
+
+      <!-- Center: Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8 text-[12px] font-medium tracking-wide" aria-label="Navigasi Utama">
+        <a href="#projects" class="nav-desktop-link text-muted hover:text-text transition-colors">Proyek</a>
+        <a href="#experience" class="nav-desktop-link text-muted hover:text-text transition-colors">Pengalaman</a>
+        <a href="#skills" class="nav-desktop-link text-muted hover:text-text transition-colors">Skill</a>
+        <a href="#about" class="nav-desktop-link text-muted hover:text-text transition-colors">Tentang</a>
+      </nav>
+
+      <!-- Right: Theme toggle & CTA button -->
+      <div class="flex items-center gap-3">
+        <button id="theme-toggle" type="button" class="w-9 h-9 rounded-full flex items-center justify-center text-muted hover:text-text border border-hairline transition-colors" aria-label="Ganti mode tampilan">
+          <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
+          <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
+        </button>
+
+        <a href="#contact" class="hidden sm:inline-flex items-center justify-center text-xs font-medium px-4 h-8 rounded-full bg-accent text-white hover:opacity-90 transition-opacity">
+          Hubungi Saya
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn" type="button" class="md:hidden w-9 h-9 rounded-full flex items-center justify-center text-text border border-hairline" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="mobile-menu-sheet">
+          <i data-lucide="menu" id="menu-icon-bars" class="w-4 h-4"></i>
+          <i data-lucide="x" id="menu-icon-close" class="w-4 h-4 hidden"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Full-Screen Sheet -->
+  <div id="mobile-menu-sheet" class="fixed inset-0 top-12 z-30 bg-bg transition-opacity duration-300 opacity-0 pointer-events-none md:hidden flex flex-col justify-between p-8" aria-hidden="true">
+    <nav class="flex flex-col gap-6 pt-6" aria-label="Navigasi Mobile">
+      <a href="#projects" class="mobile-nav-link text-[28px] font-semibold text-text hover:text-accent transition-colors">Proyek</a>
+      <a href="#experience" class="mobile-nav-link text-[28px] font-semibold text-text hover:text-accent transition-colors">Pengalaman</a>
+      <a href="#skills" class="mobile-nav-link text-[28px] font-semibold text-text hover:text-accent transition-colors">Skill</a>
+      <a href="#about" class="mobile-nav-link text-[28px] font-semibold text-text hover:text-accent transition-colors">Tentang</a>
+      <a href="#contact" class="mobile-nav-link text-[28px] font-semibold text-accent">Hubungi Saya</a>
+    </nav>
+    <div class="pt-8 hairline-t text-xs font-mono text-muted flex flex-col gap-2">
+      <p>Afwan Gibran Muhammad Algiffari</p>
+      <p>Bekasi, Indonesia · 40+ jam/minggu</p>
+    </div>
+  </div>
+
+  <main id="main-content">
+
+    <!-- 2. Hero Section (Base Background) -->
+    <section class="py-28 md:py-40 bg-bg">
+      <div class="max-w-5xl mx-auto px-6 text-center flex flex-col items-center">
+        <!-- Status Pill -->
+        <div class="reveal inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full hairline-all font-mono text-xs text-text bg-surface mb-8">
+          <span class="w-2 h-2 rounded-full bg-status status-dot-pulse inline-block" aria-hidden="true"></span>
+          <span>Tersedia untuk peluang kerja · 40+ jam/minggu · Bekasi, Indonesia</span>
+        </div>
+
+        <!-- Eyebrow -->
+        <p class="reveal apple-eyebrow mb-4">
+          Full-Stack Developer · Web &amp; Hybrid Systems
+        </p>
+
+        <!-- H1 -->
+        <h1 class="reveal apple-headline max-w-4xl text-text mb-6">
+          Afwan Gibran Muhammad Algiffari
+        </h1>
+
+        <!-- Tagline (H2 style, muted) -->
+        <p class="reveal apple-subhead max-w-3xl mb-8">
+          Sistem web yang rapi, dari database sampai antarmuka.
+        </p>
+
+        <!-- Bio -->
+        <p class="reveal text-muted text-[17px] leading-relaxed max-w-2xl mb-10 text-center">
+          Full-Stack Developer yang adaptif terhadap berbagai tech stack. Berpengalaman membangun aplikasi web dan mobile-hybrid end-to-end dengan PHP/Laravel, Node.js/Express, Ionic Angular, dan React. Terbiasa merancang arsitektur backend kustom, relasi database kompleks, refactoring sistem legacy, dan migrasi database dengan validasi data yang ketat.
+        </p>
+
+        <!-- CTAs -->
+        <div class="reveal flex flex-wrap items-center justify-center gap-4 mb-16">
+          <a href="#projects" class="btn-pill-primary">
+            Lihat Proyek
+          </a>
+          <button id="hero-copy-btn" type="button" class="btn-pill-secondary">
+            Salin Email
+          </button>
+          <div class="flex items-center gap-2 pl-2">
+            <a href="https://github.com/gibrandevlab" target="_blank" rel="noopener noreferrer" class="w-11 h-11 rounded-full hairline-all flex items-center justify-center text-muted hover:text-text hover:bg-surface transition-colors" aria-label="Profil GitHub Afwan Gibran">
+              <i data-lucide="github" class="w-5 h-5"></i>
+            </a>
+            <a href="mailto:afwangibran19@gmail.com" class="w-11 h-11 rounded-full hairline-all flex items-center justify-center text-muted hover:text-text hover:bg-surface transition-colors" aria-label="Kirim email ke Afwan Gibran">
+              <i data-lucide="mail" class="w-5 h-5"></i>
+            </a>
+            <a href="https://wa.me/6285814701149" target="_blank" rel="noopener noreferrer" class="w-11 h-11 rounded-full hairline-all flex items-center justify-center text-muted hover:text-text hover:bg-surface transition-colors" aria-label="Hubungi via WhatsApp">
+              <i data-lucide="message-circle" class="w-5 h-5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Sorotan strip (Three columns separated by hairlines) -->
+        <div class="reveal w-full max-w-4xl hairline-t hairline-b py-8 grid grid-cols-1 md:grid-cols-3 text-left">
+          <div class="px-6 py-4 md:py-2 md:hairline-r">
+            <p class="text-xl font-semibold text-text tracking-tight mb-1">
+              MySQL → MS SQL Server
+            </p>
+            <p class="text-sm text-muted">
+              Migrasi database tanpa downtime.
+            </p>
+          </div>
+          <div class="px-6 py-4 md:py-2 md:hairline-r">
+            <p class="text-xl font-semibold text-text tracking-tight mb-1">
+              RBAC per model dan aksi
+            </p>
+            <p class="text-sm text-muted">
+              Hak akses granular: view, edit, detail, update.
+            </p>
+          </div>
+          <div class="px-6 py-4 md:py-2">
+            <p class="text-xl font-semibold text-text tracking-tight mb-1">
+              Audit data lapangan
+            </p>
+            <p class="text-sm text-muted">
+              Validasi silang untuk BPS, Panwaslu, dan KPU.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Proyek Section (Alt Surface Background) -->
+    <section id="projects" class="py-28 md:py-40 bg-surface">
+      <div class="max-w-5xl mx-auto px-6">
+        <!-- Section Header -->
+        <div class="reveal mb-16 text-left">
+          <p class="apple-eyebrow mb-3">PROYEK</p>
+          <h2 class="apple-headline text-text mb-4">
+            Tiga sistem yang benar-benar dipakai.
+          </h2>
+          <p class="apple-subhead">
+            Dari operasional toko sampai migrasi database perusahaan.
+          </p>
+        </div>
+
+        <!-- Project Tiles -->
+        <div class="space-y-12">
+
+          <!-- Project 1: ERP Frozen Food -->
+          <article class="reveal apple-tile bg-[var(--card-bg-on-surface)] p-8 md:p-12">
+            <!-- Top Half: CSS-built Interface Mockup -->
+            <div class="mb-8">
+              <div class="mockup-window shadow-sm">
+                <div class="mockup-header justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-hairline inline-block"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-hairline inline-block"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-hairline inline-block"></span>
+                  </div>
+                  <span class="font-mono text-[11px] text-muted">erp-frozenfood.local/inventory</span>
+                  <div class="w-10"></div>
+                </div>
+                <div class="p-4 md:p-6 grid grid-cols-1 md:grid-cols-4 gap-4 bg-bg text-xs">
+                  <!-- Sidebar -->
+                  <div class="hidden md:flex flex-col gap-1 hairline-r pr-4 font-mono text-muted">
+                    <div class="px-3 py-1.5 rounded-lg bg-surface font-medium text-text flex items-center justify-between">
+                      <span>Stok</span>
+                      <span class="text-[10px] text-accent">5 item</span>
+                    </div>
+                    <div class="px-3 py-1.5 rounded-lg hover:bg-surface">Pembukuan</div>
+                    <div class="px-3 py-1.5 rounded-lg hover:bg-surface">Pelanggan</div>
+                    <div class="px-3 py-1.5 rounded-lg hover:bg-surface">Restock</div>
+                  </div>
+                  <!-- Table -->
+                  <div class="md:col-span-3 overflow-x-auto">
+                    <table class="w-full text-left font-mono">
+                      <thead>
+                        <tr class="hairline-b text-muted text-[11px]">
+                          <th class="pb-2 font-medium">PRODUK</th>
+                          <th class="pb-2 font-medium">STOK</th>
+                          <th class="pb-2 font-medium">STATUS</th>
+                        </tr>
+                      </thead>
+                      <tbody class="divide-y divide-hairline text-text text-[12px]">
+                        <tr>
+                          <td class="py-2.5 font-sans">Daging Sapi Slice 500g</td>
+                          <td class="py-2.5">48 pack</td>
+                          <td class="py-2.5 text-muted">Normal</td>
+                        </tr>
+                        <tr class="bg-surface/50">
+                          <td class="py-2.5 font-sans font-medium">Nugget Ayam Crispy 1kg</td>
+                          <td class="py-2.5 font-semibold">8 pack</td>
+                          <td class="py-2.5">
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-accent/10 text-accent hairline-all border-accent/30">
+                              Prioritas restock
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="py-2.5 font-sans">Sosis Sapi Bakar 500g</td>
+                          <td class="py-2.5">32 pack</td>
+                          <td class="py-2.5 text-muted">Normal</td>
+                        </tr>
+                        <tr>
+                          <td class="py-2.5 font-sans">Fillet Ikan Dori 1kg</td>
+                          <td class="py-2.5">14 pack</td>
+                          <td class="py-2.5 text-muted">Menipis</td>
+                        </tr>
+                        <tr>
+                          <td class="py-2.5 font-sans">Kentang Shoestring 1kg</td>
+                          <td class="py-2.5">25 pack</td>
+                          <td class="py-2.5 text-muted">Normal</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <p class="font-mono text-[11px] text-muted mt-2.5 text-right">Ilustrasi antarmuka</p>
+            </div>
+
+            <!-- Bottom Half: Content -->
+            <div>
+              <h3 class="text-2xl font-semibold text-text tracking-tight mb-3">
+                Sistem Manajemen Toko Frozen Food (ERP)
+              </h3>
+              <p class="text-muted text-[17px] leading-relaxed mb-6">
+                Sistem operasional toko dengan modul stok, pembukuan, data pelanggan, dan alur permintaan restok ke supplier. Sistem Penunjang Keputusan (SPK) memprioritaskan produk yang perlu di-restock. Akses dikontrol dengan RBAC per model dan per aksi: view, edit, detail, update.
+              </p>
+              <div class="flex flex-wrap items-center gap-2 mb-6">
+                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">Laravel</span>
+                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">Blade</span>
+                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">MySQL</span>
+                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">RBAC</span>
+                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">SPK</span>
+              </div>
+              <a href="https://github.com/gibrandevlab/ERP-FROZEN-FOOD" target="_blank" rel="noopener noreferrer" class="action-link text-base">
+                Lihat di GitHub <span aria-hidden="true">›</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 2: Vita Dulcedo -->
+          <article class="reveal apple-tile bg-[var(--card-bg-on-surface)] p-8 md:p-12">
+            <!-- Top Half: CSS-built Interface Mockup -->
+            <div class="mb-8">
+              <div class="mockup-window shadow-sm">
+                <div class="mockup-header justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-hairline inline-block"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-hairline inline-block"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-hairline inline-block"></span>
+                  </div>
+                  <span class="font-mono text-[11px] text-muted">vitadulcedo.org/donor/dashboard</span>
+                  <div class="w-10"></div>
+                </div>
+                <div class="p-4 md:p-6 bg-bg grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+                  <!-- Timeline -->
+                  <div class="hairline-r pr-4 font-mono">
+                    <p class="text-muted text-[11px] mb-3 font-semibold uppercase tracking-wider">Status Verifikasi</p>
+                    <div class="space-y-4">
+                      <div class="flex items-start gap-2.5">
+                        <span class="w-2 h-2 rounded-full bg-text mt-1 inline-block"></span>
+                        <div>
+                          <p class="font-semibold text-text">Diverifikasi</p>
+                          <p class="text-[10px] text-muted">Tim verifikasi panti</p>
+                        </div>
+                      </div>
+                      <div class="flex items-start gap-2.5">
+                        <span class="w-2 h-2 rounded-full bg-hairline mt-1 inline-block"></span>
+                        <div>
+                          <p class="font-medium text-text">Diterima</p>
+                          <p class="text-[10px] text-muted">Distribusi ke anak asuh</p>
+                        </div>
+                      </div>
+                      <div class="flex items-start gap-2.5">
+                        <span class="w-2 h-2 rounded-full bg-hairline mt-1 inline-block"></span>
+                        <div>
+                          <p class="font-normal text-muted">Ditolak</p>
+                          <p class="text-[10px] text-muted">Jika data tidak valid</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Donation List -->
+                  <div class="md:col-span-2">
+                    <p class="font-mono text-muted text-[11px] mb-3 font-semibold uppercase tracking-wider">Riwayat Donasi Donatur</p>
+                    <div class="space-y-2.5 font-mono text-[12px]">
+                      <div class="p-2.5 rounded-lg bg-surface flex items-center justify-between">
+                        <div>
+                          <p class="font-sans font-medium text-text">Paket Sembako Bulanan</p>
+                          <p class="text-[11px] text-muted">10 paket beras &amp; minyak goreng</p>
+                        </div>
+                        <span class="font-semibold text-text">Diverifikasi</span>
+                      </div>
+                      <div class="p-2.5 rounded-lg bg-surface flex items-center justify-between">
+                        <div>
+                          <p class="font-sans font-medium text-text">Bantuan Dana Pendidikan</p>
+                          <p class="text-[11px] text-muted">Transfer via Virtual Account</p>
+                        </div>
+                        <span class="font-medium text-text">Diterima</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="font-mono text-[11px] text-muted mt-2.5 text-right">Ilustrasi antarmuka</p>
+            </div>
+
+            <!-- Bottom Half: Content -->
+            <div>
+              <h3 class="text-2xl font-semibold text-text tracking-tight mb-3">
+                Vita Dulcedo, Sistem Manajemen Donasi Panti Asuhan
+              </h3>
+              <p class="text-muted text-[17px] leading-relaxed mb-6">
+                Platform donasi uang dan barang dengan dashboard terpisah untuk admin dan donatur. Setiap donatur punya profil untuk melacak status donasinya. SPK merekomendasikan alokasi donasi sesuai preferensi donatur.
+              </p>
+              <div class="flex flex-wrap items-center gap-2 mb-6">
+                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">Laravel</span>
+                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">PHP</span>
+                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">Blade</span>
+                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">MySQL</span>
+                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">Decision Support</span>
+              </div>
+              <a href="https://github.com/gibrandevlab/Vita-Dulcedo" target="_blank" rel="noopener noreferrer" class="action-link text-base">
+                Lihat di GitHub <span aria-hidden="true">›</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 3: Enterprise CMS & Database Migration -->
+          <article class="reveal apple-tile bg-[var(--card-bg-on-surface)] p-8 md:p-12">
+            <!-- Top Half: CSS-built Interface Mockup -->
+            <div class="mb-8">
+              <div class="mockup-window shadow-sm">
+                <div class="mockup-header justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-hairline inline-block"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-hairline inline-block"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-hairline inline-block"></span>
+                  </div>
+                  <span class="font-mono text-[11px] text-muted">db-migration-pipeline · schema-sync</span>
+                  <div class="w-10"></div>
+                </div>
+                <div class="p-6 bg-bg font-mono text-xs">
+                  <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
+                    <!-- Source Node -->
+                    <div class="md:col-span-2 p-3.5 rounded-xl bg-surface hairline-all">
+                      <div class="flex items-center justify-between pb-2 hairline-b mb-2">
+                        <span class="font-semibold text-text">MySQL</span>
+                        <span class="text-[10px] text-muted">SOURCE DB</span>
+                      </div>
+                      <div class="space-y-1 text-muted text-[11px]">
+                        <div class="flex items-center justify-between"><span>users_auth</span><span class="text-[10px]">12 cols</span></div>
+                        <div class="flex items-center justify-between"><span>cms_articles</span><span class="text-[10px]">24 cols</span></div>
+                        <div class="flex items-center justify-between"><span>media_assets</span><span class="text-[10px]">8 cols</span></div>
+                      </div>
+                    </div>
+
+                    <!-- Migration Arrow -->
+                    <div class="md:col-span-1 text-center py-2 flex flex-col items-center justify-center">
+                      <span class="text-accent font-semibold text-lg hidden md:block">→</span>
+                      <span class="text-accent font-semibold text-lg md:hidden">↓</span>
+                      <span class="text-[10px] text-muted tracking-tight">Zero Downtime</span>
+                    </div>
+
+                    <!-- Target Node -->
+                    <div class="md:col-span-2 p-3.5 rounded-xl bg-surface hairline-all">
+                      <div class="flex items-center justify-between pb-2 hairline-b mb-2">
+                        <span class="font-semibold text-text">MS SQL Server</span>
+                        <span class="text-[10px] text-muted">TARGET DB</span>
+                      </div>
+                      <div class="space-y-1 text-muted text-[11px]">
+                        <div class="flex items-center justify-between"><span>dbo.tbl_Users</span><span class="text-[10px]">Validated</span></div>
+                        <div class="flex items-center justify-between"><span>dbo.tbl_Articles</span><span class="text-[10px]">Validated</span></div>
+                        <div class="flex items-center justify-between"><span>dbo.tbl_Assets</span><span class="text-[10px]">Validated</span></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mt-4 pt-3 hairline-t flex items-center justify-between text-[11px] text-muted">
+                    <span>Validasi tipe data &amp; foreign key constraints</span>
+                    <span class="text-status font-medium">Sinkronisasi 100%</span>
+                  </div>
+                </div>
+              </div>
+              <p class="font-mono text-[11px] text-muted mt-2.5 text-right">Ilustrasi antarmuka</p>
+            </div>
+
+            <!-- Bottom Half: Content -->
+            <div>
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface hairline-all text-xs font-mono text-muted mb-3">
+                <span>Studi kasus enterprise · Repositori privat</span>
+              </div>
+              <h3 class="text-2xl font-semibold text-text tracking-tight mb-3">
+                Enterprise CMS &amp; Migrasi Database
+              </h3>
+              <p class="text-muted text-[17px] leading-relaxed mb-6">
+                CMS internal perusahaan dengan frontend Ionic Angular dan backend Node.js (Express). Refactoring menyeluruh pada kode legacy agar lebih mudah dirawat, lalu migrasi database dari MySQL ke Microsoft SQL Server tanpa downtime.
+              </p>
+              <div class="flex flex-wrap items-center gap-2 mb-6">
+                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">Ionic Angular</span>
+                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">Node.js</span>
+                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">Express</span>
+                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">MS SQL Server</span>
+              </div>
+              <p class="text-sm font-mono text-muted">
+                Repositori privat
+              </p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Pengalaman Section (Base Background) -->
+    <section id="experience" class="py-28 md:py-40 bg-bg">
+      <div class="max-w-5xl mx-auto px-6">
+        <!-- Section Header -->
+        <div class="reveal mb-16 text-left">
+          <p class="apple-eyebrow mb-3">PENGALAMAN</p>
+          <h2 class="apple-headline text-text">
+            Jejak kerja.
+          </h2>
+        </div>
+
+        <!-- Vertical Timeline -->
+        <div class="relative pl-6 md:pl-0 space-y-12 before:content-[''] before:absolute before:top-2 before:bottom-2 before:left-[7px] md:before:left-[188px] before:w-[1px] before:bg-hairline mb-20">
+
+          <!-- Item 1: PT Bakrie Pipe Industri -->
+          <div class="reveal relative flex flex-col md:flex-row md:gap-12 items-start">
+            <!-- Node dot -->
+            <div class="absolute -left-[24px] md:left-[183px] top-1.5 w-2.5 h-2.5 rounded-full bg-text border-2 border-bg"></div>
+            <!-- Date column -->
+            <div class="md:w-[160px] text-left md:text-right font-mono text-xs text-muted mb-2 md:mb-0 shrink-0 pt-0.5">
+              Sep 2026 – Des 2026
+            </div>
+            <!-- Content -->
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold text-text tracking-tight">
+                Magang Full-Stack Developer · PT Bakrie Pipe Industri
+              </h3>
+              <ul class="mt-3 space-y-2 text-[17px] text-muted list-disc list-outside pl-5">
+                <li>Mengembangkan aplikasi CMS dengan frontend Ionic Angular dan backend Node.js (Express).</li>
+                <li>Melakukan refactoring kode legacy agar lebih mudah diskalakan dan dibaca.</li>
+                <li>Memigrasikan database dari MySQL ke Microsoft SQL Server tanpa mengganggu sistem yang berjalan.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Item 2: Freelance Web Developer & System Analyst -->
+          <div class="reveal relative flex flex-col md:flex-row md:gap-12 items-start">
+            <div class="absolute -left-[24px] md:left-[183px] top-1.5 w-2.5 h-2.5 rounded-full bg-text border-2 border-bg"></div>
+            <div class="md:w-[160px] text-left md:text-right font-mono text-xs text-muted mb-2 md:mb-0 shrink-0 pt-0.5">
+              Jan 2024 – Sekarang
+            </div>
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold text-text tracking-tight">
+                Freelance Web Developer &amp; System Analyst · Mandiri
+              </h3>
+              <ul class="mt-3 space-y-2 text-[17px] text-muted list-disc list-outside pl-5">
+                <li>Membangun aplikasi web full-stack end-to-end (Laravel &amp; MySQL) dengan otorisasi RBAC.</li>
+                <li>Menyusun dokumentasi teknis, spesifikasi sistem, dan diagram ER, serta mengelola deployment.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Item 3: PT Agel Langgeng -->
+          <div class="reveal relative flex flex-col md:flex-row md:gap-12 items-start">
+            <div class="absolute -left-[24px] md:left-[183px] top-1.5 w-2.5 h-2.5 rounded-full bg-text border-2 border-bg"></div>
+            <div class="md:w-[160px] text-left md:text-right font-mono text-xs text-muted mb-2 md:mb-0 shrink-0 pt-0.5">
+              2021
+            </div>
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold text-text tracking-tight">
+                Praktik Kerja Lapangan, Pengembangan Sistem ERP · PT Agel Langgeng
+              </h3>
+              <ul class="mt-3 space-y-2 text-[17px] text-muted list-disc list-outside pl-5">
+                <li>Mengembangkan modul aplikasi ERP dan fitur notifikasi push ke perangkat mobile pengguna dengan CodeIgniter.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Item 4: BPS, Panwaslu, & KPU -->
+          <div class="reveal relative flex flex-col md:flex-row md:gap-12 items-start">
+            <div class="absolute -left-[24px] md:left-[183px] top-1.5 w-2.5 h-2.5 rounded-full bg-text border-2 border-bg"></div>
+            <div class="md:w-[160px] text-left md:text-right font-mono text-xs text-muted mb-2 md:mb-0 shrink-0 pt-0.5">
+              2024 – 2026
+            </div>
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold text-text tracking-tight">
+                Data Verification, Audit &amp; Field Operations · BPS, Panwaslu, &amp; KPU
+              </h3>
+              <ul class="mt-3 space-y-2 text-[17px] text-muted list-disc list-outside pl-5">
+                <li>Menangani audit integritas sistem digital dan validasi silang ribuan data kependudukan dan finansial usaha (Sensus Ekonomi dan Wilkerstat BPS), dengan pelaporan real-time dan standar zero-discrepancy.</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Sub-grid: Pendidikan (Two tiles) -->
+        <div class="reveal pt-8 hairline-t">
+          <p class="apple-eyebrow mb-6">PENDIDIKAN</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="apple-tile bg-[var(--card-bg-on-base)] p-8">
+              <p class="font-mono text-xs text-muted mb-2">2023 – 2027 · Semester 7</p>
+              <h4 class="text-xl font-semibold text-text tracking-tight mb-1">
+                Universitas Bina Sarana Informatika
+              </h4>
+              <p class="text-muted text-base">S1 Sistem Informasi</p>
+            </div>
+            <div class="apple-tile bg-[var(--card-bg-on-base)] p-8">
+              <p class="font-mono text-xs text-muted mb-2">2020 – 2023</p>
+              <h4 class="text-xl font-semibold text-text tracking-tight mb-1">
+                SMK Negeri 5 Kota Bekasi
+              </h4>
+              <p class="text-muted text-base">Rekayasa Perangkat Lunak</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. Skill Section (Alt Surface Background) -->
+    <section id="skills" class="py-28 md:py-40 bg-surface">
+      <div class="max-w-5xl mx-auto px-6">
+        <!-- Section Header -->
+        <div class="reveal mb-16 text-left">
+          <p class="apple-eyebrow mb-3">SKILL</p>
+          <h2 class="apple-headline text-text mb-4">
+            Yang saya kuasai, dan buktinya.
+          </h2>
+          <p class="apple-subhead">
+            Setiap skill terhubung ke proyek atau pengalaman nyata.
+          </p>
+        </div>
+
+        <!-- Bento Grid (12 cols desktop, 1 col mobile) -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+
+          <!-- Tile 1: Backend & API (Wide: 7 cols) -->
+          <div class="reveal apple-tile bg-[var(--card-bg-on-surface)] p-8 md:p-10 md:col-span-7 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-semibold text-text tracking-tight mb-4">Backend &amp; API</h3>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">PHP</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Laravel</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">CodeIgniter</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Node.js</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Express</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">RESTful API</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">AI API Integration</span>
+              </div>
+            </div>
+            <p class="text-sm text-muted hairline-t pt-4">
+              "Dipakai di ERP toko, platform donasi, dan CMS enterprise."
+            </p>
+          </div>
+
+          <!-- Tile 2: Frontend & Mobile (5 cols) -->
+          <div class="reveal apple-tile bg-[var(--card-bg-on-surface)] p-8 md:p-10 md:col-span-5 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-semibold text-text tracking-tight mb-4">Frontend &amp; Mobile</h3>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">React</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Ionic Angular</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Flutter</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">HTML5</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">CSS3</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">SCSS</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Tailwind CSS</span>
+              </div>
+            </div>
+            <p class="text-sm text-muted hairline-t pt-4">
+              "Ionic Angular untuk CMS selama magang."
+            </p>
+          </div>
+
+          <!-- Tile 3: Database (4 cols) -->
+          <div class="reveal apple-tile bg-[var(--card-bg-on-surface)] p-8 md:p-10 md:col-span-4 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-semibold text-text tracking-tight mb-4">Database</h3>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">MySQL</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">PostgreSQL</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Microsoft SQL Server</span>
+              </div>
+            </div>
+            <p class="text-sm text-muted hairline-t pt-4">
+              "Migrasi MySQL ke MS SQL Server tanpa downtime."
+            </p>
+          </div>
+
+          <!-- Tile 4: Arsitektur & Analisis (4 cols) -->
+          <div class="reveal apple-tile bg-[var(--card-bg-on-surface)] p-8 md:p-10 md:col-span-4 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-semibold text-text tracking-tight mb-4">Arsitektur &amp; Analisis</h3>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">System Analysis</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">ERD Design</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">RBAC Design</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Decision Support System</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Technical Documentation</span>
+              </div>
+            </div>
+            <p class="text-sm text-muted hairline-t pt-4">
+              "Spesifikasi, diagram ER, dan SPK di proyek freelance."
+            </p>
+          </div>
+
+          <!-- Tile 5: Kualitas & Legacy (4 cols) -->
+          <div class="reveal apple-tile bg-[var(--card-bg-on-surface)] p-8 md:p-10 md:col-span-4 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-semibold text-text tracking-tight mb-4">Kualitas &amp; Legacy</h3>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Legacy Refactoring</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Database Migration</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Data Validation</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Data Auditing</span>
+              </div>
+            </div>
+            <p class="text-sm text-muted hairline-t pt-4">
+              "Refactoring kode legacy dan audit data BPS, Panwaslu, KPU."
+            </p>
+          </div>
+
+          <!-- Tile 6: DevOps & Tools (5 cols) -->
+          <div class="reveal apple-tile bg-[var(--card-bg-on-surface)] p-8 md:p-10 md:col-span-5 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-semibold text-text tracking-tight mb-4">DevOps &amp; Tools</h3>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Git</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">GitHub</span>
+                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Web Deployment</span>
+              </div>
+            </div>
+            <p class="text-sm text-muted hairline-t pt-4">
+              "Mengelola deployment aplikasi freelance."
+            </p>
+          </div>
+
+          <!-- Tile 7: Cara kerja (Wide: 7 cols, text only) -->
+          <div class="reveal apple-tile bg-[var(--card-bg-on-surface)] p-8 md:p-10 md:col-span-7 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-semibold text-text tracking-tight mb-6">Cara kerja</h3>
+              <div class="space-y-4">
+                <div>
+                  <h4 class="text-base font-semibold text-text">Teliti pada data.</h4>
+                  <p class="text-sm text-muted">Standar validasi zero-discrepancy dari lapangan diterapkan langsung ke integritas database.</p>
+                </div>
+                <div>
+                  <h4 class="text-base font-semibold text-text">Terdokumentasi sejak awal.</h4>
+                  <p class="text-sm text-muted">Spesifikasi sistem dan relasi ER dirancang rapi sebelum menulis baris kode pertama.</p>
+                </div>
+                <div>
+                  <h4 class="text-base font-semibold text-text">Adaptif lintas stack.</h4>
+                  <p class="text-sm text-muted">Cepat beradaptasi dari PHP dan Laravel ke ekosistem Node.js, Express, dan Ionic Angular.</p>
+                </div>
+              </div>
+            </div>
+            <p class="text-sm text-muted hairline-t pt-4 mt-6">
+              Prinsip rekayasa yang teruji di proyek nyata.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Tentang Section (Base Background) -->
+    <section id="about" class="py-28 md:py-40 bg-bg">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="max-w-2xl text-left">
+          <p class="reveal apple-eyebrow mb-3">TENTANG</p>
+          <h2 class="reveal apple-headline text-text mb-8">
+            Mulai dari masalahnya.
+          </h2>
+          <p class="reveal text-muted text-[17px] leading-relaxed">
+            Latar belakang saya di Rekayasa Perangkat Lunak dan Sistem Informasi membuat saya selalu mulai dari masalahnya, bukan dari tools-nya. Sejak 2024, mengaudit dan memvalidasi silang data lapangan untuk BPS, Panwaslu, dan KPU mengajarkan saya bahwa satu selisih kecil bisa merusak seluruh laporan. Standar itu saya bawa ke kode: skema yang jelas, hak akses yang eksplisit, dan migrasi yang bisa dipertanggungjawabkan.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Kontak Section (Inside Base, Card on Alt Surface) -->
+    <section id="contact" class="pb-28 md:pb-40 bg-bg">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="reveal apple-tile bg-surface p-8 md:p-16 text-center max-w-3xl mx-auto flex flex-col items-center">
+          <h2 class="apple-headline text-text mb-4">
+            Mari bicara.
+          </h2>
+          <p class="apple-subhead mb-8">
+            Terbuka untuk full-time, magang, dan freelance. 40+ jam/minggu.
+          </p>
+
+          <!-- Interactive Email Box -->
+          <div class="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-bg hairline-all mb-8 max-w-full">
+            <span class="font-mono text-sm md:text-base text-text select-all break-all">
+              afwangibran19@gmail.com
+            </span>
+            <button id="contact-copy-btn" type="button" class="w-9 h-9 rounded-full flex items-center justify-center text-muted hover:text-text hover:bg-surface transition-colors shrink-0" aria-label="Salin alamat email">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
+            <a href="https://wa.me/6285814701149" target="_blank" rel="noopener noreferrer" class="btn-pill-primary w-full sm:w-auto">
+              WhatsApp 0858-1470-1149
+            </a>
+            <a href="https://github.com/gibrandevlab" target="_blank" rel="noopener noreferrer" class="action-link text-base py-2">
+              github.com/gibrandevlab <span aria-hidden="true">›</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="hairline-t py-12 bg-bg text-muted text-xs">
+    <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <p>© 2026 Afwan Gibran Muhammad Algiffari</p>
+      <p>Built with HTML, Tailwind CSS &amp; Vanilla JS</p>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 pointer-events-none" aria-live="polite" role="status">
+    <div id="toast-msg" class="opacity-0 translate-y-3 transition-all duration-300 pointer-events-auto px-5 py-2.5 rounded-full bg-text text-bg text-sm font-medium shadow-lg hairline-all flex items-center gap-2">
+      <i data-lucide="check" class="w-4 h-4 text-accent"></i>
+      <span>Email berhasil disalin</span>
+    </div>
+  </div>
+
+  <!-- Vanilla JavaScript Implementation -->
+  <script>
+    (function () {
+      'use strict';
+
+      // Safe localStorage wrapper
+      const storage = {
+        get: function (key) {
+          try {
+            return localStorage.getItem(key);
+          } catch (e) {
+            return null;
+          }
+        },
+        set: function (key, value) {
+          try {
+            localStorage.setItem(key, value);
+          } catch (e) {}
+        }
+      };
+
+      // 1. Theme Management
+      function initTheme() {
+        const toggleBtn = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        function updateToggleAria() {
+          const isDark = html.classList.contains('dark');
+          if (toggleBtn) {
+            toggleBtn.setAttribute('aria-label', isDark ? 'Beralih ke mode terang' : 'Beralih ke mode gelap');
+          }
+        }
+
+        if (toggleBtn) {
+          toggleBtn.addEventListener('click', function () {
+            const isDark = html.classList.toggle('dark');
+            storage.set('theme', isDark ? 'dark' : 'light');
+            updateToggleAria();
+          });
+        }
+
+        // Listen for OS scheme change if user hasn't set explicit preference
+        try {
+          const mql = window.matchMedia('(prefers-color-scheme: dark)');
+          mql.addEventListener('change', function (e) {
+            if (!storage.get('theme')) {
+              if (e.matches) {
+                html.classList.add('dark');
+              } else {
+                html.classList.remove('dark');
+              }
+              updateToggleAria();
+            }
+          });
+        } catch (e) {}
+
+        updateToggleAria();
+      }
+
+      // 2. Mobile Menu Management
+      function initMobileMenu() {
+        const btn = document.getElementById('mobile-menu-btn');
+        const sheet = document.getElementById('mobile-menu-sheet');
+        const iconBars = document.getElementById('menu-icon-bars');
+        const iconClose = document.getElementById('menu-icon-close');
+        const links = sheet ? sheet.querySelectorAll('.mobile-nav-link') : [];
+
+        if (!btn || !sheet) return;
+
+        let isOpen = false;
+
+        function openMenu() {
+          isOpen = true;
+          btn.setAttribute('aria-expanded', 'true');
+          btn.setAttribute('aria-label', 'Tutup menu navigasi');
+          sheet.setAttribute('aria-hidden', 'false');
+          sheet.classList.remove('opacity-0', 'pointer-events-none');
+          sheet.classList.add('opacity-100', 'pointer-events-auto');
+          document.body.style.overflow = 'hidden';
+          if (iconBars) iconBars.classList.add('hidden');
+          if (iconClose) iconClose.classList.remove('hidden');
+        }
+
+        function closeMenu() {
+          isOpen = false;
+          btn.setAttribute('aria-expanded', 'false');
+          btn.setAttribute('aria-label', 'Buka menu navigasi');
+          sheet.setAttribute('aria-hidden', 'true');
+          sheet.classList.remove('opacity-100', 'pointer-events-auto');
+          sheet.classList.add('opacity-0', 'pointer-events-none');
+          document.body.style.overflow = '';
+          if (iconBars) iconBars.classList.remove('hidden');
+          if (iconClose) iconClose.classList.add('hidden');
+        }
+
+        btn.addEventListener('click', function () {
+          if (isOpen) {
+            closeMenu();
+          } else {
+            openMenu();
+          }
+        });
+
+        // Close on link click
+        links.forEach(function (link) {
+          link.addEventListener('click', function () {
+            closeMenu();
+            btn.focus();
+          });
+        });
+
+        // Close on Esc key
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && isOpen) {
+            closeMenu();
+            btn.focus();
+          }
+        });
+      }
+
+      // 3. Scroll Spy via IntersectionObserver
+      function initScrollSpy() {
+        const navLinks = document.querySelectorAll('.nav-desktop-link');
+        const sections = document.querySelectorAll('section[id]');
+        if (!sections.length || !navLinks.length) return;
+
+        if (!('IntersectionObserver' in window)) return;
+
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              const id = entry.target.getAttribute('id');
+              navLinks.forEach(function (link) {
+                const href = link.getAttribute('href');
+                if (href === '#' + id) {
+                  link.classList.remove('text-muted');
+                  link.classList.add('text-accent');
+                  link.setAttribute('aria-current', 'true');
+                } else {
+                  link.classList.add('text-muted');
+                  link.classList.remove('text-accent');
+                  link.removeAttribute('aria-current');
+                }
+              });
+            }
+          });
+        }, {
+          rootMargin: '-45% 0px -50% 0px'
+        });
+
+        sections.forEach(function (sec) {
+          observer.observe(sec);
+        });
+      }
+
+      // 4. Reveal Animation via IntersectionObserver
+      function initReveal() {
+        const reveals = document.querySelectorAll('.reveal');
+        if (!reveals.length) return;
+
+        if (!('IntersectionObserver' in window)) {
+          reveals.forEach(function (el) {
+            el.classList.add('is-visible');
+          });
+          return;
+        }
+
+        const observer = new IntersectionObserver(function (entries, obs) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: '0px 0px -40px 0px'
+        });
+
+        reveals.forEach(function (el) {
+          observer.observe(el);
+        });
+      }
+
+      // 5. Copy + Toast Notification
+      function initCopyAndToast() {
+        const toast = document.getElementById('toast-msg');
+        let toastTimeout = null;
+
+        function showToast(message) {
+          if (!toast) return;
+          if (message) {
+            const span = toast.querySelector('span');
+            if (span) span.textContent = message;
+          }
+
+          if (toastTimeout) {
+            clearTimeout(toastTimeout);
+          }
+
+          toast.classList.remove('opacity-0', 'translate-y-3');
+          toast.classList.add('opacity-100', 'translate-y-0');
+
+          toastTimeout = setTimeout(function () {
+            toast.classList.remove('opacity-100', 'translate-y-0');
+            toast.classList.add('opacity-0', 'translate-y-3');
+            toastTimeout = null;
+          }, 2400);
+        }
+
+        function copyEmail() {
+          const email = 'afwangibran19@gmail.com';
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(email).then(function () {
+              showToast('Email berhasil disalin');
+            }).catch(function () {
+              fallbackCopy(email);
+            });
+          } else {
+            fallbackCopy(email);
+          }
+        }
+
+        function fallbackCopy(text) {
+          try {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.top = '-9999px';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            const successful = document.execCommand('copy');
+            document.body.removeChild(textarea);
+            if (successful) {
+              showToast('Email berhasil disalin');
+            }
+          } catch (err) {}
+        }
+
+        const heroBtn = document.getElementById('hero-copy-btn');
+        const contactBtn = document.getElementById('contact-copy-btn');
+
+        if (heroBtn) heroBtn.addEventListener('click', copyEmail);
+        if (contactBtn) contactBtn.addEventListener('click', copyEmail);
+      }
+
+      // 6. Navbar Scroll State (Toggle Hairline Border)
+      function initNavbarScroll() {
+        const navbar = document.getElementById('site-navbar');
+        if (!navbar) return;
+
+        function updateNavbar() {
+          if (window.scrollY > 8) {
+            navbar.classList.add('hairline-b');
+          } else {
+            navbar.classList.remove('hairline-b');
+          }
+        }
+
+        window.addEventListener('scroll', updateNavbar, { passive: true });
+        updateNavbar();
+      }
+
+      // Initialize all modules when DOM is ready
+      function init() {
+        initTheme();
+        initMobileMenu();
+        initScrollSpy();
+        initReveal();
+        initCopyAndToast();
+        initNavbarScroll();
+
+        // Initialize Lucide icons
+        if (window.lucide && typeof window.lucide.createIcons === 'function') {
+          window.lucide.createIcons();
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
+</body>
+</html>
