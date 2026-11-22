@@ -9,37 +9,31 @@
   <meta property="og:description" content="Sistem web yang rapi, dari database sampai antarmuka. Portfolio rekayasa web dan sistem hybrid.">
   <meta property="og:type" content="website">
 
-  <!-- Dual theme-color meta tags -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#FBFAF7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0B0B0D" media="(prefers-color-scheme: dark)">
 
-  <!-- Inline SVG Favicon with AG monogram -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071E3'/%3E%3Ctext x='16' y='21' font-family='-apple-system,BlinkMacSystemFont,sans-serif' font-size='14' font-weight='600' fill='%23FFFFFF' text-anchor='middle'%3EAG%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2317171A'/%3E%3Ctext x='16' y='21' font-family='-apple-system,BlinkMacSystemFont,sans-serif' font-size='14' font-weight='600' fill='%23FBFAF7' text-anchor='middle'%3EAG%3C/text%3E%3Ccircle cx='26' cy='6' r='3.5' fill='%23E8431F'/%3E%3C/svg%3E">
 
-  <!-- Google Fonts: Inter & JetBrains Mono as fallbacks -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Early theme script to prevent FOUC -->
+  <!-- Dijalankan sebelum render pertama: tema tersimpan + mode animasi kursor -->
   <script>
     (function () {
+      var d = document.documentElement;
       try {
         var saved = localStorage.getItem('theme');
         var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (saved === 'dark' || (!saved && prefersDark)) {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-        document.documentElement.classList.add('js');
-      } catch (e) {
-        document.documentElement.classList.add('js');
-      }
+        if (saved === 'dark' || (!saved && prefersDark)) d.classList.add('dark');
+      } catch (e) {}
+      try {
+        // Kursor multiplayer hanya aktif bila pengguna tidak meminta pengurangan gerak
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('mp-on');
+      } catch (e) {}
     })();
   </script>
 
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -48,54 +42,86 @@
         extend: {
           fontFamily: {
             sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', 'Inter', 'system-ui', 'sans-serif'],
-            mono: ['"SF Mono"', '"JetBrains Mono"', 'ui-monospace', 'monospace'],
+            mono: ['"SF Mono"', '"JetBrains Mono"', 'ui-monospace', 'monospace']
           },
           colors: {
             bg: 'var(--bg)',
             surface: 'var(--surface)',
+            card: 'var(--card)',
             text: 'var(--text)',
             muted: 'var(--muted)',
-            hairline: 'var(--hairline)',
-            accent: 'var(--accent)',
-            status: 'var(--status)',
+            hairline: 'var(--hairline)'
           }
         }
       }
     };
   </script>
 
-  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
 
   <style>
-    /* Design Tokens */
+    /* =========================================================
+       DESIGN TOKENS
+       Netral hangat + 8 warna kolaborator (dipakai kursor, tile, highlight)
+       ========================================================= */
     :root {
-      --bg: #FFFFFF;
-      --surface: #F5F5F7;
-      --text: #1D1D1F;
-      --muted: #6E6E73;
-      --hairline: rgba(0, 0, 0, 0.10);
-      --accent: #0071E3;
-      --status: #30D158;
-      --card-bg-on-surface: #FFFFFF;
-      --card-bg-on-base: #F5F5F7;
-    }
+      --bg: #FBFAF7;
+      --surface: #F3F1EC;
+      --card: #FFFFFF;
+      --text: #17171A;
+      --muted: #66646A;
+      --hairline: rgba(23, 23, 26, 0.12);
+      --ink: #17171A;
+      --on-ink: #FBFAF7;
+      --focus: #0A84E8;
 
+      --blue: #0A84E8;   --blue-soft: #E6F2FE;   --blue-ink: #0560B5;
+      --green: #0E9F52;  --green-soft: #E3F6EC;  --green-ink: #0A7A3E;
+      --orange: #F08C00; --orange-soft: #FFF0DA; --orange-ink: #9A5800;
+      --coral: #E8431F;  --coral-soft: #FFE9E3;  --coral-ink: #B8310F;
+      --purple: #8A3FF0; --purple-soft: #F0E7FF; --purple-ink: #6B24CC;
+      --pink: #E03585;   --pink-soft: #FFE6F1;   --pink-ink: #B0165F;
+      --teal: #0A9E9A;   --teal-soft: #DFF5F3;   --teal-ink: #067470;
+      --yellow: #F2BE00; --yellow-soft: #FFF6CC; --yellow-ink: #7A5C00;
+    }
     .dark {
-      --bg: #000000;
-      --surface: #161617;
-      --text: #F5F5F7;
-      --muted: #A1A1A6;
+      --bg: #0B0B0D;
+      --surface: #141416;
+      --card: #1B1B1E;
+      --text: #F4F3F0;
+      --muted: #A3A1A8;
       --hairline: rgba(255, 255, 255, 0.14);
-      --accent: #2997FF;
-      --status: #30D158;
-      --card-bg-on-surface: #000000;
-      --card-bg-on-base: #161617;
+      --ink: #F4F3F0;
+      --on-ink: #0B0B0D;
+      --focus: #5CB8FF;
+
+      --blue: #3AA0FF;   --blue-soft: #0F2236;   --blue-ink: #6DBBFF;
+      --green: #2BC477;  --green-soft: #0F2619;  --green-ink: #52DA94;
+      --orange: #FFA63A; --orange-soft: #2B1F0D; --orange-ink: #FFBE66;
+      --coral: #FF6B47;  --coral-soft: #2C1510;  --coral-ink: #FF9279;
+      --purple: #A66BFF; --purple-soft: #1F1433; --purple-ink: #C09CFF;
+      --pink: #FF5AA2;   --pink-soft: #2B1320;   --pink-ink: #FF8CBD;
+      --teal: #20C5BF;   --teal-soft: #0E2625;   --teal-ink: #55DCD6;
+      --yellow: #FFD633; --yellow-soft: #2A2408; --yellow-ink: #FFE066;
     }
 
-    /* Base Typography & Resets */
+    /* Tone: satu atribut data-tone memasang --t (solid), --t-soft (latar), --t-ink (teks aman), --t-on (teks di atas solid) */
+    [data-tone="blue"]   { --t: var(--blue);   --t-soft: var(--blue-soft);   --t-ink: var(--blue-ink);   --t-on: #fff; }
+    [data-tone="green"]  { --t: var(--green);  --t-soft: var(--green-soft);  --t-ink: var(--green-ink);  --t-on: #fff; }
+    [data-tone="orange"] { --t: var(--orange); --t-soft: var(--orange-soft); --t-ink: var(--orange-ink); --t-on: #fff; }
+    [data-tone="coral"]  { --t: var(--coral);  --t-soft: var(--coral-soft);  --t-ink: var(--coral-ink);  --t-on: #fff; }
+    [data-tone="purple"] { --t: var(--purple); --t-soft: var(--purple-soft); --t-ink: var(--purple-ink); --t-on: #fff; }
+    [data-tone="pink"]   { --t: var(--pink);   --t-soft: var(--pink-soft);   --t-ink: var(--pink-ink);   --t-on: #fff; }
+    [data-tone="teal"]   { --t: var(--teal);   --t-soft: var(--teal-soft);   --t-ink: var(--teal-ink);   --t-on: #fff; }
+    [data-tone="yellow"] { --t: var(--yellow); --t-soft: var(--yellow-soft); --t-ink: var(--yellow-ink); --t-on: #fff; }
+    [data-tone="orange"], [data-tone="yellow"] { --t-on: #17171A; }
+    .dark [data-tone] { --t-on: #0B0B0D; }
+
+    /* =========================================================
+       BASE
+       ========================================================= */
     html {
-      background-color: var(--bg);
+      background: var(--bg);
       color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, sans-serif;
       -webkit-font-smoothing: antialiased;
@@ -103,218 +129,235 @@
       font-size: 17px;
       line-height: 1.5;
     }
+    body { margin: 0; position: relative; overflow-x: hidden; background: var(--bg); color: var(--text); }
+    *:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+    [data-lucide], .lucide { stroke-width: 1.75px !important; }
+    ::selection { background: var(--blue); color: #fff; }
 
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-      margin: 0;
-    }
+    .headline { font-size: clamp(2.5rem, 6.5vw, 5rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.05; }
+    .subhead  { font-size: clamp(1.25rem, 2.5vw, 1.5rem); font-weight: 400; color: var(--muted); line-height: 1.35; }
+    .mono     { font-family: "SF Mono", "JetBrains Mono", ui-monospace, monospace; }
 
-    /* Focus Rings */
-    *:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-    }
-
-    /* Global Icon Styling */
-    [data-lucide], .lucide {
-      stroke-width: 1.75px !important;
-    }
-
-    /* Headings & Text */
-    .apple-headline {
-      font-size: clamp(2.5rem, 6.5vw, 5rem);
-      font-weight: 600;
-      letter-spacing: -0.03em;
-      line-height: 1.05;
-    }
-
-    .apple-subhead {
-      font-size: clamp(1.25rem, 2.5vw, 1.5rem);
-      font-weight: 400;
-      color: var(--muted);
-      line-height: 1.35;
-    }
-
-    .apple-eyebrow {
+    /* Label ala nama frame di Figma */
+    .frame-label {
+      display: inline-flex; align-items: center; gap: 6px;
       font-family: "SF Mono", "JetBrains Mono", ui-monospace, monospace;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+      font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500;
       color: var(--muted);
-      font-weight: 500;
+    }
+    .frame-label svg { width: 14px; height: 14px; color: var(--t); }
+
+    /* Highlight teks seperti seleksi Figma, lengkap dengan caret berwarna */
+    .hl {
+      position: relative;
+      background: color-mix(in srgb, var(--t) 26%, transparent);
+      border-radius: 0.14em;
+      padding: 0 0.1em; margin: 0 -0.1em;
+      -webkit-box-decoration-break: clone; box-decoration-break: clone;
+    }
+    .hl::after {
+      content: ''; position: absolute; right: -0.05em; top: 0.08em; bottom: 0.08em;
+      width: 2px; border-radius: 1px; background: var(--t);
     }
 
-    /* Hairline separators */
-    .hairline-b {
-      border-bottom: 1px solid var(--hairline);
+    .hairline-t { border-top: 1px solid var(--hairline); }
+    .hairline-b { border-bottom: 1px solid var(--hairline); }
+    .hairline-r { border-right: 1px solid var(--hairline); }
+    .hairline-all { border: 1px solid var(--hairline); }
+
+    /* Latar canvas titik di hero (pola SVG, bukan gradien warna) */
+    .canvas-dots {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='1.5' cy='1.5' r='1' fill='%2317171A' fill-opacity='.18'/%3E%3C/svg%3E");
+      -webkit-mask-image: linear-gradient(to bottom, #000 65%, transparent);
+      mask-image: linear-gradient(to bottom, #000 65%, transparent);
     }
-    .hairline-t {
-      border-top: 1px solid var(--hairline);
-    }
-    .hairline-r {
-      border-right: 1px solid var(--hairline);
-    }
-    .hairline-l {
-      border-left: 1px solid var(--hairline);
-    }
-    .hairline-all {
-      border: 1px solid var(--hairline);
+    .dark .canvas-dots {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='1.5' cy='1.5' r='1' fill='%23FFFFFF' fill-opacity='.14'/%3E%3C/svg%3E");
     }
 
-    /* Tiles */
-    .apple-tile {
+    /* =========================================================
+       KOMPONEN
+       ========================================================= */
+    .tile {
       border-radius: 28px;
+      background: var(--card);
       border: 1px solid var(--hairline);
-      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+      transition: box-shadow .3s ease;
     }
-    .apple-tile:hover {
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    .tile[data-tone] {
+      background: var(--t-soft);
+      border-color: color-mix(in srgb, var(--t) 30%, transparent);
     }
+    .tile:hover { box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06); }
+    .tile-sm { border-radius: 20px; }
 
-    /* Buttons */
-    .btn-pill-primary {
-      min-height: 44px;
-      border-radius: 9999px;
-      background-color: var(--accent);
-      color: #FFFFFF;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 1.5rem;
-      transition: opacity 0.2s ease, transform 0.1s ease;
+    .tile-invert {
+      background: var(--ink); color: var(--on-ink); border-color: transparent;
+      --text: var(--on-ink);
+      --muted: color-mix(in srgb, var(--on-ink) 66%, transparent);
+      --hairline: color-mix(in srgb, var(--on-ink) 22%, transparent);
+      --card: color-mix(in srgb, var(--on-ink) 10%, transparent);
+      --surface: color-mix(in srgb, var(--on-ink) 14%, transparent);
     }
-    .btn-pill-primary:hover {
-      opacity: 0.92;
-    }
-    .btn-pill-primary:active {
-      transform: scale(0.98);
-    }
+    .tile-invert .btn-primary { background: var(--on-ink); color: var(--ink); }
 
-    .btn-pill-secondary {
-      min-height: 44px;
-      border-radius: 9999px;
-      background-color: transparent;
-      color: var(--text);
-      border: 1px solid var(--hairline);
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 1.5rem;
-      transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+    .btn-primary, .btn-secondary {
+      min-height: 44px; border-radius: 9999px; font-weight: 500;
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0 1.5rem; transition: opacity .2s ease, background-color .2s ease, transform .1s ease;
     }
-    .btn-pill-secondary:hover {
-      background-color: var(--hairline);
+    .btn-primary { background: var(--ink); color: var(--on-ink); }
+    .btn-primary:hover { opacity: .88; }
+    .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--hairline); }
+    .btn-secondary:hover { background: var(--surface); }
+    .btn-primary:active, .btn-secondary:active { transform: scale(.98); }
+
+    .icon-btn {
+      width: 44px; height: 44px; border-radius: 9999px; display: flex; align-items: center; justify-content: center;
+      color: var(--muted); border: 1px solid var(--hairline); transition: color .2s, background-color .2s;
     }
-    .btn-pill-secondary:active {
-      transform: scale(0.98);
-    }
+    .icon-btn:hover { color: var(--text); background: var(--card); }
 
     .action-link {
-      color: var(--accent);
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      text-decoration: none;
-      transition: gap 0.2s ease;
+      color: var(--t-ink, var(--blue-ink)); font-weight: 500;
+      display: inline-flex; align-items: center; gap: .25rem; transition: gap .2s ease;
     }
-    .action-link:hover {
-      text-decoration: underline;
-      gap: 0.4rem;
-    }
+    .action-link:hover { text-decoration: underline; gap: .4rem; }
 
-    /* Restraint Blur: Navbar ONLY */
+    .pill {
+      font-family: "SF Mono", "JetBrains Mono", ui-monospace, monospace;
+      font-size: 12px; padding: 6px 12px; border-radius: 9999px;
+      background: var(--card); color: var(--text); border: 1px solid var(--hairline);
+    }
+    [data-tone] .pill { border-color: color-mix(in srgb, var(--t) 35%, transparent); }
+
+    .dot { display: inline-block; width: 10px; height: 10px; border-radius: 9999px; background: var(--t); flex-shrink: 0; }
+
+    /* Navbar: satu-satunya tempat blur */
     .navbar-glass {
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      background-color: rgba(255, 255, 255, 0.82);
+      backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
     }
-    .dark .navbar-glass {
-      background-color: rgba(0, 0, 0, 0.82);
+    .nav-link { color: var(--muted); transition: color .2s; }
+    .nav-link:hover { color: var(--text); }
+    .nav-link[aria-current="true"] {
+      color: var(--text); text-decoration: underline; text-decoration-color: var(--blue);
+      text-decoration-thickness: 2px; text-underline-offset: 8px;
+    }
+    .theme-moon { display: block; } .theme-sun { display: none; }
+    .dark .theme-moon { display: none; } .dark .theme-sun { display: block; }
+
+    /* Mockup antarmuka */
+    .mock { border-radius: 16px; border: 1px solid var(--hairline); background: var(--card); overflow: hidden; }
+    .mock-bar { height: 36px; border-bottom: 1px solid var(--hairline); background: var(--surface); display: flex; align-items: center; justify-content: space-between; padding: 0 12px; }
+    .tag-solid { background: var(--t-ink); color: var(--card); }
+
+    /* Timeline */
+    .timeline { position: relative; }
+    .timeline::before { content: ''; position: absolute; top: 8px; bottom: 8px; left: 5px; width: 1px; background: var(--hairline); }
+    .tl-item { position: relative; padding-left: 28px; display: grid; grid-template-columns: 1fr; gap: 6px; }
+    .tl-item .node { position: absolute; left: 0; top: 6px; width: 11px; height: 11px; border-radius: 9999px; background: var(--t); box-shadow: 0 0 0 3px var(--bg); }
+    @media (min-width: 768px) {
+      .timeline::before { left: 188px; }
+      .tl-item { padding-left: 0; grid-template-columns: 160px 1fr; column-gap: 56px; }
+      .tl-item .node { left: 183px; }
+      .tl-date { text-align: right; }
     }
 
-    /* Status dot pulse */
-    @keyframes pulse-status {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.85); }
+    /* Status dot */
+    @keyframes pulse-status { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(.85); } }
+    @media (prefers-reduced-motion: no-preference) { .status-pulse { animation: pulse-status 2.4s ease-in-out infinite; } }
+
+    /* =========================================================
+       REVEAL + KURSOR MULTIPLAYER
+       ========================================================= */
+    /* Elemen disembunyikan hanya saat JS aktif & gerak diizinkan; dibangun lewat WAAPI (clip-path) */
+    html.mp-on .reveal:not(.is-built) { opacity: 0; }
+
+    #mp-layer {
+      position: absolute; top: 0; left: 0; width: 100%; height: 0;
+      overflow: visible; pointer-events: none; z-index: 35;
     }
-    @media (prefers-reduced-motion: no-preference) {
-      .status-dot-pulse {
-        animation: pulse-status 2.4s ease-in-out infinite;
-      }
+    html.menu-open #mp-layer { visibility: hidden; }
+
+    .mp-cursor { position: absolute; top: 0; left: 0; opacity: 0; will-change: transform; }
+    .mp-cursor svg { display: block; width: 16px; height: 22px; color: var(--t); filter: drop-shadow(0 1px 2px rgba(0,0,0,.28)); }
+    .mp-label {
+      position: absolute; left: 13px; top: 17px; white-space: nowrap;
+      display: flex; align-items: center;
+      font: 600 11px/1 -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+      padding: 5px 9px; border-radius: 9999px; background: var(--t); color: var(--t-on);
+      box-shadow: 0 1px 3px rgba(0,0,0,.18);
+    }
+    .mp-msg { display: inline-block; max-width: 0; opacity: 0; overflow: hidden; font-weight: 500; transition: max-width .45s ease, opacity .3s ease, margin .45s ease; }
+    .mp-cursor.has-msg .mp-msg { max-width: 220px; opacity: 1; margin-left: 8px; }
+
+    .mp-frame {
+      position: absolute; box-sizing: border-box; pointer-events: none;
+      border: 1.5px solid var(--t); opacity: 0; transition: opacity .3s ease;
+    }
+    .mp-frame.is-on { opacity: 1; }
+    .mp-frame .h { position: absolute; width: 7px; height: 7px; box-sizing: border-box; background: #fff; border: 1.5px solid var(--t); }
+    .mp-frame .tl { left: -4.5px; top: -4.5px; } .mp-frame .tr { right: -4.5px; top: -4.5px; }
+    .mp-frame .bl { left: -4.5px; bottom: -4.5px; } .mp-frame .br { right: -4.5px; bottom: -4.5px; }
+    .mp-frame.no-handles .h { display: none; }
+    .mp-size {
+      position: absolute; left: 50%; top: calc(100% + 8px); transform: translateX(-50%); white-space: nowrap;
+      font: 500 10px/1 "SF Mono", "JetBrains Mono", ui-monospace, monospace;
+      padding: 4px 6px; border-radius: 4px; background: var(--t); color: var(--t-on); opacity: 0; transition: opacity .2s ease;
+    }
+    .mp-frame.is-built .mp-size { opacity: 1; }
+
+    @media (max-width: 639px) {
+      .mp-cursor svg { width: 13px; height: 18px; }
+      .mp-label { font-size: 10px; padding: 4px 7px; left: 10px; top: 14px; }
     }
 
-    /* Functional Motion Reveal */
-    @media (prefers-reduced-motion: no-preference) {
-      html.js .reveal {
-        opacity: 0;
-        transform: translateY(24px) scale(0.985);
-        transition: opacity 700ms cubic-bezier(0.28, 0.11, 0.32, 1), transform 700ms cubic-bezier(0.28, 0.11, 0.32, 1);
-        will-change: opacity, transform;
-      }
-      html.js .reveal.is-visible {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+    /* Presence: tumpukan avatar di navbar, mengikuti jumlah kursor aktif */
+    .pres-stack { display: flex; align-items: center; padding-left: 6px; }
+    .pres-av {
+      width: 0; height: 22px; margin-left: 0; opacity: 0; transform: scale(.5); overflow: hidden;
+      display: flex; align-items: center; justify-content: center; border-radius: 9999px;
+      font: 600 9px/1 "SF Mono", "JetBrains Mono", ui-monospace, monospace;
+      background: var(--t); color: var(--t-on);
+      transition: width .3s ease, margin .3s ease, opacity .3s ease, transform .3s ease;
     }
-
-    /* Mockup window frame elements */
-    .mockup-window {
-      border-radius: 16px;
-      border: 1px solid var(--hairline);
-      background: var(--bg);
-      overflow: hidden;
-    }
-    .mockup-header {
-      height: 36px;
-      border-bottom: 1px solid var(--hairline);
-      background: var(--surface);
-      display: flex;
-      align-items: center;
-      padding: 0 12px;
-    }
+    .pres-av.is-active { width: 22px; margin-left: -6px; opacity: 1; transform: scale(1); box-shadow: 0 0 0 2px var(--bg); }
+    html:not(.mp-on) .presence { display: none !important; }
   </style>
 </head>
-<body class="selection:bg-accent selection:text-white">
+<body>
 
-  <!-- Accessible Skip Link -->
-  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-accent focus:text-white focus:rounded-full focus:shadow-md">
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-full" style="background:var(--ink);color:var(--on-ink)">
     Lewati ke konten
   </a>
 
-  <!-- 1. Navbar (48px, sticky) -->
+  <!-- NAVBAR -->
   <header id="site-navbar" class="sticky top-0 z-40 w-full h-12 navbar-glass transition-colors duration-200">
     <div class="max-w-5xl h-full mx-auto px-6 flex items-center justify-between">
-      <!-- Left: Monogram -->
-      <a href="#" class="font-mono font-bold text-base tracking-tight text-text hover:text-accent transition-colors" aria-label="Afwan Gibran Algiffari - Beranda">
-        AG.
-      </a>
+      <a href="#" class="mono font-bold text-base tracking-tight" aria-label="Afwan Gibran Algiffari, beranda">AG.</a>
 
-      <!-- Center: Navigation Links -->
-      <nav class="hidden md:flex items-center gap-8 text-[12px] font-medium tracking-wide" aria-label="Navigasi Utama">
-        <a href="#projects" class="nav-desktop-link text-muted hover:text-text transition-colors">Proyek</a>
-        <a href="#experience" class="nav-desktop-link text-muted hover:text-text transition-colors">Pengalaman</a>
-        <a href="#skills" class="nav-desktop-link text-muted hover:text-text transition-colors">Skill</a>
-        <a href="#about" class="nav-desktop-link text-muted hover:text-text transition-colors">Tentang</a>
+      <nav class="hidden md:flex items-center gap-8 text-[12px] font-medium tracking-wide" aria-label="Navigasi utama">
+        <a href="#projects" class="nav-link">Proyek</a>
+        <a href="#experience" class="nav-link">Pengalaman</a>
+        <a href="#skills" class="nav-link">Skill</a>
+        <a href="#about" class="nav-link">Tentang</a>
       </nav>
 
-      <!-- Right: Theme toggle & CTA button -->
       <div class="flex items-center gap-3">
-        <button id="theme-toggle" type="button" class="w-9 h-9 rounded-full flex items-center justify-center text-muted hover:text-text border border-hairline transition-colors" aria-label="Ganti mode tampilan">
-          <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
-          <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
+        <div class="presence hidden lg:flex items-center gap-2" aria-hidden="true" title="Peran yang sedang aktif di halaman ini">
+          <div class="pres-stack" id="pres-stack"></div>
+          <span id="pres-count" class="mono text-[11px]" style="color:var(--muted)">0 aktif</span>
+        </div>
+
+        <button id="theme-toggle" type="button" class="w-9 h-9 rounded-full flex items-center justify-center hairline-all" style="color:var(--muted)" aria-label="Ganti mode tampilan">
+          <i data-lucide="moon" class="theme-moon w-4 h-4"></i>
+          <i data-lucide="sun" class="theme-sun w-4 h-4"></i>
         </button>
 
-        <a href="#contact" class="hidden sm:inline-flex items-center justify-center text-xs font-medium px-4 h-8 rounded-full bg-accent text-white hover:opacity-90 transition-opacity">
-          Hubungi Saya
-        </a>
+        <a href="#contact" class="btn-primary hidden sm:inline-flex !min-h-0 h-8 px-4 text-xs">Hubungi Saya</a>
 
-        <!-- Mobile Menu Toggle Button -->
-        <button id="mobile-menu-btn" type="button" class="md:hidden w-9 h-9 rounded-full flex items-center justify-center text-text border border-hairline" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="mobile-menu-sheet">
+        <button id="mobile-menu-btn" type="button" class="md:hidden w-9 h-9 rounded-full flex items-center justify-center hairline-all" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="mobile-menu-sheet">
           <i data-lucide="menu" id="menu-icon-bars" class="w-4 h-4"></i>
           <i data-lucide="x" id="menu-icon-close" class="w-4 h-4 hidden"></i>
         </button>
@@ -322,16 +365,16 @@
     </div>
   </header>
 
-  <!-- Mobile Full-Screen Sheet -->
-  <div id="mobile-menu-sheet" class="fixed inset-0 top-12 z-30 bg-bg transition-opacity duration-300 opacity-0 pointer-events-none md:hidden flex flex-col justify-between p-8" aria-hidden="true">
-    <nav class="flex flex-col gap-6 pt-6" aria-label="Navigasi Mobile">
-      <a href="#projects" class="mobile-nav-link text-[28px] font-semibold text-text hover:text-accent transition-colors">Proyek</a>
-      <a href="#experience" class="mobile-nav-link text-[28px] font-semibold text-text hover:text-accent transition-colors">Pengalaman</a>
-      <a href="#skills" class="mobile-nav-link text-[28px] font-semibold text-text hover:text-accent transition-colors">Skill</a>
-      <a href="#about" class="mobile-nav-link text-[28px] font-semibold text-text hover:text-accent transition-colors">Tentang</a>
-      <a href="#contact" class="mobile-nav-link text-[28px] font-semibold text-accent">Hubungi Saya</a>
+  <!-- Sheet menu mobile -->
+  <div id="mobile-menu-sheet" class="fixed inset-0 top-12 z-30 md:hidden flex flex-col justify-between p-8 transition-opacity duration-300 opacity-0 pointer-events-none" style="background:var(--bg)" aria-hidden="true">
+    <nav class="flex flex-col gap-6 pt-6" aria-label="Navigasi mobile">
+      <a href="#projects" class="mobile-nav-link text-[28px] font-semibold">Proyek</a>
+      <a href="#experience" class="mobile-nav-link text-[28px] font-semibold">Pengalaman</a>
+      <a href="#skills" class="mobile-nav-link text-[28px] font-semibold">Skill</a>
+      <a href="#about" class="mobile-nav-link text-[28px] font-semibold">Tentang</a>
+      <a href="#contact" class="mobile-nav-link text-[28px] font-semibold" style="color:var(--coral-ink)">Hubungi Saya</a>
     </nav>
-    <div class="pt-8 hairline-t text-xs font-mono text-muted flex flex-col gap-2">
+    <div class="pt-8 hairline-t text-xs mono flex flex-col gap-2" style="color:var(--muted)">
       <p>Afwan Gibran Muhammad Algiffari</p>
       <p>Bekasi, Indonesia · 40+ jam/minggu</p>
     </div>
@@ -339,398 +382,225 @@
 
   <main id="main-content">
 
-    <!-- 2. Hero Section (Base Background) -->
-    <section class="py-28 md:py-40 bg-bg">
+    <!-- HERO -->
+    <section class="canvas-dots pt-24 pb-24 md:pt-36 md:pb-32">
       <div class="max-w-5xl mx-auto px-6 text-center flex flex-col items-center">
-        <!-- Status Pill -->
-        <div class="reveal inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full hairline-all font-mono text-xs text-text bg-surface mb-8">
-          <span class="w-2 h-2 rounded-full bg-status status-dot-pulse inline-block" aria-hidden="true"></span>
+
+        <div class="reveal inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full hairline-all mono text-xs mb-8" style="background:var(--card)">
+          <span class="w-2 h-2 rounded-full status-pulse inline-block" style="background:var(--green)" aria-hidden="true"></span>
           <span>Tersedia untuk peluang kerja · 40+ jam/minggu · Bekasi, Indonesia</span>
         </div>
 
-        <!-- Eyebrow -->
-        <p class="reveal apple-eyebrow mb-4">
-          Full-Stack Developer · Web &amp; Hybrid Systems
+        <p class="reveal frame-label mb-4" data-tone="blue">Full-Stack Developer · Web &amp; Hybrid Systems</p>
+
+        <h1 class="reveal headline max-w-4xl mb-6">Afwan Gibran Muhammad Algiffari</h1>
+
+        <p class="reveal subhead max-w-3xl mb-8">
+          Sistem web yang <span class="hl" data-tone="coral">rapi</span>, dari database sampai antarmuka.
         </p>
 
-        <!-- H1 -->
-        <h1 class="reveal apple-headline max-w-4xl text-text mb-6">
-          Afwan Gibran Muhammad Algiffari
-        </h1>
-
-        <!-- Tagline (H2 style, muted) -->
-        <p class="reveal apple-subhead max-w-3xl mb-8">
-          Sistem web yang rapi, dari database sampai antarmuka.
-        </p>
-
-        <!-- Bio -->
-        <p class="reveal text-muted text-[17px] leading-relaxed max-w-2xl mb-10 text-center">
+        <p class="reveal max-w-2xl mb-10 leading-relaxed" style="color:var(--muted)">
           Full-Stack Developer yang adaptif terhadap berbagai tech stack. Berpengalaman membangun aplikasi web dan mobile-hybrid end-to-end dengan PHP/Laravel, Node.js/Express, Ionic Angular, dan React. Terbiasa merancang arsitektur backend kustom, relasi database kompleks, refactoring sistem legacy, dan migrasi database dengan validasi data yang ketat.
         </p>
 
-        <!-- CTAs -->
         <div class="reveal flex flex-wrap items-center justify-center gap-4 mb-16">
-          <a href="#projects" class="btn-pill-primary">
-            Lihat Proyek
-          </a>
-          <button id="hero-copy-btn" type="button" class="btn-pill-secondary">
-            Salin Email
-          </button>
+          <a href="#projects" class="btn-primary">Lihat Proyek</a>
+          <button id="hero-copy-btn" type="button" class="btn-secondary">Salin Email</button>
           <div class="flex items-center gap-2 pl-2">
-            <a href="https://github.com/gibrandevlab" target="_blank" rel="noopener noreferrer" class="w-11 h-11 rounded-full hairline-all flex items-center justify-center text-muted hover:text-text hover:bg-surface transition-colors" aria-label="Profil GitHub Afwan Gibran">
-              <i data-lucide="github" class="w-5 h-5"></i>
-            </a>
-            <a href="mailto:afwangibran19@gmail.com" class="w-11 h-11 rounded-full hairline-all flex items-center justify-center text-muted hover:text-text hover:bg-surface transition-colors" aria-label="Kirim email ke Afwan Gibran">
-              <i data-lucide="mail" class="w-5 h-5"></i>
-            </a>
-            <a href="https://wa.me/6285814701149" target="_blank" rel="noopener noreferrer" class="w-11 h-11 rounded-full hairline-all flex items-center justify-center text-muted hover:text-text hover:bg-surface transition-colors" aria-label="Hubungi via WhatsApp">
-              <i data-lucide="message-circle" class="w-5 h-5"></i>
-            </a>
+            <a href="https://github.com/gibrandevlab" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="Profil GitHub Afwan Gibran"><i data-lucide="github" class="w-5 h-5"></i></a>
+            <a href="mailto:afwangibran19@gmail.com" class="icon-btn" aria-label="Kirim email ke Afwan Gibran"><i data-lucide="mail" class="w-5 h-5"></i></a>
+            <a href="https://wa.me/6285814701149" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="Hubungi via WhatsApp"><i data-lucide="message-circle" class="w-5 h-5"></i></a>
           </div>
         </div>
 
-        <!-- Sorotan strip (Three columns separated by hairlines) -->
-        <div class="reveal w-full max-w-4xl hairline-t hairline-b py-8 grid grid-cols-1 md:grid-cols-3 text-left">
-          <div class="px-6 py-4 md:py-2 md:hairline-r">
-            <p class="text-xl font-semibold text-text tracking-tight mb-1">
-              MySQL → MS SQL Server
-            </p>
-            <p class="text-sm text-muted">
-              Migrasi database tanpa downtime.
-            </p>
+        <!-- Sorotan -->
+        <div class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+          <div class="reveal tile tile-sm p-6" data-tone="orange" data-role="database">
+            <span class="dot mb-3"></span>
+            <p class="text-xl font-semibold tracking-tight mb-1">MySQL → MS SQL Server</p>
+            <p class="text-sm" style="color:var(--muted)">Migrasi database tanpa downtime.</p>
           </div>
-          <div class="px-6 py-4 md:py-2 md:hairline-r">
-            <p class="text-xl font-semibold text-text tracking-tight mb-1">
-              RBAC per model dan aksi
-            </p>
-            <p class="text-sm text-muted">
-              Hak akses granular: view, edit, detail, update.
-            </p>
+          <div class="reveal tile tile-sm p-6" data-tone="green" data-role="backend">
+            <span class="dot mb-3"></span>
+            <p class="text-xl font-semibold tracking-tight mb-1">RBAC per model dan aksi</p>
+            <p class="text-sm" style="color:var(--muted)">Hak akses granular: view, edit, detail, update.</p>
           </div>
-          <div class="px-6 py-4 md:py-2">
-            <p class="text-xl font-semibold text-text tracking-tight mb-1">
-              Audit data lapangan
-            </p>
-            <p class="text-sm text-muted">
-              Validasi silang untuk BPS, Panwaslu, dan KPU.
-            </p>
+          <div class="reveal tile tile-sm p-6" data-tone="pink" data-role="audit">
+            <span class="dot mb-3"></span>
+            <p class="text-xl font-semibold tracking-tight mb-1">Audit data lapangan</p>
+            <p class="text-sm" style="color:var(--muted)">Validasi silang untuk BPS, Panwaslu, dan KPU.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 3. Proyek Section (Alt Surface Background) -->
-    <section id="projects" class="py-28 md:py-40 bg-surface">
+    <!-- PROYEK -->
+    <section id="projects" class="py-28 md:py-40" style="background:var(--surface)">
       <div class="max-w-5xl mx-auto px-6">
-        <!-- Section Header -->
-        <div class="reveal mb-16 text-left">
-          <p class="apple-eyebrow mb-3">PROYEK</p>
-          <h2 class="apple-headline text-text mb-4">
-            Tiga sistem yang benar-benar dipakai.
-          </h2>
-          <p class="apple-subhead">
-            Dari operasional toko sampai migrasi database perusahaan.
-          </p>
+        <div class="reveal mb-16">
+          <p class="frame-label mb-3" data-tone="green"><i data-lucide="frame"></i>Proyek</p>
+          <h2 class="headline mb-4">Tiga sistem yang <span class="hl" data-tone="green">benar-benar dipakai</span>.</h2>
+          <p class="subhead">Dari operasional toko sampai migrasi database perusahaan.</p>
         </div>
 
-        <!-- Project Tiles -->
         <div class="space-y-12">
 
-          <!-- Project 1: ERP Frozen Food -->
-          <article class="reveal apple-tile bg-[var(--card-bg-on-surface)] p-8 md:p-12">
-            <!-- Top Half: CSS-built Interface Mockup -->
+          <!-- ERP -->
+          <article class="reveal tile p-8 md:p-12" data-tone="green" data-role="backend">
             <div class="mb-8">
-              <div class="mockup-window shadow-sm">
-                <div class="mockup-header justify-between">
+              <div class="mock">
+                <div class="mock-bar">
                   <div class="flex items-center gap-1.5">
-                    <span class="w-2.5 h-2.5 rounded-full bg-hairline inline-block"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-hairline inline-block"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-hairline inline-block"></span>
+                    <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
+                    <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
+                    <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
                   </div>
-                  <span class="font-mono text-[11px] text-muted">erp-frozenfood.local/inventory</span>
+                  <span class="mono text-[11px]" style="color:var(--muted)">erp-frozenfood.local/inventory</span>
                   <div class="w-10"></div>
                 </div>
-                <div class="p-4 md:p-6 grid grid-cols-1 md:grid-cols-4 gap-4 bg-bg text-xs">
-                  <!-- Sidebar -->
-                  <div class="hidden md:flex flex-col gap-1 hairline-r pr-4 font-mono text-muted">
-                    <div class="px-3 py-1.5 rounded-lg bg-surface font-medium text-text flex items-center justify-between">
-                      <span>Stok</span>
-                      <span class="text-[10px] text-accent">5 item</span>
-                    </div>
-                    <div class="px-3 py-1.5 rounded-lg hover:bg-surface">Pembukuan</div>
-                    <div class="px-3 py-1.5 rounded-lg hover:bg-surface">Pelanggan</div>
-                    <div class="px-3 py-1.5 rounded-lg hover:bg-surface">Restock</div>
+                <div class="p-4 md:p-6 grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
+                  <div class="hidden md:flex flex-col gap-1 hairline-r pr-4 mono" style="color:var(--muted)">
+                    <div class="px-3 py-1.5 rounded-lg font-medium flex items-center justify-between" style="background:var(--t-soft);color:var(--t-ink)"><span>Stok</span><span class="text-[10px]">5 item</span></div>
+                    <div class="px-3 py-1.5 rounded-lg">Pembukuan</div>
+                    <div class="px-3 py-1.5 rounded-lg">Pelanggan</div>
+                    <div class="px-3 py-1.5 rounded-lg">Restock</div>
                   </div>
-                  <!-- Table -->
                   <div class="md:col-span-3 overflow-x-auto">
-                    <table class="w-full text-left font-mono">
+                    <table class="w-full text-left mono">
                       <thead>
-                        <tr class="hairline-b text-muted text-[11px]">
-                          <th class="pb-2 font-medium">PRODUK</th>
-                          <th class="pb-2 font-medium">STOK</th>
-                          <th class="pb-2 font-medium">STATUS</th>
+                        <tr class="hairline-b text-[11px]" style="color:var(--muted)">
+                          <th class="pb-2 font-medium">PRODUK</th><th class="pb-2 font-medium">STOK</th><th class="pb-2 font-medium">STATUS</th>
                         </tr>
                       </thead>
-                      <tbody class="divide-y divide-hairline text-text text-[12px]">
-                        <tr>
-                          <td class="py-2.5 font-sans">Daging Sapi Slice 500g</td>
-                          <td class="py-2.5">48 pack</td>
-                          <td class="py-2.5 text-muted">Normal</td>
-                        </tr>
-                        <tr class="bg-surface/50">
-                          <td class="py-2.5 font-sans font-medium">Nugget Ayam Crispy 1kg</td>
-                          <td class="py-2.5 font-semibold">8 pack</td>
-                          <td class="py-2.5">
-                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-accent/10 text-accent hairline-all border-accent/30">
-                              Prioritas restock
-                            </span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="py-2.5 font-sans">Sosis Sapi Bakar 500g</td>
-                          <td class="py-2.5">32 pack</td>
-                          <td class="py-2.5 text-muted">Normal</td>
-                        </tr>
-                        <tr>
-                          <td class="py-2.5 font-sans">Fillet Ikan Dori 1kg</td>
-                          <td class="py-2.5">14 pack</td>
-                          <td class="py-2.5 text-muted">Menipis</td>
-                        </tr>
-                        <tr>
-                          <td class="py-2.5 font-sans">Kentang Shoestring 1kg</td>
-                          <td class="py-2.5">25 pack</td>
-                          <td class="py-2.5 text-muted">Normal</td>
-                        </tr>
+                      <tbody class="text-[12px]">
+                        <tr class="hairline-b"><td class="py-2.5 font-sans">Daging Sapi Slice 500g</td><td class="py-2.5">48 pack</td><td class="py-2.5" style="color:var(--muted)">Normal</td></tr>
+                        <tr class="hairline-b" style="background:var(--t-soft)"><td class="py-2.5 px-2 font-sans font-medium">Nugget Ayam Crispy 1kg</td><td class="py-2.5 font-semibold">8 pack</td><td class="py-2.5"><span class="tag-solid inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium">Prioritas restock</span></td></tr>
+                        <tr class="hairline-b"><td class="py-2.5 font-sans">Sosis Sapi Bakar 500g</td><td class="py-2.5">32 pack</td><td class="py-2.5" style="color:var(--muted)">Normal</td></tr>
+                        <tr class="hairline-b"><td class="py-2.5 font-sans">Fillet Ikan Dori 1kg</td><td class="py-2.5">14 pack</td><td class="py-2.5" style="color:var(--muted)">Menipis</td></tr>
+                        <tr><td class="py-2.5 font-sans">Kentang Shoestring 1kg</td><td class="py-2.5">25 pack</td><td class="py-2.5" style="color:var(--muted)">Normal</td></tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
-              <p class="font-mono text-[11px] text-muted mt-2.5 text-right">Ilustrasi antarmuka</p>
+              <p class="mono text-[11px] mt-2.5 text-right" style="color:var(--muted)">Ilustrasi antarmuka</p>
             </div>
-
-            <!-- Bottom Half: Content -->
-            <div>
-              <h3 class="text-2xl font-semibold text-text tracking-tight mb-3">
-                Sistem Manajemen Toko Frozen Food (ERP)
-              </h3>
-              <p class="text-muted text-[17px] leading-relaxed mb-6">
-                Sistem operasional toko dengan modul stok, pembukuan, data pelanggan, dan alur permintaan restok ke supplier. Sistem Penunjang Keputusan (SPK) memprioritaskan produk yang perlu di-restock. Akses dikontrol dengan RBAC per model dan per aksi: view, edit, detail, update.
-              </p>
-              <div class="flex flex-wrap items-center gap-2 mb-6">
-                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">Laravel</span>
-                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">Blade</span>
-                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">MySQL</span>
-                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">RBAC</span>
-                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">SPK</span>
-              </div>
-              <a href="https://github.com/gibrandevlab/ERP-FROZEN-FOOD" target="_blank" rel="noopener noreferrer" class="action-link text-base">
-                Lihat di GitHub <span aria-hidden="true">›</span>
-              </a>
+            <h3 class="text-2xl font-semibold tracking-tight mb-3">Sistem Manajemen Toko Frozen Food (ERP)</h3>
+            <p class="leading-relaxed mb-6" style="color:var(--muted)">Sistem operasional toko dengan modul stok, pembukuan, data pelanggan, dan alur permintaan restok ke supplier. Sistem Penunjang Keputusan (SPK) memprioritaskan produk yang perlu di-restock. Akses dikontrol dengan RBAC per model dan per aksi: view, edit, detail, update.</p>
+            <div class="flex flex-wrap items-center gap-2 mb-6">
+              <span class="pill">Laravel</span><span class="pill">Blade</span><span class="pill">MySQL</span><span class="pill">RBAC</span><span class="pill">SPK</span>
             </div>
+            <a href="https://github.com/gibrandevlab/ERP-FROZEN-FOOD" target="_blank" rel="noopener noreferrer" class="action-link">Lihat di GitHub <span aria-hidden="true">›</span></a>
           </article>
 
-          <!-- Project 2: Vita Dulcedo -->
-          <article class="reveal apple-tile bg-[var(--card-bg-on-surface)] p-8 md:p-12">
-            <!-- Top Half: CSS-built Interface Mockup -->
+          <!-- Vita Dulcedo -->
+          <article class="reveal tile p-8 md:p-12" data-tone="blue" data-role="frontend">
             <div class="mb-8">
-              <div class="mockup-window shadow-sm">
-                <div class="mockup-header justify-between">
+              <div class="mock">
+                <div class="mock-bar">
                   <div class="flex items-center gap-1.5">
-                    <span class="w-2.5 h-2.5 rounded-full bg-hairline inline-block"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-hairline inline-block"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-hairline inline-block"></span>
+                    <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
+                    <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
+                    <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
                   </div>
-                  <span class="font-mono text-[11px] text-muted">vitadulcedo.org/donor/dashboard</span>
+                  <span class="mono text-[11px]" style="color:var(--muted)">vitadulcedo.org/donor/dashboard</span>
                   <div class="w-10"></div>
                 </div>
-                <div class="p-4 md:p-6 bg-bg grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
-                  <!-- Timeline -->
-                  <div class="hairline-r pr-4 font-mono">
-                    <p class="text-muted text-[11px] mb-3 font-semibold uppercase tracking-wider">Status Verifikasi</p>
+                <div class="p-4 md:p-6 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+                  <div class="md:hairline-r md:pr-4 mono">
+                    <p class="text-[11px] mb-3 font-semibold uppercase tracking-wider" style="color:var(--muted)">Status Verifikasi</p>
                     <div class="space-y-4">
-                      <div class="flex items-start gap-2.5">
-                        <span class="w-2 h-2 rounded-full bg-text mt-1 inline-block"></span>
-                        <div>
-                          <p class="font-semibold text-text">Diverifikasi</p>
-                          <p class="text-[10px] text-muted">Tim verifikasi panti</p>
-                        </div>
-                      </div>
-                      <div class="flex items-start gap-2.5">
-                        <span class="w-2 h-2 rounded-full bg-hairline mt-1 inline-block"></span>
-                        <div>
-                          <p class="font-medium text-text">Diterima</p>
-                          <p class="text-[10px] text-muted">Distribusi ke anak asuh</p>
-                        </div>
-                      </div>
-                      <div class="flex items-start gap-2.5">
-                        <span class="w-2 h-2 rounded-full bg-hairline mt-1 inline-block"></span>
-                        <div>
-                          <p class="font-normal text-muted">Ditolak</p>
-                          <p class="text-[10px] text-muted">Jika data tidak valid</p>
-                        </div>
-                      </div>
+                      <div class="flex items-start gap-2.5"><span class="w-2 h-2 rounded-full mt-1" style="background:var(--t)"></span><div><p class="font-semibold">Diverifikasi</p><p class="text-[10px]" style="color:var(--muted)">Tim verifikasi panti</p></div></div>
+                      <div class="flex items-start gap-2.5"><span class="w-2 h-2 rounded-full mt-1" style="background:var(--hairline)"></span><div><p class="font-medium">Diterima</p><p class="text-[10px]" style="color:var(--muted)">Distribusi ke anak asuh</p></div></div>
+                      <div class="flex items-start gap-2.5"><span class="w-2 h-2 rounded-full mt-1" style="background:var(--hairline)"></span><div><p class="font-normal" style="color:var(--muted)">Ditolak</p><p class="text-[10px]" style="color:var(--muted)">Jika data tidak valid</p></div></div>
                     </div>
                   </div>
-                  <!-- Donation List -->
                   <div class="md:col-span-2">
-                    <p class="font-mono text-muted text-[11px] mb-3 font-semibold uppercase tracking-wider">Riwayat Donasi Donatur</p>
-                    <div class="space-y-2.5 font-mono text-[12px]">
-                      <div class="p-2.5 rounded-lg bg-surface flex items-center justify-between">
-                        <div>
-                          <p class="font-sans font-medium text-text">Paket Sembako Bulanan</p>
-                          <p class="text-[11px] text-muted">10 paket beras &amp; minyak goreng</p>
-                        </div>
-                        <span class="font-semibold text-text">Diverifikasi</span>
-                      </div>
-                      <div class="p-2.5 rounded-lg bg-surface flex items-center justify-between">
-                        <div>
-                          <p class="font-sans font-medium text-text">Bantuan Dana Pendidikan</p>
-                          <p class="text-[11px] text-muted">Transfer via Virtual Account</p>
-                        </div>
-                        <span class="font-medium text-text">Diterima</span>
-                      </div>
+                    <p class="mono text-[11px] mb-3 font-semibold uppercase tracking-wider" style="color:var(--muted)">Riwayat Donasi Donatur</p>
+                    <div class="space-y-2.5 mono text-[12px]">
+                      <div class="p-2.5 rounded-lg flex items-center justify-between" style="background:var(--t-soft)"><div><p class="font-sans font-medium">Paket Sembako Bulanan</p><p class="text-[11px]" style="color:var(--muted)">10 paket beras &amp; minyak goreng</p></div><span class="font-semibold">Diverifikasi</span></div>
+                      <div class="p-2.5 rounded-lg flex items-center justify-between" style="background:var(--surface)"><div><p class="font-sans font-medium">Bantuan Dana Pendidikan</p><p class="text-[11px]" style="color:var(--muted)">Transfer via Virtual Account</p></div><span class="font-medium">Diterima</span></div>
                     </div>
                   </div>
                 </div>
               </div>
-              <p class="font-mono text-[11px] text-muted mt-2.5 text-right">Ilustrasi antarmuka</p>
+              <p class="mono text-[11px] mt-2.5 text-right" style="color:var(--muted)">Ilustrasi antarmuka</p>
             </div>
-
-            <!-- Bottom Half: Content -->
-            <div>
-              <h3 class="text-2xl font-semibold text-text tracking-tight mb-3">
-                Vita Dulcedo, Sistem Manajemen Donasi Panti Asuhan
-              </h3>
-              <p class="text-muted text-[17px] leading-relaxed mb-6">
-                Platform donasi uang dan barang dengan dashboard terpisah untuk admin dan donatur. Setiap donatur punya profil untuk melacak status donasinya. SPK merekomendasikan alokasi donasi sesuai preferensi donatur.
-              </p>
-              <div class="flex flex-wrap items-center gap-2 mb-6">
-                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">Laravel</span>
-                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">PHP</span>
-                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">Blade</span>
-                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">MySQL</span>
-                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">Decision Support</span>
-              </div>
-              <a href="https://github.com/gibrandevlab/Vita-Dulcedo" target="_blank" rel="noopener noreferrer" class="action-link text-base">
-                Lihat di GitHub <span aria-hidden="true">›</span>
-              </a>
+            <h3 class="text-2xl font-semibold tracking-tight mb-3">Vita Dulcedo, Sistem Manajemen Donasi Panti Asuhan</h3>
+            <p class="leading-relaxed mb-6" style="color:var(--muted)">Platform donasi uang dan barang dengan dashboard terpisah untuk admin dan donatur. Setiap donatur punya profil untuk melacak status donasinya. SPK merekomendasikan alokasi donasi sesuai preferensi donatur.</p>
+            <div class="flex flex-wrap items-center gap-2 mb-6">
+              <span class="pill">Laravel</span><span class="pill">PHP</span><span class="pill">Blade</span><span class="pill">MySQL</span><span class="pill">Decision Support</span>
             </div>
+            <a href="https://github.com/gibrandevlab/Vita-Dulcedo" target="_blank" rel="noopener noreferrer" class="action-link">Lihat di GitHub <span aria-hidden="true">›</span></a>
           </article>
 
-          <!-- Project 3: Enterprise CMS & Database Migration -->
-          <article class="reveal apple-tile bg-[var(--card-bg-on-surface)] p-8 md:p-12">
-            <!-- Top Half: CSS-built Interface Mockup -->
+          <!-- CMS + migrasi -->
+          <article class="reveal tile p-8 md:p-12" data-tone="orange" data-role="database">
             <div class="mb-8">
-              <div class="mockup-window shadow-sm">
-                <div class="mockup-header justify-between">
+              <div class="mock">
+                <div class="mock-bar">
                   <div class="flex items-center gap-1.5">
-                    <span class="w-2.5 h-2.5 rounded-full bg-hairline inline-block"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-hairline inline-block"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-hairline inline-block"></span>
+                    <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
+                    <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
+                    <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
                   </div>
-                  <span class="font-mono text-[11px] text-muted">db-migration-pipeline · schema-sync</span>
+                  <span class="mono text-[11px]" style="color:var(--muted)">db-migration · schema</span>
                   <div class="w-10"></div>
                 </div>
-                <div class="p-6 bg-bg font-mono text-xs">
+                <div class="p-6 mono text-xs">
                   <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
-                    <!-- Source Node -->
-                    <div class="md:col-span-2 p-3.5 rounded-xl bg-surface hairline-all">
-                      <div class="flex items-center justify-between pb-2 hairline-b mb-2">
-                        <span class="font-semibold text-text">MySQL</span>
-                        <span class="text-[10px] text-muted">SOURCE DB</span>
-                      </div>
-                      <div class="space-y-1 text-muted text-[11px]">
-                        <div class="flex items-center justify-between"><span>users_auth</span><span class="text-[10px]">12 cols</span></div>
-                        <div class="flex items-center justify-between"><span>cms_articles</span><span class="text-[10px]">24 cols</span></div>
-                        <div class="flex items-center justify-between"><span>media_assets</span><span class="text-[10px]">8 cols</span></div>
+                    <div class="md:col-span-2 p-3.5 rounded-xl hairline-all" style="background:var(--surface)">
+                      <div class="flex items-center justify-between pb-2 hairline-b mb-2"><span class="font-semibold">MySQL</span><span class="text-[10px]" style="color:var(--muted)">SUMBER</span></div>
+                      <div class="space-y-1 text-[11px]" style="color:var(--muted)">
+                        <div>users_auth</div><div>cms_articles</div><div>media_assets</div>
                       </div>
                     </div>
-
-                    <!-- Migration Arrow -->
                     <div class="md:col-span-1 text-center py-2 flex flex-col items-center justify-center">
-                      <span class="text-accent font-semibold text-lg hidden md:block">→</span>
-                      <span class="text-accent font-semibold text-lg md:hidden">↓</span>
-                      <span class="text-[10px] text-muted tracking-tight">Zero Downtime</span>
+                      <span class="font-semibold text-lg hidden md:block" style="color:var(--t-ink)">→</span>
+                      <span class="font-semibold text-lg md:hidden" style="color:var(--t-ink)">↓</span>
+                      <span class="text-[10px] tracking-tight" style="color:var(--muted)">tanpa downtime</span>
                     </div>
-
-                    <!-- Target Node -->
-                    <div class="md:col-span-2 p-3.5 rounded-xl bg-surface hairline-all">
-                      <div class="flex items-center justify-between pb-2 hairline-b mb-2">
-                        <span class="font-semibold text-text">MS SQL Server</span>
-                        <span class="text-[10px] text-muted">TARGET DB</span>
-                      </div>
-                      <div class="space-y-1 text-muted text-[11px]">
-                        <div class="flex items-center justify-between"><span>dbo.tbl_Users</span><span class="text-[10px]">Validated</span></div>
-                        <div class="flex items-center justify-between"><span>dbo.tbl_Articles</span><span class="text-[10px]">Validated</span></div>
-                        <div class="flex items-center justify-between"><span>dbo.tbl_Assets</span><span class="text-[10px]">Validated</span></div>
+                    <div class="md:col-span-2 p-3.5 rounded-xl" style="background:var(--t-soft);border:1px solid color-mix(in srgb, var(--t) 35%, transparent)">
+                      <div class="flex items-center justify-between pb-2 hairline-b mb-2"><span class="font-semibold">MS SQL Server</span><span class="text-[10px]" style="color:var(--muted)">TUJUAN</span></div>
+                      <div class="space-y-1 text-[11px]" style="color:var(--muted)">
+                        <div>dbo.tbl_Users</div><div>dbo.tbl_Articles</div><div>dbo.tbl_Assets</div>
                       </div>
                     </div>
                   </div>
-                  <div class="mt-4 pt-3 hairline-t flex items-center justify-between text-[11px] text-muted">
-                    <span>Validasi tipe data &amp; foreign key constraints</span>
-                    <span class="text-status font-medium">Sinkronisasi 100%</span>
-                  </div>
+                  <div class="mt-4 pt-3 hairline-t text-[11px]" style="color:var(--muted)">Validasi tipe data &amp; foreign key constraints</div>
                 </div>
               </div>
-              <p class="font-mono text-[11px] text-muted mt-2.5 text-right">Ilustrasi antarmuka</p>
+              <p class="mono text-[11px] mt-2.5 text-right" style="color:var(--muted)">Ilustrasi antarmuka</p>
             </div>
-
-            <!-- Bottom Half: Content -->
-            <div>
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface hairline-all text-xs font-mono text-muted mb-3">
-                <span>Studi kasus enterprise · Repositori privat</span>
-              </div>
-              <h3 class="text-2xl font-semibold text-text tracking-tight mb-3">
-                Enterprise CMS &amp; Migrasi Database
-              </h3>
-              <p class="text-muted text-[17px] leading-relaxed mb-6">
-                CMS internal perusahaan dengan frontend Ionic Angular dan backend Node.js (Express). Refactoring menyeluruh pada kode legacy agar lebih mudah dirawat, lalu migrasi database dari MySQL ke Microsoft SQL Server tanpa downtime.
-              </p>
-              <div class="flex flex-wrap items-center gap-2 mb-6">
-                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">Ionic Angular</span>
-                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">Node.js</span>
-                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">Express</span>
-                <span class="font-mono text-xs px-3 py-1 rounded-full bg-surface hairline-all text-text">MS SQL Server</span>
-              </div>
-              <p class="text-sm font-mono text-muted">
-                Repositori privat
-              </p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs mono mb-3" style="background:var(--card);border:1px solid color-mix(in srgb, var(--t) 35%, transparent);color:var(--t-ink)">Studi kasus enterprise</div>
+            <h3 class="text-2xl font-semibold tracking-tight mb-3">Enterprise CMS &amp; Migrasi Database</h3>
+            <p class="leading-relaxed mb-6" style="color:var(--muted)">CMS internal perusahaan dengan frontend Ionic Angular dan backend Node.js (Express). Refactoring menyeluruh pada kode legacy agar lebih mudah dirawat, lalu migrasi database dari MySQL ke Microsoft SQL Server tanpa downtime.</p>
+            <div class="flex flex-wrap items-center gap-2 mb-6">
+              <span class="pill">Ionic Angular</span><span class="pill">Node.js</span><span class="pill">Express</span><span class="pill">MS SQL Server</span>
             </div>
+            <p class="text-sm mono inline-flex items-center gap-2" style="color:var(--muted)"><i data-lucide="lock" class="w-4 h-4"></i>Repositori privat</p>
           </article>
 
         </div>
       </div>
     </section>
 
-    <!-- 4. Pengalaman Section (Base Background) -->
-    <section id="experience" class="py-28 md:py-40 bg-bg">
+    <!-- PENGALAMAN -->
+    <section id="experience" class="py-28 md:py-40">
       <div class="max-w-5xl mx-auto px-6">
-        <!-- Section Header -->
-        <div class="reveal mb-16 text-left">
-          <p class="apple-eyebrow mb-3">PENGALAMAN</p>
-          <h2 class="apple-headline text-text">
-            Jejak kerja.
-          </h2>
+        <div class="reveal mb-16">
+          <p class="frame-label mb-3" data-tone="orange"><i data-lucide="frame"></i>Pengalaman</p>
+          <h2 class="headline">Jejak <span class="hl" data-tone="orange">kerja</span>.</h2>
         </div>
 
-        <!-- Vertical Timeline -->
-        <div class="relative pl-6 md:pl-0 space-y-12 before:content-[''] before:absolute before:top-2 before:bottom-2 before:left-[7px] md:before:left-[188px] before:w-[1px] before:bg-hairline mb-20">
+        <div class="timeline space-y-12 mb-20">
 
-          <!-- Item 1: PT Bakrie Pipe Industri -->
-          <div class="reveal relative flex flex-col md:flex-row md:gap-12 items-start">
-            <!-- Node dot -->
-            <div class="absolute -left-[24px] md:left-[183px] top-1.5 w-2.5 h-2.5 rounded-full bg-text border-2 border-bg"></div>
-            <!-- Date column -->
-            <div class="md:w-[160px] text-left md:text-right font-mono text-xs text-muted mb-2 md:mb-0 shrink-0 pt-0.5">
-              Sep 2026 – Des 2026
-            </div>
-            <!-- Content -->
-            <div class="flex-1">
-              <h3 class="text-lg font-semibold text-text tracking-tight">
-                Magang Full-Stack Developer · PT Bakrie Pipe Industri
-              </h3>
-              <ul class="mt-3 space-y-2 text-[17px] text-muted list-disc list-outside pl-5">
+          <div class="reveal tl-item" data-tone="orange" data-role="database">
+            <span class="node"></span>
+            <div class="tl-date mono text-xs pt-1" style="color:var(--muted)">Sep 2026 – Des 2026</div>
+            <div>
+              <h3 class="text-lg font-semibold tracking-tight">Magang Full-Stack Developer · PT Bakrie Pipe Industri</h3>
+              <ul class="mt-3 space-y-2 list-disc list-outside pl-5" style="color:var(--muted)">
                 <li>Mengembangkan aplikasi CMS dengan frontend Ionic Angular dan backend Node.js (Express).</li>
                 <li>Melakukan refactoring kode legacy agar lebih mudah diskalakan dan dibaca.</li>
                 <li>Memigrasikan database dari MySQL ke Microsoft SQL Server tanpa mengganggu sistem yang berjalan.</li>
@@ -738,50 +608,35 @@
             </div>
           </div>
 
-          <!-- Item 2: Freelance Web Developer & System Analyst -->
-          <div class="reveal relative flex flex-col md:flex-row md:gap-12 items-start">
-            <div class="absolute -left-[24px] md:left-[183px] top-1.5 w-2.5 h-2.5 rounded-full bg-text border-2 border-bg"></div>
-            <div class="md:w-[160px] text-left md:text-right font-mono text-xs text-muted mb-2 md:mb-0 shrink-0 pt-0.5">
-              Jan 2024 – Sekarang
-            </div>
-            <div class="flex-1">
-              <h3 class="text-lg font-semibold text-text tracking-tight">
-                Freelance Web Developer &amp; System Analyst · Mandiri
-              </h3>
-              <ul class="mt-3 space-y-2 text-[17px] text-muted list-disc list-outside pl-5">
+          <div class="reveal tl-item" data-tone="purple" data-role="analis">
+            <span class="node"></span>
+            <div class="tl-date mono text-xs pt-1" style="color:var(--muted)">Jan 2024 – Sekarang</div>
+            <div>
+              <h3 class="text-lg font-semibold tracking-tight">Freelance Web Developer &amp; System Analyst · Mandiri</h3>
+              <ul class="mt-3 space-y-2 list-disc list-outside pl-5" style="color:var(--muted)">
                 <li>Membangun aplikasi web full-stack end-to-end (Laravel &amp; MySQL) dengan otorisasi RBAC.</li>
                 <li>Menyusun dokumentasi teknis, spesifikasi sistem, dan diagram ER, serta mengelola deployment.</li>
               </ul>
             </div>
           </div>
 
-          <!-- Item 3: PT Agel Langgeng -->
-          <div class="reveal relative flex flex-col md:flex-row md:gap-12 items-start">
-            <div class="absolute -left-[24px] md:left-[183px] top-1.5 w-2.5 h-2.5 rounded-full bg-text border-2 border-bg"></div>
-            <div class="md:w-[160px] text-left md:text-right font-mono text-xs text-muted mb-2 md:mb-0 shrink-0 pt-0.5">
-              2021
-            </div>
-            <div class="flex-1">
-              <h3 class="text-lg font-semibold text-text tracking-tight">
-                Praktik Kerja Lapangan, Pengembangan Sistem ERP · PT Agel Langgeng
-              </h3>
-              <ul class="mt-3 space-y-2 text-[17px] text-muted list-disc list-outside pl-5">
+          <div class="reveal tl-item" data-tone="green" data-role="backend">
+            <span class="node"></span>
+            <div class="tl-date mono text-xs pt-1" style="color:var(--muted)">2021</div>
+            <div>
+              <h3 class="text-lg font-semibold tracking-tight">Praktik Kerja Lapangan, Pengembangan Sistem ERP · PT Agel Langgeng</h3>
+              <ul class="mt-3 space-y-2 list-disc list-outside pl-5" style="color:var(--muted)">
                 <li>Mengembangkan modul aplikasi ERP dan fitur notifikasi push ke perangkat mobile pengguna dengan CodeIgniter.</li>
               </ul>
             </div>
           </div>
 
-          <!-- Item 4: BPS, Panwaslu, & KPU -->
-          <div class="reveal relative flex flex-col md:flex-row md:gap-12 items-start">
-            <div class="absolute -left-[24px] md:left-[183px] top-1.5 w-2.5 h-2.5 rounded-full bg-text border-2 border-bg"></div>
-            <div class="md:w-[160px] text-left md:text-right font-mono text-xs text-muted mb-2 md:mb-0 shrink-0 pt-0.5">
-              2024 – 2026
-            </div>
-            <div class="flex-1">
-              <h3 class="text-lg font-semibold text-text tracking-tight">
-                Data Verification, Audit &amp; Field Operations · BPS, Panwaslu, &amp; KPU
-              </h3>
-              <ul class="mt-3 space-y-2 text-[17px] text-muted list-disc list-outside pl-5">
+          <div class="reveal tl-item" data-tone="pink" data-role="audit">
+            <span class="node"></span>
+            <div class="tl-date mono text-xs pt-1" style="color:var(--muted)">2024 – 2026</div>
+            <div>
+              <h3 class="text-lg font-semibold tracking-tight">Data Verification, Audit &amp; Field Operations · BPS, Panwaslu, &amp; KPU</h3>
+              <ul class="mt-3 space-y-2 list-disc list-outside pl-5" style="color:var(--muted)">
                 <li>Menangani audit integritas sistem digital dan validasi silang ribuan data kependudukan dan finansial usaha (Sensus Ekonomi dan Wilkerstat BPS), dengan pelaporan real-time dan standar zero-discrepancy.</li>
               </ul>
             </div>
@@ -789,220 +644,138 @@
 
         </div>
 
-        <!-- Sub-grid: Pendidikan (Two tiles) -->
-        <div class="reveal pt-8 hairline-t">
-          <p class="apple-eyebrow mb-6">PENDIDIKAN</p>
+        <div class="pt-8 hairline-t">
+          <p class="frame-label mb-6" data-tone="teal"><i data-lucide="frame"></i>Pendidikan</p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="apple-tile bg-[var(--card-bg-on-base)] p-8">
-              <p class="font-mono text-xs text-muted mb-2">2023 – 2027 · Semester 7</p>
-              <h4 class="text-xl font-semibold text-text tracking-tight mb-1">
-                Universitas Bina Sarana Informatika
-              </h4>
-              <p class="text-muted text-base">S1 Sistem Informasi</p>
+            <div class="reveal tile p-8" data-tone="teal">
+              <p class="mono text-xs mb-2" style="color:var(--muted)">2023 – 2027 · Semester 7</p>
+              <h4 class="text-xl font-semibold tracking-tight mb-1">Universitas Bina Sarana Informatika</h4>
+              <p style="color:var(--muted)">S1 Sistem Informasi</p>
             </div>
-            <div class="apple-tile bg-[var(--card-bg-on-base)] p-8">
-              <p class="font-mono text-xs text-muted mb-2">2020 – 2023</p>
-              <h4 class="text-xl font-semibold text-text tracking-tight mb-1">
-                SMK Negeri 5 Kota Bekasi
-              </h4>
-              <p class="text-muted text-base">Rekayasa Perangkat Lunak</p>
+            <div class="reveal tile p-8" data-tone="yellow">
+              <p class="mono text-xs mb-2" style="color:var(--muted)">2020 – 2023</p>
+              <h4 class="text-xl font-semibold tracking-tight mb-1">SMK Negeri 5 Kota Bekasi</h4>
+              <p style="color:var(--muted)">Rekayasa Perangkat Lunak</p>
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- 5. Skill Section (Alt Surface Background) -->
-    <section id="skills" class="py-28 md:py-40 bg-surface">
+    <!-- SKILL -->
+    <section id="skills" class="py-28 md:py-40" style="background:var(--surface)">
       <div class="max-w-5xl mx-auto px-6">
-        <!-- Section Header -->
-        <div class="reveal mb-16 text-left">
-          <p class="apple-eyebrow mb-3">SKILL</p>
-          <h2 class="apple-headline text-text mb-4">
-            Yang saya kuasai, dan buktinya.
-          </h2>
-          <p class="apple-subhead">
-            Setiap skill terhubung ke proyek atau pengalaman nyata.
-          </p>
+        <div class="reveal mb-16">
+          <p class="frame-label mb-3" data-tone="purple"><i data-lucide="frame"></i>Skill</p>
+          <h2 class="headline mb-4">Yang saya kuasai, dan <span class="hl" data-tone="purple">buktinya</span>.</h2>
+          <p class="subhead">Setiap skill terhubung ke proyek atau pengalaman nyata.</p>
         </div>
 
-        <!-- Bento Grid (12 cols desktop, 1 col mobile) -->
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
 
-          <!-- Tile 1: Backend & API (Wide: 7 cols) -->
-          <div class="reveal apple-tile bg-[var(--card-bg-on-surface)] p-8 md:p-10 md:col-span-7 flex flex-col justify-between">
+          <div class="reveal tile p-8 md:p-10 md:col-span-7 flex flex-col justify-between" data-tone="green" data-role="backend">
             <div>
-              <h3 class="text-xl font-semibold text-text tracking-tight mb-4">Backend &amp; API</h3>
+              <h3 class="text-xl font-semibold tracking-tight mb-4">Backend &amp; API</h3>
               <div class="flex flex-wrap gap-2 mb-6">
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">PHP</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Laravel</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">CodeIgniter</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Node.js</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Express</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">RESTful API</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">AI API Integration</span>
+                <span class="pill">PHP</span><span class="pill">Laravel</span><span class="pill">CodeIgniter</span><span class="pill">Node.js</span><span class="pill">Express</span><span class="pill">RESTful API</span><span class="pill">AI API Integration</span>
               </div>
             </div>
-            <p class="text-sm text-muted hairline-t pt-4">
-              "Dipakai di ERP toko, platform donasi, dan CMS enterprise."
-            </p>
+            <p class="text-sm hairline-t pt-4" style="color:var(--muted)">Dipakai di ERP toko, platform donasi, dan CMS enterprise.</p>
           </div>
 
-          <!-- Tile 2: Frontend & Mobile (5 cols) -->
-          <div class="reveal apple-tile bg-[var(--card-bg-on-surface)] p-8 md:p-10 md:col-span-5 flex flex-col justify-between">
+          <div class="reveal tile p-8 md:p-10 md:col-span-5 flex flex-col justify-between" data-tone="blue" data-role="frontend">
             <div>
-              <h3 class="text-xl font-semibold text-text tracking-tight mb-4">Frontend &amp; Mobile</h3>
+              <h3 class="text-xl font-semibold tracking-tight mb-4">Frontend &amp; Mobile</h3>
               <div class="flex flex-wrap gap-2 mb-6">
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">React</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Ionic Angular</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Flutter</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">HTML5</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">CSS3</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">SCSS</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Tailwind CSS</span>
+                <span class="pill">React</span><span class="pill">Ionic Angular</span><span class="pill">Flutter</span><span class="pill">HTML5</span><span class="pill">CSS3</span><span class="pill">SCSS</span><span class="pill">Tailwind CSS</span>
               </div>
             </div>
-            <p class="text-sm text-muted hairline-t pt-4">
-              "Ionic Angular untuk CMS selama magang."
-            </p>
+            <p class="text-sm hairline-t pt-4" style="color:var(--muted)">Ionic Angular untuk CMS selama magang.</p>
           </div>
 
-          <!-- Tile 3: Database (4 cols) -->
-          <div class="reveal apple-tile bg-[var(--card-bg-on-surface)] p-8 md:p-10 md:col-span-4 flex flex-col justify-between">
+          <div class="reveal tile p-8 md:p-10 md:col-span-4 flex flex-col justify-between" data-tone="orange" data-role="database">
             <div>
-              <h3 class="text-xl font-semibold text-text tracking-tight mb-4">Database</h3>
+              <h3 class="text-xl font-semibold tracking-tight mb-4">Database</h3>
               <div class="flex flex-wrap gap-2 mb-6">
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">MySQL</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">PostgreSQL</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Microsoft SQL Server</span>
+                <span class="pill">MySQL</span><span class="pill">PostgreSQL</span><span class="pill">Microsoft SQL Server</span>
               </div>
             </div>
-            <p class="text-sm text-muted hairline-t pt-4">
-              "Migrasi MySQL ke MS SQL Server tanpa downtime."
-            </p>
+            <p class="text-sm hairline-t pt-4" style="color:var(--muted)">Migrasi MySQL ke MS SQL Server tanpa downtime.</p>
           </div>
 
-          <!-- Tile 4: Arsitektur & Analisis (4 cols) -->
-          <div class="reveal apple-tile bg-[var(--card-bg-on-surface)] p-8 md:p-10 md:col-span-4 flex flex-col justify-between">
+          <div class="reveal tile p-8 md:p-10 md:col-span-4 flex flex-col justify-between" data-tone="purple" data-role="analis">
             <div>
-              <h3 class="text-xl font-semibold text-text tracking-tight mb-4">Arsitektur &amp; Analisis</h3>
+              <h3 class="text-xl font-semibold tracking-tight mb-4">Arsitektur &amp; Analisis</h3>
               <div class="flex flex-wrap gap-2 mb-6">
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">System Analysis</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">ERD Design</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">RBAC Design</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Decision Support System</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Technical Documentation</span>
+                <span class="pill">System Analysis</span><span class="pill">ERD Design</span><span class="pill">RBAC Design</span><span class="pill">Decision Support System</span><span class="pill">Technical Documentation</span>
               </div>
             </div>
-            <p class="text-sm text-muted hairline-t pt-4">
-              "Spesifikasi, diagram ER, dan SPK di proyek freelance."
-            </p>
+            <p class="text-sm hairline-t pt-4" style="color:var(--muted)">Spesifikasi, diagram ER, dan SPK di proyek freelance.</p>
           </div>
 
-          <!-- Tile 5: Kualitas & Legacy (4 cols) -->
-          <div class="reveal apple-tile bg-[var(--card-bg-on-surface)] p-8 md:p-10 md:col-span-4 flex flex-col justify-between">
+          <div class="reveal tile p-8 md:p-10 md:col-span-4 flex flex-col justify-between" data-tone="coral" data-role="qa">
             <div>
-              <h3 class="text-xl font-semibold text-text tracking-tight mb-4">Kualitas &amp; Legacy</h3>
+              <h3 class="text-xl font-semibold tracking-tight mb-4">Kualitas &amp; Legacy</h3>
               <div class="flex flex-wrap gap-2 mb-6">
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Legacy Refactoring</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Database Migration</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Data Validation</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Data Auditing</span>
+                <span class="pill">Legacy Refactoring</span><span class="pill">Database Migration</span><span class="pill">Data Validation</span><span class="pill">Data Auditing</span>
               </div>
             </div>
-            <p class="text-sm text-muted hairline-t pt-4">
-              "Refactoring kode legacy dan audit data BPS, Panwaslu, KPU."
-            </p>
+            <p class="text-sm hairline-t pt-4" style="color:var(--muted)">Refactoring kode legacy dan audit data BPS, Panwaslu, KPU.</p>
           </div>
 
-          <!-- Tile 6: DevOps & Tools (5 cols) -->
-          <div class="reveal apple-tile bg-[var(--card-bg-on-surface)] p-8 md:p-10 md:col-span-5 flex flex-col justify-between">
+          <div class="reveal tile p-8 md:p-10 md:col-span-5 flex flex-col justify-between" data-tone="teal" data-role="devops">
             <div>
-              <h3 class="text-xl font-semibold text-text tracking-tight mb-4">DevOps &amp; Tools</h3>
+              <h3 class="text-xl font-semibold tracking-tight mb-4">DevOps &amp; Tools</h3>
               <div class="flex flex-wrap gap-2 mb-6">
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Git</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">GitHub</span>
-                <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface hairline-all text-text">Web Deployment</span>
+                <span class="pill">Git</span><span class="pill">GitHub</span><span class="pill">Web Deployment</span>
               </div>
             </div>
-            <p class="text-sm text-muted hairline-t pt-4">
-              "Mengelola deployment aplikasi freelance."
-            </p>
+            <p class="text-sm hairline-t pt-4" style="color:var(--muted)">Mengelola deployment aplikasi freelance.</p>
           </div>
 
-          <!-- Tile 7: Cara kerja (Wide: 7 cols, text only) -->
-          <div class="reveal apple-tile bg-[var(--card-bg-on-surface)] p-8 md:p-10 md:col-span-7 flex flex-col justify-between">
-            <div>
-              <h3 class="text-xl font-semibold text-text tracking-tight mb-6">Cara kerja</h3>
-              <div class="space-y-4">
-                <div>
-                  <h4 class="text-base font-semibold text-text">Teliti pada data.</h4>
-                  <p class="text-sm text-muted">Standar validasi zero-discrepancy dari lapangan diterapkan langsung ke integritas database.</p>
-                </div>
-                <div>
-                  <h4 class="text-base font-semibold text-text">Terdokumentasi sejak awal.</h4>
-                  <p class="text-sm text-muted">Spesifikasi sistem dan relasi ER dirancang rapi sebelum menulis baris kode pertama.</p>
-                </div>
-                <div>
-                  <h4 class="text-base font-semibold text-text">Adaptif lintas stack.</h4>
-                  <p class="text-sm text-muted">Cepat beradaptasi dari PHP dan Laravel ke ekosistem Node.js, Express, dan Ionic Angular.</p>
-                </div>
-              </div>
+          <div class="reveal tile p-8 md:p-10 md:col-span-7" data-tone="yellow" data-role="docs">
+            <h3 class="text-xl font-semibold tracking-tight mb-6">Cara kerja</h3>
+            <div class="space-y-4">
+              <div><h4 class="font-semibold">Teliti pada data.</h4><p class="text-sm" style="color:var(--muted)">Standar validasi zero-discrepancy dari lapangan diterapkan langsung ke integritas database.</p></div>
+              <div><h4 class="font-semibold">Terdokumentasi sejak awal.</h4><p class="text-sm" style="color:var(--muted)">Spesifikasi sistem dan relasi ER dirancang rapi sebelum menulis baris kode pertama.</p></div>
+              <div><h4 class="font-semibold">Adaptif lintas stack.</h4><p class="text-sm" style="color:var(--muted)">Cepat beradaptasi dari PHP dan Laravel ke ekosistem Node.js, Express, dan Ionic Angular.</p></div>
             </div>
-            <p class="text-sm text-muted hairline-t pt-4 mt-6">
-              Prinsip rekayasa yang teruji di proyek nyata.
-            </p>
           </div>
 
         </div>
       </div>
     </section>
 
-    <!-- 6. Tentang Section (Base Background) -->
-    <section id="about" class="py-28 md:py-40 bg-bg">
+    <!-- TENTANG -->
+    <section id="about" class="py-28 md:py-40">
       <div class="max-w-5xl mx-auto px-6">
-        <div class="max-w-2xl text-left">
-          <p class="reveal apple-eyebrow mb-3">TENTANG</p>
-          <h2 class="reveal apple-headline text-text mb-8">
-            Mulai dari masalahnya.
-          </h2>
-          <p class="reveal text-muted text-[17px] leading-relaxed">
+        <div class="reveal max-w-2xl" data-role="analis">
+          <p class="frame-label mb-3" data-tone="pink"><i data-lucide="frame"></i>Tentang</p>
+          <h2 class="headline mb-8">Mulai dari <span class="hl" data-tone="pink">masalahnya</span>.</h2>
+          <p class="leading-relaxed" style="color:var(--muted)">
             Latar belakang saya di Rekayasa Perangkat Lunak dan Sistem Informasi membuat saya selalu mulai dari masalahnya, bukan dari tools-nya. Sejak 2024, mengaudit dan memvalidasi silang data lapangan untuk BPS, Panwaslu, dan KPU mengajarkan saya bahwa satu selisih kecil bisa merusak seluruh laporan. Standar itu saya bawa ke kode: skema yang jelas, hak akses yang eksplisit, dan migrasi yang bisa dipertanggungjawabkan.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- 7. Kontak Section (Inside Base, Card on Alt Surface) -->
-    <section id="contact" class="pb-28 md:pb-40 bg-bg">
+    <!-- KONTAK -->
+    <section id="contact" class="pb-28 md:pb-40">
       <div class="max-w-5xl mx-auto px-6">
-        <div class="reveal apple-tile bg-surface p-8 md:p-16 text-center max-w-3xl mx-auto flex flex-col items-center">
-          <h2 class="apple-headline text-text mb-4">
-            Mari bicara.
-          </h2>
-          <p class="apple-subhead mb-8">
-            Terbuka untuk full-time, magang, dan freelance. 40+ jam/minggu.
-          </p>
+        <div class="reveal tile tile-invert p-8 md:p-16 text-center max-w-3xl mx-auto flex flex-col items-center">
+          <h2 class="headline mb-4">Mari <span class="hl" data-tone="yellow">bicara</span>.</h2>
+          <p class="subhead mb-8">Terbuka untuk full-time, magang, dan freelance. 40+ jam/minggu.</p>
 
-          <!-- Interactive Email Box -->
-          <div class="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-bg hairline-all mb-8 max-w-full">
-            <span class="font-mono text-sm md:text-base text-text select-all break-all">
-              afwangibran19@gmail.com
-            </span>
-            <button id="contact-copy-btn" type="button" class="w-9 h-9 rounded-full flex items-center justify-center text-muted hover:text-text hover:bg-surface transition-colors shrink-0" aria-label="Salin alamat email">
+          <div class="inline-flex items-center gap-3 px-5 py-3 rounded-2xl hairline-all mb-8 max-w-full" style="background:var(--card)">
+            <span class="mono text-sm md:text-base select-all break-all">afwangibran19@gmail.com</span>
+            <button id="contact-copy-btn" type="button" class="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style="color:var(--muted)" aria-label="Salin alamat email">
               <i data-lucide="copy" class="w-4 h-4"></i>
             </button>
           </div>
 
-          <!-- Actions -->
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
-            <a href="https://wa.me/6285814701149" target="_blank" rel="noopener noreferrer" class="btn-pill-primary w-full sm:w-auto">
-              WhatsApp 0858-1470-1149
-            </a>
-            <a href="https://github.com/gibrandevlab" target="_blank" rel="noopener noreferrer" class="action-link text-base py-2">
-              github.com/gibrandevlab <span aria-hidden="true">›</span>
-            </a>
+            <a href="https://wa.me/6285814701149" target="_blank" rel="noopener noreferrer" class="btn-primary w-full sm:w-auto">WhatsApp 0858-1470-1149</a>
+            <a href="https://github.com/gibrandevlab" target="_blank" rel="noopener noreferrer" class="action-link py-2" style="color:var(--text)">github.com/gibrandevlab <span aria-hidden="true">›</span></a>
           </div>
         </div>
       </div>
@@ -1010,307 +783,453 @@
 
   </main>
 
-  <!-- Footer -->
-  <footer class="hairline-t py-12 bg-bg text-muted text-xs">
-    <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+  <footer class="hairline-t py-12 text-xs" style="color:var(--muted)">
+    <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
       <p>© 2026 Afwan Gibran Muhammad Algiffari</p>
+      <p class="mono text-[11px]">Kursor berwarna = peran yang saya jalankan di setiap proyek.</p>
       <p>Built with HTML, Tailwind CSS &amp; Vanilla JS</p>
     </div>
   </footer>
 
-  <!-- Toast Notification -->
+  <!-- Toast -->
   <div id="toast-container" class="fixed bottom-6 right-6 z-50 pointer-events-none" aria-live="polite" role="status">
-    <div id="toast-msg" class="opacity-0 translate-y-3 transition-all duration-300 pointer-events-auto px-5 py-2.5 rounded-full bg-text text-bg text-sm font-medium shadow-lg hairline-all flex items-center gap-2">
-      <i data-lucide="check" class="w-4 h-4 text-accent"></i>
+    <div id="toast-msg" class="opacity-0 translate-y-3 transition-all duration-300 px-5 py-2.5 rounded-full text-sm font-medium shadow-lg flex items-center gap-2" style="background:var(--ink);color:var(--on-ink)">
+      <i data-lucide="check" class="w-4 h-4" style="color:var(--green)"></i>
       <span>Email berhasil disalin</span>
     </div>
   </div>
 
-  <!-- Vanilla JavaScript Implementation -->
+  <!-- Lapisan kursor multiplayer (dekoratif) -->
+  <div id="mp-layer" aria-hidden="true"></div>
+
   <script>
     (function () {
       'use strict';
 
-      // Safe localStorage wrapper
-      const storage = {
-        get: function (key) {
-          try {
-            return localStorage.getItem(key);
-          } catch (e) {
-            return null;
-          }
-        },
-        set: function (key, value) {
-          try {
-            localStorage.setItem(key, value);
-          } catch (e) {}
-        }
+      var root = document.documentElement;
+      var rand = Math.random;
+      function clamp(n, a, b) { return Math.min(b, Math.max(a, n)); }
+
+      /* ---------- localStorage aman ---------- */
+      var storage = {
+        get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+        set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
       };
 
-      // 1. Theme Management
+      /* ---------- 1. Tema ---------- */
       function initTheme() {
-        const toggleBtn = document.getElementById('theme-toggle');
-        const html = document.documentElement;
-
-        function updateToggleAria() {
-          const isDark = html.classList.contains('dark');
-          if (toggleBtn) {
-            toggleBtn.setAttribute('aria-label', isDark ? 'Beralih ke mode terang' : 'Beralih ke mode gelap');
-          }
+        var btn = document.getElementById('theme-toggle');
+        function sync() {
+          if (btn) btn.setAttribute('aria-label', root.classList.contains('dark') ? 'Beralih ke mode terang' : 'Beralih ke mode gelap');
         }
-
-        if (toggleBtn) {
-          toggleBtn.addEventListener('click', function () {
-            const isDark = html.classList.toggle('dark');
-            storage.set('theme', isDark ? 'dark' : 'light');
-            updateToggleAria();
+        if (btn) {
+          btn.addEventListener('click', function () {
+            var dark = root.classList.toggle('dark');
+            storage.set('theme', dark ? 'dark' : 'light');
+            sync();
           });
         }
-
-        // Listen for OS scheme change if user hasn't set explicit preference
         try {
-          const mql = window.matchMedia('(prefers-color-scheme: dark)');
-          mql.addEventListener('change', function (e) {
-            if (!storage.get('theme')) {
-              if (e.matches) {
-                html.classList.add('dark');
-              } else {
-                html.classList.remove('dark');
-              }
-              updateToggleAria();
-            }
+          window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+            if (!storage.get('theme')) { root.classList.toggle('dark', e.matches); sync(); }
           });
         } catch (e) {}
-
-        updateToggleAria();
+        sync();
       }
 
-      // 2. Mobile Menu Management
+      /* ---------- 2. Menu mobile ---------- */
       function initMobileMenu() {
-        const btn = document.getElementById('mobile-menu-btn');
-        const sheet = document.getElementById('mobile-menu-sheet');
-        const iconBars = document.getElementById('menu-icon-bars');
-        const iconClose = document.getElementById('menu-icon-close');
-        const links = sheet ? sheet.querySelectorAll('.mobile-nav-link') : [];
-
+        var btn = document.getElementById('mobile-menu-btn');
+        var sheet = document.getElementById('mobile-menu-sheet');
+        var bars = document.getElementById('menu-icon-bars');
+        var close = document.getElementById('menu-icon-close');
         if (!btn || !sheet) return;
+        var open = false;
 
-        let isOpen = false;
-
-        function openMenu() {
-          isOpen = true;
-          btn.setAttribute('aria-expanded', 'true');
-          btn.setAttribute('aria-label', 'Tutup menu navigasi');
-          sheet.setAttribute('aria-hidden', 'false');
-          sheet.classList.remove('opacity-0', 'pointer-events-none');
-          sheet.classList.add('opacity-100', 'pointer-events-auto');
-          document.body.style.overflow = 'hidden';
-          if (iconBars) iconBars.classList.add('hidden');
-          if (iconClose) iconClose.classList.remove('hidden');
+        function set(state) {
+          open = state;
+          btn.setAttribute('aria-expanded', String(state));
+          btn.setAttribute('aria-label', state ? 'Tutup menu navigasi' : 'Buka menu navigasi');
+          sheet.setAttribute('aria-hidden', String(!state));
+          sheet.classList.toggle('opacity-0', !state);
+          sheet.classList.toggle('pointer-events-none', !state);
+          document.body.style.overflow = state ? 'hidden' : '';
+          root.classList.toggle('menu-open', state);
+          if (bars) bars.classList.toggle('hidden', state);
+          if (close) close.classList.toggle('hidden', !state);
         }
 
-        function closeMenu() {
-          isOpen = false;
-          btn.setAttribute('aria-expanded', 'false');
-          btn.setAttribute('aria-label', 'Buka menu navigasi');
-          sheet.setAttribute('aria-hidden', 'true');
-          sheet.classList.remove('opacity-100', 'pointer-events-auto');
-          sheet.classList.add('opacity-0', 'pointer-events-none');
-          document.body.style.overflow = '';
-          if (iconBars) iconBars.classList.remove('hidden');
-          if (iconClose) iconClose.classList.add('hidden');
-        }
-
-        btn.addEventListener('click', function () {
-          if (isOpen) {
-            closeMenu();
-          } else {
-            openMenu();
-          }
+        btn.addEventListener('click', function () { set(!open); });
+        sheet.querySelectorAll('.mobile-nav-link').forEach(function (a) {
+          a.addEventListener('click', function () { set(false); btn.focus(); });
         });
-
-        // Close on link click
-        links.forEach(function (link) {
-          link.addEventListener('click', function () {
-            closeMenu();
-            btn.focus();
-          });
-        });
-
-        // Close on Esc key
         document.addEventListener('keydown', function (e) {
-          if (e.key === 'Escape' && isOpen) {
-            closeMenu();
-            btn.focus();
-          }
+          if (e.key === 'Escape' && open) { set(false); btn.focus(); }
         });
       }
 
-      // 3. Scroll Spy via IntersectionObserver
+      /* ---------- 3. Scroll spy ---------- */
       function initScrollSpy() {
-        const navLinks = document.querySelectorAll('.nav-desktop-link');
-        const sections = document.querySelectorAll('section[id]');
-        if (!sections.length || !navLinks.length) return;
-
-        if (!('IntersectionObserver' in window)) return;
-
-        const observer = new IntersectionObserver(function (entries) {
+        var links = document.querySelectorAll('.nav-link');
+        var sections = document.querySelectorAll('section[id]');
+        if (!links.length || !sections.length || !('IntersectionObserver' in window)) return;
+        var io = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              const id = entry.target.getAttribute('id');
-              navLinks.forEach(function (link) {
-                const href = link.getAttribute('href');
-                if (href === '#' + id) {
-                  link.classList.remove('text-muted');
-                  link.classList.add('text-accent');
-                  link.setAttribute('aria-current', 'true');
-                } else {
-                  link.classList.add('text-muted');
-                  link.classList.remove('text-accent');
-                  link.removeAttribute('aria-current');
-                }
-              });
-            }
+            if (!entry.isIntersecting) return;
+            var id = entry.target.id;
+            links.forEach(function (l) {
+              if (l.getAttribute('href') === '#' + id) l.setAttribute('aria-current', 'true');
+              else l.removeAttribute('aria-current');
+            });
           });
-        }, {
-          rootMargin: '-45% 0px -50% 0px'
-        });
+        }, { rootMargin: '-45% 0px -50% 0px' });
+        sections.forEach(function (s) { io.observe(s); });
+      }
 
-        sections.forEach(function (sec) {
-          observer.observe(sec);
+      /* ---------- 4. Navbar saat scroll ---------- */
+      function initNavbarScroll() {
+        var nav = document.getElementById('site-navbar');
+        if (!nav) return;
+        function update() { nav.classList.toggle('hairline-b', window.scrollY > 8); }
+        window.addEventListener('scroll', update, { passive: true });
+        update();
+      }
+
+      /* ---------- 5. Salin email + toast ---------- */
+      function initCopyAndToast() {
+        var toast = document.getElementById('toast-msg');
+        var timer = null;
+        var EMAIL = 'afwangibran19@gmail.com';
+
+        function show() {
+          if (!toast) return;
+          clearTimeout(timer);
+          toast.classList.remove('opacity-0', 'translate-y-3');
+          toast.classList.add('opacity-100', 'translate-y-0');
+          timer = setTimeout(function () {
+            toast.classList.remove('opacity-100', 'translate-y-0');
+            toast.classList.add('opacity-0', 'translate-y-3');
+          }, 2400);
+        }
+        function fallback() {
+          try {
+            var ta = document.createElement('textarea');
+            ta.value = EMAIL; ta.style.position = 'fixed'; ta.style.top = '-9999px';
+            document.body.appendChild(ta); ta.select();
+            var ok = document.execCommand('copy');
+            document.body.removeChild(ta);
+            if (ok) show();
+          } catch (e) {}
+        }
+        function copy() {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(EMAIL).then(show).catch(fallback);
+          } else { fallback(); }
+        }
+        ['hero-copy-btn', 'contact-copy-btn'].forEach(function (id) {
+          var b = document.getElementById(id);
+          if (b) b.addEventListener('click', copy);
         });
       }
 
-      // 4. Reveal Animation via IntersectionObserver
-      function initReveal() {
-        const reveals = document.querySelectorAll('.reveal');
-        if (!reveals.length) return;
-
-        if (!('IntersectionObserver' in window)) {
-          reveals.forEach(function (el) {
-            el.classList.add('is-visible');
-          });
+      /* ---------- 6. Kursor multiplayer ala Figma ----------
+         Setiap elemen .reveal yang masuk viewport "dibangun" oleh satu kursor:
+         kursor terbang ke pojok kiri atas, menarik frame seleksi ke pojok kanan bawah,
+         dan konten tersingkap mengikuti tarikan itu (clip-path). Setelah selesai kursor
+         berkeliaran di elemennya selama elemen masih terlihat. Elemen keluar viewport
+         -> kursor pergi. Jumlah kursor = jumlah elemen yang sedang terlihat (dibatasi). */
+      function initMultiplayer() {
+        if (!root.classList.contains('mp-on')) return;
+        if (!('IntersectionObserver' in window) || !Element.prototype.animate) {
+          root.classList.remove('mp-on');
           return;
         }
 
-        const observer = new IntersectionObserver(function (entries, obs) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              obs.unobserve(entry.target);
+        var EASE_OUT = 'cubic-bezier(.22,.8,.3,1)';
+        var EASE_IO = 'cubic-bezier(.65,0,.35,1)';
+        var FLY_MS = 560;
+
+        var PEOPLE = [
+          { id: 'frontend', name: 'Frontend',    abbr: 'FE', tone: 'blue',   msg: 'Merapikan layout' },
+          { id: 'backend',  name: 'Backend',     abbr: 'BE', tone: 'green',  msg: 'Menyambung endpoint' },
+          { id: 'database', name: 'Database',    abbr: 'DB', tone: 'orange', msg: 'Memeriksa skema' },
+          { id: 'analis',   name: 'Analis',      abbr: 'SA', tone: 'purple', msg: 'Menyusun alur sistem' },
+          { id: 'qa',       name: 'QA',          abbr: 'QA', tone: 'coral',  msg: 'Mengecek edge case' },
+          { id: 'devops',   name: 'DevOps',      abbr: 'OP', tone: 'teal',   msg: 'Menyiapkan deploy' },
+          { id: 'docs',     name: 'Dokumentasi', abbr: 'DC', tone: 'yellow', msg: 'Menulis spesifikasi' },
+          { id: 'audit',    name: 'Audit',       abbr: 'AU', tone: 'pink',   msg: 'Validasi silang data' }
+        ];
+        var byId = {};
+        PEOPLE.forEach(function (p) { byId[p.id] = p; });
+
+        var layer = document.getElementById('mp-layer');
+        var stack = document.getElementById('pres-stack');
+        var countEl = document.getElementById('pres-count');
+        var inUse = new Set();
+        var avatars = {};
+        var rotor = 0;
+        var states = new Map();
+
+        var ARROW = '<svg viewBox="0 0 13 20" aria-hidden="true"><path d="M.9.9v15.2l3.6-3.4 2.6 6.2 2.3-1-2.6-6.1h5z" fill="currentColor" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/></svg>';
+
+        /* --- presence di navbar --- */
+        if (stack) {
+          PEOPLE.forEach(function (p) {
+            var a = document.createElement('span');
+            a.className = 'pres-av';
+            a.setAttribute('data-tone', p.tone);
+            a.textContent = p.abbr;
+            stack.appendChild(a);
+            avatars[p.id] = a;
+          });
+        }
+        function renderPresence() {
+          PEOPLE.forEach(function (p) {
+            if (avatars[p.id]) avatars[p.id].classList.toggle('is-active', inUse.has(p.id));
+          });
+          if (countEl) countEl.textContent = inUse.size + ' aktif';
+        }
+
+        /* --- util geometri (koordinat dokumen) --- */
+        function docRect(el) {
+          var r = el.getBoundingClientRect();
+          return { x: r.left + window.scrollX, y: r.top + window.scrollY, w: r.width, h: r.height };
+        }
+        function docWidth() { return root.clientWidth; }
+        function startPoint(r) {
+          var left = rand() < 0.5;
+          var x = left ? r.x - 90 - rand() * 180 : r.x + r.w + 40 + rand() * 160;
+          var y = r.y - 50 - rand() * 120;
+          return { x: clamp(x, 6, docWidth() - 70), y: Math.max(6, y) };
+        }
+        function pointIn(el) {
+          var r = docRect(el);
+          var vTop = window.scrollY, vBot = vTop + window.innerHeight;
+          var top = Math.max(r.y, vTop + 24), bot = Math.min(r.y + r.h, vBot - 40);
+          var y = bot > top ? top + rand() * (bot - top) : r.y + r.h / 2;
+          var x = clamp(r.x + r.w * (0.1 + rand() * 0.8), 8, docWidth() - 100);
+          return { x: x, y: y };
+        }
+
+        /* --- pemilihan "orang" --- */
+        function maxCursors() { return Math.min(PEOPLE.length, window.innerWidth < 640 ? 5 : 8); }
+        function pickPerson(preferId) {
+          if (inUse.size >= maxCursors()) return null;
+          if (preferId && byId[preferId] && !inUse.has(preferId)) return byId[preferId];
+          for (var i = 0; i < PEOPLE.length; i++) {
+            var p = PEOPLE[(rotor + i) % PEOPLE.length];
+            if (!inUse.has(p.id)) { rotor = (rotor + i + 1) % PEOPLE.length; return p; }
+          }
+          return null;
+        }
+
+        /* --- elemen kursor & frame --- */
+        function makeCursor(p) {
+          var c = document.createElement('div');
+          c.className = 'mp-cursor';
+          c.setAttribute('data-tone', p.tone);
+          c.innerHTML = ARROW + '<div class="mp-label"><span class="mp-name"></span><span class="mp-msg"></span></div>';
+          c.querySelector('.mp-name').textContent = p.name;
+          layer.appendChild(c);
+          return c;
+        }
+        function makeFrame(p, r) {
+          var f = document.createElement('div');
+          f.className = 'mp-frame' + (r.w < 120 || r.h < 40 ? ' no-handles' : '');
+          f.setAttribute('data-tone', p.tone);
+          f.style.left = r.x + 'px'; f.style.top = r.y + 'px';
+          f.style.width = '0px'; f.style.height = '0px';
+          f.innerHTML = '<i class="h tl"></i><i class="h tr"></i><i class="h bl"></i><i class="h br"></i><span class="mp-size"></span>';
+          f.querySelector('.mp-size').textContent = Math.round(r.w) + ' × ' + Math.round(r.h);
+          layer.appendChild(f);
+          return f;
+        }
+        function place(c, x, y) {
+          c.style.transition = 'none';
+          c.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)';
+          void c.offsetWidth; /* paksa reflow sebelum transisi */
+        }
+        function move(c, x, y, ms, ease) {
+          c.style.transition = 'opacity .35s ease, transform ' + ms + 'ms ' + (ease || EASE_OUT);
+          c.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)';
+        }
+
+        /* --- chat bubble pada label --- */
+        function chat(cu) {
+          var msg = cu.c.querySelector('.mp-msg');
+          msg.textContent = cu.p.msg;
+          cu.c.classList.add('has-msg');
+          clearTimeout(cu.msgT);
+          cu.msgT = setTimeout(function () { cu.c.classList.remove('has-msg'); }, 2300);
+        }
+
+        /* --- keliling saat idle --- */
+        function wander(el, st, wait) {
+          var cu = st.cursor;
+          if (!cu) return;
+          cu.timer = setTimeout(function tick() {
+            if (st.cursor !== cu) return;
+            if (!document.hidden) {
+              var t = pointIn(el);
+              move(cu.c, t.x, t.y, 1200 + rand() * 900, EASE_IO);
+              if (rand() < 0.25) chat(cu);
+            }
+            cu.timer = setTimeout(tick, 2200 + rand() * 2600);
+          }, wait);
+        }
+
+        function release(st) {
+          var cu = st.cursor;
+          if (!cu) return;
+          clearTimeout(cu.timer);
+          clearTimeout(cu.msgT);
+          cu.c.style.transition = 'opacity .35s ease, transform .6s ' + EASE_OUT;
+          cu.c.classList.remove('is-on');
+          if (cu.f) cu.f.remove();
+          inUse.delete(cu.p.id);
+          renderPresence();
+          setTimeout(function () { cu.c.remove(); }, 450);
+          st.cursor = null;
+        }
+
+        function settle(el, st) {
+          var cu = st.cursor;
+          if (!cu) return;
+          if (st.pendingLeave) { release(st); return; }
+          setTimeout(function () {
+            if (!cu.f) return;
+            cu.f.classList.remove('is-on');
+            setTimeout(function () { if (cu.f) cu.f.remove(); }, 600);
+          }, 1000);
+          if (rand() < 0.55) setTimeout(function () { if (st.cursor === cu) chat(cu); }, 500);
+          wander(el, st, 1400);
+        }
+
+        /* --- bangun elemen untuk pertama kali --- */
+        function build(el, st, delay) {
+          var r = docRect(el);
+          var p = pickPerson(el.getAttribute('data-role'));
+          var fly = p ? FLY_MS : 0;
+          var dur = clamp(650 + (r.w + r.h) * 0.32, 800, 1500);
+          st.state = 'building';
+
+          if (p) {
+            var c = makeCursor(p);
+            var f = makeFrame(p, r);
+            st.cursor = { c: c, p: p, f: f, timer: null, msgT: null };
+            inUse.add(p.id);
+            renderPresence();
+
+            var s = startPoint(r);
+            place(c, s.x, s.y);
+            setTimeout(function () {
+              c.classList.add('is-on');
+              move(c, r.x, r.y, fly, EASE_OUT);
+            }, delay);
+            setTimeout(function () {
+              f.classList.add('is-on');
+              var fa = f.animate(
+                [{ width: '0px', height: '0px' }, { width: r.w + 'px', height: r.h + 'px' }],
+                { duration: dur, easing: EASE_IO, fill: 'forwards' }
+              );
+              fa.onfinish = function () {
+                f.style.width = r.w + 'px'; f.style.height = r.h + 'px';
+                fa.cancel();
+                f.classList.add('is-built');
+              };
+              move(c, r.x + r.w, r.y + r.h, dur, EASE_IO);
+            }, delay + fly);
+          }
+
+          var anim = el.animate(
+            [{ clipPath: 'inset(0 100% 100% 0)', opacity: 1 }, { clipPath: 'inset(0 0% 0% 0)', opacity: 1 }],
+            { duration: dur, delay: delay + fly, easing: EASE_IO, fill: 'both' }
+          );
+          anim.onfinish = function () {
+            el.classList.add('is-built');
+            anim.cancel();
+            st.built = true;
+            st.state = 'idle';
+            settle(el, st);
+          };
+        }
+
+        /* --- elemen yang sudah jadi masuk viewport lagi --- */
+        function reenter(el, st) {
+          var p = pickPerson(el.getAttribute('data-role'));
+          if (!p) return;
+          var r = docRect(el);
+          var c = makeCursor(p);
+          st.cursor = { c: c, p: p, f: null, timer: null, msgT: null };
+          inUse.add(p.id);
+          renderPresence();
+          var s = startPoint(r);
+          place(c, s.x, s.y);
+          requestAnimationFrame(function () {
+            if (st.cursor && st.cursor.c === c) {
+              c.classList.add('is-on');
+              var t = pointIn(el);
+              move(c, t.x, t.y, 900, EASE_OUT);
             }
           });
-        }, {
-          threshold: 0.1,
-          rootMargin: '0px 0px -40px 0px'
-        });
-
-        reveals.forEach(function (el) {
-          observer.observe(el);
-        });
-      }
-
-      // 5. Copy + Toast Notification
-      function initCopyAndToast() {
-        const toast = document.getElementById('toast-msg');
-        let toastTimeout = null;
-
-        function showToast(message) {
-          if (!toast) return;
-          if (message) {
-            const span = toast.querySelector('span');
-            if (span) span.textContent = message;
-          }
-
-          if (toastTimeout) {
-            clearTimeout(toastTimeout);
-          }
-
-          toast.classList.remove('opacity-0', 'translate-y-3');
-          toast.classList.add('opacity-100', 'translate-y-0');
-
-          toastTimeout = setTimeout(function () {
-            toast.classList.remove('opacity-100', 'translate-y-0');
-            toast.classList.add('opacity-0', 'translate-y-3');
-            toastTimeout = null;
-          }, 2400);
+          wander(el, st, 1500);
         }
 
-        function copyEmail() {
-          const email = 'afwangibran19@gmail.com';
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(email).then(function () {
-              showToast('Email berhasil disalin');
-            }).catch(function () {
-              fallbackCopy(email);
-            });
-          } else {
-            fallbackCopy(email);
-          }
-        }
+        /* --- pengamat viewport --- */
+        document.querySelectorAll('.reveal').forEach(function (el) {
+          states.set(el, { built: false, state: 'idle', visible: false, pendingLeave: false, cursor: null });
+        });
 
-        function fallbackCopy(text) {
-          try {
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            textarea.style.position = 'fixed';
-            textarea.style.top = '-9999px';
-            textarea.style.left = '-9999px';
-            document.body.appendChild(textarea);
-            textarea.focus();
-            textarea.select();
-            const successful = document.execCommand('copy');
-            document.body.removeChild(textarea);
-            if (successful) {
-              showToast('Email berhasil disalin');
+        var io = new IntersectionObserver(function (entries) {
+          var order = 0;
+          entries.forEach(function (entry) {
+            var el = entry.target;
+            var st = states.get(el);
+            if (!st) return;
+            if (entry.isIntersecting) {
+              st.visible = true;
+              st.pendingLeave = false;
+              if (!st.built && st.state !== 'building') build(el, st, Math.min(order++ * 140, 800));
+              else if (st.built && !st.cursor) reenter(el, st);
+            } else {
+              st.visible = false;
+              if (st.state === 'building') st.pendingLeave = true;
+              else release(st);
             }
-          } catch (err) {}
-        }
+          });
+        }, { rootMargin: '0px 0px -12% 0px' });
 
-        const heroBtn = document.getElementById('hero-copy-btn');
-        const contactBtn = document.getElementById('contact-copy-btn');
+        states.forEach(function (_, el) { io.observe(el); });
 
-        if (heroBtn) heroBtn.addEventListener('click', copyEmail);
-        if (contactBtn) contactBtn.addEventListener('click', copyEmail);
+        /* Hemat tenaga: sembunyikan kursor saat tab tidak aktif */
+        document.addEventListener('visibilitychange', function () {
+          layer.style.visibility = document.hidden ? 'hidden' : '';
+        });
       }
 
-      // 6. Navbar Scroll State (Toggle Hairline Border)
-      function initNavbarScroll() {
-        const navbar = document.getElementById('site-navbar');
-        if (!navbar) return;
-
-        function updateNavbar() {
-          if (window.scrollY > 8) {
-            navbar.classList.add('hairline-b');
-          } else {
-            navbar.classList.remove('hairline-b');
-          }
-        }
-
-        window.addEventListener('scroll', updateNavbar, { passive: true });
-        updateNavbar();
-      }
-
-      // Initialize all modules when DOM is ready
+      /* ---------- Init ---------- */
       function init() {
         initTheme();
         initMobileMenu();
         initScrollSpy();
-        initReveal();
-        initCopyAndToast();
         initNavbarScroll();
+        initCopyAndToast();
 
-        // Initialize Lucide icons
+        try {
+          initMultiplayer();
+        } catch (err) {
+          /* Bila sistem kursor gagal, tampilkan konten apa adanya */
+          root.classList.remove('mp-on');
+          if (window.console) console.warn('Kursor multiplayer dinonaktifkan:', err);
+        }
+
         if (window.lucide && typeof window.lucide.createIcons === 'function') {
           window.lucide.createIcons();
         }
       }
 
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-      } else {
-        init();
-      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+      else init();
     })();
   </script>
 </body>
