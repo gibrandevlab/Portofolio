@@ -187,13 +187,16 @@
     .tile:hover { box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06); }
     .tile-sm { border-radius: 20px; }
 
-    .tile-invert {
-      background: var(--ink); color: var(--on-ink); border-color: transparent;
+    .tile.tile-invert,
+    .tile.tile-invert[data-tone] {
+      background: var(--ink);
+      color: var(--on-ink);
+      border-color: transparent;
       --text: var(--on-ink);
-      --muted: color-mix(in srgb, var(--on-ink) 66%, transparent);
-      --hairline: color-mix(in srgb, var(--on-ink) 22%, transparent);
-      --card: color-mix(in srgb, var(--on-ink) 10%, transparent);
-      --surface: color-mix(in srgb, var(--on-ink) 14%, transparent);
+      --muted: color-mix(in srgb, var(--on-ink) 74%, transparent);
+      --hairline: color-mix(in srgb, var(--on-ink) 24%, transparent);
+      --card: color-mix(in srgb, var(--on-ink) 12%, transparent);
+      --surface: color-mix(in srgb, var(--on-ink) 16%, transparent);
     }
     .tile-invert .btn-primary { background: var(--on-ink); color: var(--ink); }
 
