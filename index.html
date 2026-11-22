@@ -772,7 +772,7 @@
   <footer class="hairline-t py-12 text-xs" style="color:var(--muted)">
     <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
       <p>© 2026 Afwan Gibran Muhammad Algiffari</p>
-      <p class="mono text-[11px]">Kursor berwarna = peran yang saya jalankan di setiap proyek.</p>
+      <p class="mono text-[11px]">Kursor kolaborator = simulasi pengerjaan setiap bagian proyek.</p>
       <p>Built with HTML, Tailwind CSS &amp; Vanilla JS</p>
     </div>
   </footer>
@@ -919,9 +919,8 @@
       }
 
       /* ---------- 6. Kursor multiplayer ala Figma ----------
-         Setiap elemen teks .reveal yang masuk viewport dibangun oleh satu kursor:
-         kursor terbang ke pojok kiri atas, menarik frame seleksi ke pojok kanan bawah,
-         dan konten teks tersingkap mengikuti tarikan itu (clip-path). */
+         Setiap elemen teks .reveal yang masuk viewport dibangun oleh kursor kolaborator:
+         setiap kursor memiliki nama unik yang berbeda-beda ala tim desain & engineer. */
       function initMultiplayer() {
         if (!root.classList.contains('mp-on')) return;
         if (!('IntersectionObserver' in window) || !Element.prototype.animate) {
@@ -933,21 +932,36 @@
         var EASE_IO = 'cubic-bezier(.65,0,.35,1)';
         var FLY_MS = 460;
 
-        var PEOPLE = [
-          { id: 'frontend', name: 'Frontend',    abbr: 'FE', tone: 'blue',   msg: 'Merapikan layout' },
-          { id: 'backend',  name: 'Backend',     abbr: 'BE', tone: 'green',  msg: 'Menyambung endpoint' },
-          { id: 'database', name: 'Database',    abbr: 'DB', tone: 'orange', msg: 'Memeriksa skema' },
-          { id: 'analis',   name: 'Analis',      abbr: 'SA', tone: 'purple', msg: 'Menyusun alur sistem' },
-          { id: 'qa',       name: 'QA',          abbr: 'QA', tone: 'coral',  msg: 'Mengecek edge case' },
-          { id: 'devops',   name: 'DevOps',      abbr: 'OP', tone: 'teal',   msg: 'Menyiapkan deploy' },
-          { id: 'docs',     name: 'Dokumentasi', abbr: 'DC', tone: 'yellow', msg: 'Menulis spesifikasi' },
-          { id: 'audit',    name: 'Audit',       abbr: 'AU', tone: 'pink',   msg: 'Validasi silang data' }
+        var TONES = ['blue', 'green', 'orange', 'purple', 'coral', 'teal', 'yellow', 'pink'];
+
+        var NAMES = [
+          'Afwan', 'Sarah', 'Dimas', 'Nadia', 'Gibran', 'Rizky', 'Alya', 'Kevin',
+          'Tiara', 'Farhan', 'Citra', 'Bagas', 'Dita', 'Reza', 'Maya', 'Gilang',
+          'Putri', 'Yoga', 'Hendra', 'Bella', 'Fahmi', 'Laras', 'Doni', 'Tania',
+          'Aris', 'Vina', 'Fajar', 'Rani', 'Ilham', 'Dina', 'Agus', 'Winda',
+          'Rifky', 'Sari', 'Adit', 'Rina', 'Budi', 'Tari', 'Eko', 'Lia',
+          'Dani', 'Intan', 'Satria', 'Melati', 'Bayu', 'Annisa', 'Rangga', 'Pratiwi',
+          'Eka', 'Dewi', 'Radit', 'Nabila', 'Fikri', 'Syifa', 'Arya', 'Zahra',
+          'Wahyu', 'Cindy', 'Danu', 'Gita', 'Taufik', 'Indah', 'Lukman', 'Ayu',
+          'Galih', 'Sinta', 'Ridwan', 'Meisya', 'Agung', 'Ratna', 'Pandu', 'Farah',
+          'Rian', 'Nurul', 'Alif', 'Keisha', 'Wildan', 'Mutiara', 'Sandy', 'Safira',
+          'Surya', 'Sabrina', 'Rio', 'Aliyah', 'Iqbal', 'Sheila', 'Zaki', 'Tasya',
+          'Panji', 'Hanum', 'Bram', 'Kirana', 'Daffa', 'Amalia', 'Fauzan', 'Naufal'
         ];
-        var byId = {};
-        PEOPLE.forEach(function (p) { byId[p.id] = p; });
+
+        var MESSAGES = [
+          'Merapikan layout', 'Menyambung endpoint', 'Memeriksa skema database',
+          'Menyusun alur sistem', 'Mengecek edge case', 'Menyiapkan deploy',
+          'Menulis spesifikasi', 'Validasi silang data', 'Optimasi performa query',
+          'Mengecek responsivitas', 'Pemeriksaan hak akses RBAC', 'Validasi constraint relasi',
+          'Review struktur controller', 'Pengecekan formula SPK', 'Sinkronisasi migrasi DB',
+          'Pengujian zero-discrepancy', 'Audit data lapangan', 'Menata hierarki tipografi',
+          'Refactoring kode legacy', 'Pemeriksaan token desain', 'Pengujian multi-device',
+          'Validasi integritas foreign key', 'Penataan relasi ERD', 'Pemeriksaan status transaksi',
+          'Dokumentasi API contract', 'Audit rekonsiliasi data', 'Mengecek konsistensi warna'
+        ];
 
         var layer = document.getElementById('mp-layer');
-        var rotor = 0;
         var states = new Map();
 
         var ARROW = '<svg viewBox="0 0 13 20" aria-hidden="true"><path d="M.9.9v15.2l3.6-3.4 2.6 6.2 2.3-1-2.6-6.1h5z" fill="currentColor" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/></svg>';
@@ -964,23 +978,8 @@
           return { x: Math.max(6, Math.min(docWidth() - 70, x)), y: Math.max(6, y) };
         }
 
-        function getRole(el) {
-          return el.getAttribute('data-role') || (el.closest('[data-role]') && el.closest('[data-role]').getAttribute('data-role')) || null;
-        }
         function getTone(el) {
           return el.getAttribute('data-tone') || (el.closest('[data-tone]') && el.closest('[data-tone]').getAttribute('data-tone')) || null;
-        }
-
-        function pickPerson(preferId, preferTone) {
-          if (preferId && byId[preferId]) return byId[preferId];
-          if (preferTone) {
-            for (var i = 0; i < PEOPLE.length; i++) {
-              if (PEOPLE[i].tone === preferTone) return PEOPLE[i];
-            }
-          }
-          var p = PEOPLE[rotor % PEOPLE.length];
-          rotor++;
-          return p;
         }
 
         function makeCursor(p) {
@@ -1044,7 +1043,7 @@
             st.built = true;
             return;
           }
-          var p = pickPerson(getRole(el), getTone(el));
+          var p = st.person;
           var fly = FLY_MS;
           var dur = Math.max(500, Math.min(1000, 480 + (r.w + r.h) * 0.22));
           st.state = 'building';
@@ -1104,9 +1103,22 @@
           };
         }
 
-        /* --- pengamat viewport --- */
-        document.querySelectorAll('.reveal').forEach(function (el) {
-          states.set(el, { built: false, state: 'idle', visible: false, pendingLeave: false, cursor: null });
+        /* --- inisialisasi state & penetapan nama unik per elemen --- */
+        var revealList = document.querySelectorAll('.reveal');
+        revealList.forEach(function (el, idx) {
+          var tone = getTone(el) || TONES[idx % TONES.length];
+          var person = {
+            name: NAMES[idx % NAMES.length],
+            tone: tone,
+            msg: MESSAGES[idx % MESSAGES.length]
+          };
+          states.set(el, {
+            built: false,
+            state: 'idle',
+            visible: false,
+            cursor: null,
+            person: person
+          });
         });
 
         var io = new IntersectionObserver(function (entries) {
