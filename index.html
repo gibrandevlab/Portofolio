@@ -18,21 +18,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Dijalankan sebelum render pertama: tema tersimpan + mode animasi kursor -->
   <script>
-    (function () {
-      var d = document.documentElement;
-      try {
-        var saved = localStorage.getItem('theme');
-        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (saved === 'dark' || (!saved && prefersDark)) d.classList.add('dark');
-      } catch (e) {}
-      try {
-        // Kursor multiplayer hanya aktif bila pengguna tidak meminta pengurangan gerak
-        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('mp-on');
-      } catch (e) {}
-    })();
-  </script>
+  (function () {
+    var d = document.documentElement;
+    try {
+      var saved = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) d.classList.add('dark');
+    } catch (e) {}
+    d.classList.add('mp-on');
+  })();
+</script>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -266,7 +262,7 @@
 
     /* Status dot */
     @keyframes pulse-status { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(.85); } }
-    @media (prefers-reduced-motion: no-preference) { .status-pulse { animation: pulse-status 2.4s ease-in-out infinite; } }
+    .status-pulse { animation: pulse-status 2.4s ease-in-out infinite; }
 
     /* =========================================================
        REVEAL + KURSOR MULTIPLAYER
