@@ -309,18 +309,6 @@
       .mp-cursor svg { width: 13px; height: 18px; }
       .mp-label { font-size: 10px; padding: 4px 7px; left: 10px; top: 14px; }
     }
-
-    /* Presence: tumpukan avatar di navbar, mengikuti jumlah kursor aktif */
-    .pres-stack { display: flex; align-items: center; padding-left: 6px; }
-    .pres-av {
-      width: 0; height: 22px; margin-left: 0; opacity: 0; transform: scale(.5); overflow: hidden;
-      display: flex; align-items: center; justify-content: center; border-radius: 9999px;
-      font: 600 9px/1 "SF Mono", "JetBrains Mono", ui-monospace, monospace;
-      background: var(--t); color: var(--t-on);
-      transition: width .3s ease, margin .3s ease, opacity .3s ease, transform .3s ease;
-    }
-    .pres-av.is-active { width: 22px; margin-left: -6px; opacity: 1; transform: scale(1); box-shadow: 0 0 0 2px var(--bg); }
-    html:not(.mp-on) .presence { display: none !important; }
   </style>
 </head>
 <body>
@@ -342,11 +330,6 @@
       </nav>
 
       <div class="flex items-center gap-3">
-        <div class="presence hidden lg:flex items-center gap-2" aria-hidden="true" title="Peran yang sedang aktif di halaman ini">
-          <div class="pres-stack" id="pres-stack"></div>
-          <span id="pres-count" class="mono text-[11px]" style="color:var(--muted)">0 aktif</span>
-        </div>
-
         <button id="theme-toggle" type="button" class="w-9 h-9 rounded-full flex items-center justify-center hairline-all" style="color:var(--muted)" aria-label="Ganti mode tampilan">
           <i data-lucide="moon" class="theme-moon w-4 h-4"></i>
           <i data-lucide="sun" class="theme-sun w-4 h-4"></i>
@@ -412,20 +395,20 @@
 
         <!-- Sorotan -->
         <div class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
-          <div class="reveal tile tile-sm p-6" data-tone="orange" data-role="database">
+          <div class="tile tile-sm p-6" data-tone="orange" data-role="database">
             <span class="dot mb-3"></span>
-            <p class="text-xl font-semibold tracking-tight mb-1">MySQL → MS SQL Server</p>
-            <p class="text-sm" style="color:var(--muted)">Migrasi database tanpa downtime.</p>
+            <p class="reveal text-xl font-semibold tracking-tight mb-1" data-tone="orange" data-role="database">MySQL → MS SQL Server</p>
+            <p class="reveal text-sm" style="color:var(--muted)" data-tone="orange" data-role="database">Migrasi database tanpa downtime.</p>
           </div>
-          <div class="reveal tile tile-sm p-6" data-tone="green" data-role="backend">
+          <div class="tile tile-sm p-6" data-tone="green" data-role="backend">
             <span class="dot mb-3"></span>
-            <p class="text-xl font-semibold tracking-tight mb-1">RBAC per model dan aksi</p>
-            <p class="text-sm" style="color:var(--muted)">Hak akses granular: view, edit, detail, update.</p>
+            <p class="reveal text-xl font-semibold tracking-tight mb-1" data-tone="green" data-role="backend">RBAC per model dan aksi</p>
+            <p class="reveal text-sm" style="color:var(--muted)" data-tone="green" data-role="backend">Hak akses granular: view, edit, detail, update.</p>
           </div>
-          <div class="reveal tile tile-sm p-6" data-tone="pink" data-role="audit">
+          <div class="tile tile-sm p-6" data-tone="pink" data-role="audit">
             <span class="dot mb-3"></span>
-            <p class="text-xl font-semibold tracking-tight mb-1">Audit data lapangan</p>
-            <p class="text-sm" style="color:var(--muted)">Validasi silang untuk BPS, Panwaslu, dan KPU.</p>
+            <p class="reveal text-xl font-semibold tracking-tight mb-1" data-tone="pink" data-role="audit">Audit data lapangan</p>
+            <p class="reveal text-sm" style="color:var(--muted)" data-tone="pink" data-role="audit">Validasi silang untuk BPS, Panwaslu, dan KPU.</p>
           </div>
         </div>
       </div>
@@ -434,17 +417,17 @@
     <!-- PROYEK -->
     <section id="projects" class="py-28 md:py-40" style="background:var(--surface)">
       <div class="max-w-5xl mx-auto px-6">
-        <div class="reveal mb-16">
-          <p class="frame-label mb-3" data-tone="green"><i data-lucide="frame"></i>Proyek</p>
-          <h2 class="headline mb-4">Tiga sistem yang <span class="hl" data-tone="green">benar-benar dipakai</span>.</h2>
-          <p class="subhead">Dari operasional toko sampai migrasi database perusahaan.</p>
+        <div class="mb-16">
+          <p class="reveal frame-label mb-3" data-tone="green" data-role="backend"><i data-lucide="frame"></i>Proyek</p>
+          <h2 class="reveal headline mb-4" data-tone="green" data-role="backend">Tiga sistem yang <span class="hl" data-tone="green">benar-benar dipakai</span>.</h2>
+          <p class="reveal subhead" data-tone="green" data-role="backend">Dari operasional toko sampai migrasi database perusahaan.</p>
         </div>
 
         <div class="space-y-12">
 
           <!-- ERP -->
-          <article class="reveal tile p-8 md:p-12" data-tone="green" data-role="backend">
-            <div class="mb-8">
+          <article class="tile p-8 md:p-12" data-tone="green" data-role="backend">
+            <div class="reveal mb-8" data-role="backend">
               <div class="mock">
                 <div class="mock-bar">
                   <div class="flex items-center gap-1.5">
@@ -482,17 +465,19 @@
               </div>
               <p class="mono text-[11px] mt-2.5 text-right" style="color:var(--muted)">Ilustrasi antarmuka</p>
             </div>
-            <h3 class="text-2xl font-semibold tracking-tight mb-3">Sistem Manajemen Toko Frozen Food (ERP)</h3>
-            <p class="leading-relaxed mb-6" style="color:var(--muted)">Sistem operasional toko dengan modul stok, pembukuan, data pelanggan, dan alur permintaan restok ke supplier. Sistem Penunjang Keputusan (SPK) memprioritaskan produk yang perlu di-restock. Akses dikontrol dengan RBAC per model dan per aksi: view, edit, detail, update.</p>
-            <div class="flex flex-wrap items-center gap-2 mb-6">
+            <h3 class="reveal text-2xl font-semibold tracking-tight mb-3" data-role="backend">Sistem Manajemen Toko Frozen Food (ERP)</h3>
+            <p class="reveal leading-relaxed mb-6" style="color:var(--muted)" data-role="backend">Sistem operasional toko dengan modul stok, pembukuan, data pelanggan, dan alur permintaan restok ke supplier. Sistem Penunjang Keputusan (SPK) memprioritaskan produk yang perlu di-restock. Akses dikontrol dengan RBAC per model dan per aksi: view, edit, detail, update.</p>
+            <div class="reveal flex flex-wrap items-center gap-2 mb-6" data-role="backend">
               <span class="pill">Laravel</span><span class="pill">Blade</span><span class="pill">MySQL</span><span class="pill">RBAC</span><span class="pill">SPK</span>
             </div>
-            <a href="https://github.com/gibrandevlab/ERP-FROZEN-FOOD" target="_blank" rel="noopener noreferrer" class="action-link">Lihat di GitHub <span aria-hidden="true">›</span></a>
+            <div class="reveal" data-role="backend">
+              <a href="https://github.com/gibrandevlab/ERP-FROZEN-FOOD" target="_blank" rel="noopener noreferrer" class="action-link">Lihat di GitHub <span aria-hidden="true">›</span></a>
+            </div>
           </article>
 
           <!-- Vita Dulcedo -->
-          <article class="reveal tile p-8 md:p-12" data-tone="blue" data-role="frontend">
-            <div class="mb-8">
+          <article class="tile p-8 md:p-12" data-tone="blue" data-role="frontend">
+            <div class="reveal mb-8" data-role="frontend">
               <div class="mock">
                 <div class="mock-bar">
                   <div class="flex items-center gap-1.5">
@@ -523,17 +508,19 @@
               </div>
               <p class="mono text-[11px] mt-2.5 text-right" style="color:var(--muted)">Ilustrasi antarmuka</p>
             </div>
-            <h3 class="text-2xl font-semibold tracking-tight mb-3">Vita Dulcedo, Sistem Manajemen Donasi Panti Asuhan</h3>
-            <p class="leading-relaxed mb-6" style="color:var(--muted)">Platform donasi uang dan barang dengan dashboard terpisah untuk admin dan donatur. Setiap donatur punya profil untuk melacak status donasinya. SPK merekomendasikan alokasi donasi sesuai preferensi donatur.</p>
-            <div class="flex flex-wrap items-center gap-2 mb-6">
+            <h3 class="reveal text-2xl font-semibold tracking-tight mb-3" data-role="frontend">Vita Dulcedo, Sistem Manajemen Donasi Panti Asuhan</h3>
+            <p class="reveal leading-relaxed mb-6" style="color:var(--muted)" data-role="frontend">Platform donasi uang dan barang dengan dashboard terpisah untuk admin dan donatur. Setiap donatur punya profil untuk melacak status donasinya. SPK merekomendasikan alokasi donasi sesuai preferensi donatur.</p>
+            <div class="reveal flex flex-wrap items-center gap-2 mb-6" data-role="frontend">
               <span class="pill">Laravel</span><span class="pill">PHP</span><span class="pill">Blade</span><span class="pill">MySQL</span><span class="pill">Decision Support</span>
             </div>
-            <a href="https://github.com/gibrandevlab/Vita-Dulcedo" target="_blank" rel="noopener noreferrer" class="action-link">Lihat di GitHub <span aria-hidden="true">›</span></a>
+            <div class="reveal" data-role="frontend">
+              <a href="https://github.com/gibrandevlab/Vita-Dulcedo" target="_blank" rel="noopener noreferrer" class="action-link">Lihat di GitHub <span aria-hidden="true">›</span></a>
+            </div>
           </article>
 
           <!-- CMS + migrasi -->
-          <article class="reveal tile p-8 md:p-12" data-tone="orange" data-role="database">
-            <div class="mb-8">
+          <article class="tile p-8 md:p-12" data-tone="orange" data-role="database">
+            <div class="reveal mb-8" data-role="database">
               <div class="mock">
                 <div class="mock-bar">
                   <div class="flex items-center gap-1.5">
@@ -569,13 +556,15 @@
               </div>
               <p class="mono text-[11px] mt-2.5 text-right" style="color:var(--muted)">Ilustrasi antarmuka</p>
             </div>
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs mono mb-3" style="background:var(--card);border:1px solid color-mix(in srgb, var(--t) 35%, transparent);color:var(--t-ink)">Studi kasus enterprise</div>
-            <h3 class="text-2xl font-semibold tracking-tight mb-3">Enterprise CMS &amp; Migrasi Database</h3>
-            <p class="leading-relaxed mb-6" style="color:var(--muted)">CMS internal perusahaan dengan frontend Ionic Angular dan backend Node.js (Express). Refactoring menyeluruh pada kode legacy agar lebih mudah dirawat, lalu migrasi database dari MySQL ke Microsoft SQL Server tanpa downtime.</p>
-            <div class="flex flex-wrap items-center gap-2 mb-6">
+            <div class="reveal inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs mono mb-3" style="background:var(--card);border:1px solid color-mix(in srgb, var(--t) 35%, transparent);color:var(--t-ink)" data-role="database">Studi kasus enterprise</div>
+            <h3 class="reveal text-2xl font-semibold tracking-tight mb-3" data-role="database">Enterprise CMS &amp; Migrasi Database</h3>
+            <p class="reveal leading-relaxed mb-6" style="color:var(--muted)" data-role="database">CMS internal perusahaan dengan frontend Ionic Angular dan backend Node.js (Express). Refactoring menyeluruh pada kode legacy agar lebih mudah dirawat, lalu migrasi database dari MySQL ke Microsoft SQL Server tanpa downtime.</p>
+            <div class="reveal flex flex-wrap items-center gap-2 mb-6" data-role="database">
               <span class="pill">Ionic Angular</span><span class="pill">Node.js</span><span class="pill">Express</span><span class="pill">MS SQL Server</span>
             </div>
-            <p class="text-sm mono inline-flex items-center gap-2" style="color:var(--muted)"><i data-lucide="lock" class="w-4 h-4"></i>Repositori privat</p>
+            <div class="reveal" data-role="database">
+              <p class="text-sm mono inline-flex items-center gap-2" style="color:var(--muted)"><i data-lucide="lock" class="w-4 h-4"></i>Repositori privat</p>
+            </div>
           </article>
 
         </div>
@@ -585,56 +574,56 @@
     <!-- PENGALAMAN -->
     <section id="experience" class="py-28 md:py-40">
       <div class="max-w-5xl mx-auto px-6">
-        <div class="reveal mb-16">
-          <p class="frame-label mb-3" data-tone="orange"><i data-lucide="frame"></i>Pengalaman</p>
-          <h2 class="headline">Jejak <span class="hl" data-tone="orange">kerja</span>.</h2>
+        <div class="mb-16">
+          <p class="reveal frame-label mb-3" data-tone="orange" data-role="database"><i data-lucide="frame"></i>Pengalaman</p>
+          <h2 class="reveal headline" data-tone="orange" data-role="database">Jejak <span class="hl" data-tone="orange">kerja</span>.</h2>
         </div>
 
         <div class="timeline space-y-12 mb-20">
 
-          <div class="reveal tl-item" data-tone="orange" data-role="database">
+          <div class="tl-item" data-tone="orange" data-role="database">
             <span class="node"></span>
-            <div class="tl-date mono text-xs pt-1" style="color:var(--muted)">Sep 2026 – Des 2026</div>
+            <div class="reveal tl-date mono text-xs pt-1" style="color:var(--muted)" data-role="database">Sep 2026 – Des 2026</div>
             <div>
-              <h3 class="text-lg font-semibold tracking-tight">Magang Full-Stack Developer · PT Bakrie Pipe Industri</h3>
+              <h3 class="reveal text-lg font-semibold tracking-tight" data-role="database">Magang Full-Stack Developer · PT Bakrie Pipe Industri</h3>
               <ul class="mt-3 space-y-2 list-disc list-outside pl-5" style="color:var(--muted)">
-                <li>Mengembangkan aplikasi CMS dengan frontend Ionic Angular dan backend Node.js (Express).</li>
-                <li>Melakukan refactoring kode legacy agar lebih mudah diskalakan dan dibaca.</li>
-                <li>Memigrasikan database dari MySQL ke Microsoft SQL Server tanpa mengganggu sistem yang berjalan.</li>
+                <li class="reveal" data-role="database">Mengembangkan aplikasi CMS dengan frontend Ionic Angular dan backend Node.js (Express).</li>
+                <li class="reveal" data-role="database">Melakukan refactoring kode legacy agar lebih mudah diskalakan dan dibaca.</li>
+                <li class="reveal" data-role="database">Memigrasikan database dari MySQL ke Microsoft SQL Server tanpa mengganggu sistem yang berjalan.</li>
               </ul>
             </div>
           </div>
 
-          <div class="reveal tl-item" data-tone="purple" data-role="analis">
+          <div class="tl-item" data-tone="purple" data-role="analis">
             <span class="node"></span>
-            <div class="tl-date mono text-xs pt-1" style="color:var(--muted)">Jan 2024 – Sekarang</div>
+            <div class="reveal tl-date mono text-xs pt-1" style="color:var(--muted)" data-role="analis">Jan 2024 – Sekarang</div>
             <div>
-              <h3 class="text-lg font-semibold tracking-tight">Freelance Web Developer &amp; System Analyst · Mandiri</h3>
+              <h3 class="reveal text-lg font-semibold tracking-tight" data-role="analis">Freelance Web Developer &amp; System Analyst · Mandiri</h3>
               <ul class="mt-3 space-y-2 list-disc list-outside pl-5" style="color:var(--muted)">
-                <li>Membangun aplikasi web full-stack end-to-end (Laravel &amp; MySQL) dengan otorisasi RBAC.</li>
-                <li>Menyusun dokumentasi teknis, spesifikasi sistem, dan diagram ER, serta mengelola deployment.</li>
+                <li class="reveal" data-role="analis">Membangun aplikasi web full-stack end-to-end (Laravel &amp; MySQL) dengan otorisasi RBAC.</li>
+                <li class="reveal" data-role="analis">Menyusun dokumentasi teknis, spesifikasi sistem, dan diagram ER, serta mengelola deployment.</li>
               </ul>
             </div>
           </div>
 
-          <div class="reveal tl-item" data-tone="green" data-role="backend">
+          <div class="tl-item" data-tone="green" data-role="backend">
             <span class="node"></span>
-            <div class="tl-date mono text-xs pt-1" style="color:var(--muted)">2021</div>
+            <div class="reveal tl-date mono text-xs pt-1" style="color:var(--muted)" data-role="backend">2021</div>
             <div>
-              <h3 class="text-lg font-semibold tracking-tight">Praktik Kerja Lapangan, Pengembangan Sistem ERP · PT Agel Langgeng</h3>
+              <h3 class="reveal text-lg font-semibold tracking-tight" data-role="backend">Praktik Kerja Lapangan, Pengembangan Sistem ERP · PT Agel Langgeng</h3>
               <ul class="mt-3 space-y-2 list-disc list-outside pl-5" style="color:var(--muted)">
-                <li>Mengembangkan modul aplikasi ERP dan fitur notifikasi push ke perangkat mobile pengguna dengan CodeIgniter.</li>
+                <li class="reveal" data-role="backend">Mengembangkan modul aplikasi ERP dan fitur notifikasi push ke perangkat mobile pengguna dengan CodeIgniter.</li>
               </ul>
             </div>
           </div>
 
-          <div class="reveal tl-item" data-tone="pink" data-role="audit">
+          <div class="tl-item" data-tone="pink" data-role="audit">
             <span class="node"></span>
-            <div class="tl-date mono text-xs pt-1" style="color:var(--muted)">2024 – 2026</div>
+            <div class="reveal tl-date mono text-xs pt-1" style="color:var(--muted)" data-role="audit">2024 – 2026</div>
             <div>
-              <h3 class="text-lg font-semibold tracking-tight">Data Verification, Audit &amp; Field Operations · BPS, Panwaslu, &amp; KPU</h3>
+              <h3 class="reveal text-lg font-semibold tracking-tight" data-role="audit">Data Verification, Audit &amp; Field Operations · BPS, Panwaslu, &amp; KPU</h3>
               <ul class="mt-3 space-y-2 list-disc list-outside pl-5" style="color:var(--muted)">
-                <li>Menangani audit integritas sistem digital dan validasi silang ribuan data kependudukan dan finansial usaha (Sensus Ekonomi dan Wilkerstat BPS), dengan pelaporan real-time dan standar zero-discrepancy.</li>
+                <li class="reveal" data-role="audit">Menangani audit integritas sistem digital dan validasi silang ribuan data kependudukan dan finansial usaha (Sensus Ekonomi dan Wilkerstat BPS), dengan pelaporan real-time dan standar zero-discrepancy.</li>
               </ul>
             </div>
           </div>
@@ -642,17 +631,17 @@
         </div>
 
         <div class="pt-8 hairline-t">
-          <p class="frame-label mb-6" data-tone="teal"><i data-lucide="frame"></i>Pendidikan</p>
+          <p class="reveal frame-label mb-6" data-tone="teal" data-role="devops"><i data-lucide="frame"></i>Pendidikan</p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="reveal tile p-8" data-tone="teal">
-              <p class="mono text-xs mb-2" style="color:var(--muted)">2023 – 2027 · Semester 7</p>
-              <h4 class="text-xl font-semibold tracking-tight mb-1">Universitas Bina Sarana Informatika</h4>
-              <p style="color:var(--muted)">S1 Sistem Informasi</p>
+            <div class="tile p-8" data-tone="teal" data-role="devops">
+              <p class="reveal mono text-xs mb-2" style="color:var(--muted)" data-role="devops">2023 – 2027 · Semester 7</p>
+              <h4 class="reveal text-xl font-semibold tracking-tight mb-1" data-role="devops">Universitas Bina Sarana Informatika</h4>
+              <p class="reveal" style="color:var(--muted)" data-role="devops">S1 Sistem Informasi</p>
             </div>
-            <div class="reveal tile p-8" data-tone="yellow">
-              <p class="mono text-xs mb-2" style="color:var(--muted)">2020 – 2023</p>
-              <h4 class="text-xl font-semibold tracking-tight mb-1">SMK Negeri 5 Kota Bekasi</h4>
-              <p style="color:var(--muted)">Rekayasa Perangkat Lunak</p>
+            <div class="tile p-8" data-tone="yellow" data-role="docs">
+              <p class="reveal mono text-xs mb-2" style="color:var(--muted)" data-role="docs">2020 – 2023</p>
+              <h4 class="reveal text-xl font-semibold tracking-tight mb-1" data-role="docs">SMK Negeri 5 Kota Bekasi</h4>
+              <p class="reveal" style="color:var(--muted)" data-role="docs">Rekayasa Perangkat Lunak</p>
             </div>
           </div>
         </div>
@@ -662,80 +651,80 @@
     <!-- SKILL -->
     <section id="skills" class="py-28 md:py-40" style="background:var(--surface)">
       <div class="max-w-5xl mx-auto px-6">
-        <div class="reveal mb-16">
-          <p class="frame-label mb-3" data-tone="purple"><i data-lucide="frame"></i>Skill</p>
-          <h2 class="headline mb-4">Yang saya kuasai, dan <span class="hl" data-tone="purple">buktinya</span>.</h2>
-          <p class="subhead">Setiap skill terhubung ke proyek atau pengalaman nyata.</p>
+        <div class="mb-16">
+          <p class="reveal frame-label mb-3" data-tone="purple" data-role="analis"><i data-lucide="frame"></i>Skill</p>
+          <h2 class="reveal headline mb-4" data-tone="purple" data-role="analis">Yang saya kuasai, dan <span class="hl" data-tone="purple">buktinya</span>.</h2>
+          <p class="reveal subhead" data-tone="purple" data-role="analis">Setiap skill terhubung ke proyek atau pengalaman nyata.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
 
-          <div class="reveal tile p-8 md:p-10 md:col-span-7 flex flex-col justify-between" data-tone="green" data-role="backend">
+          <div class="tile p-8 md:p-10 md:col-span-7 flex flex-col justify-between" data-tone="green" data-role="backend">
             <div>
-              <h3 class="text-xl font-semibold tracking-tight mb-4">Backend &amp; API</h3>
-              <div class="flex flex-wrap gap-2 mb-6">
+              <h3 class="reveal text-xl font-semibold tracking-tight mb-4" data-role="backend">Backend &amp; API</h3>
+              <div class="reveal flex flex-wrap gap-2 mb-6" data-role="backend">
                 <span class="pill">PHP</span><span class="pill">Laravel</span><span class="pill">CodeIgniter</span><span class="pill">Node.js</span><span class="pill">Express</span><span class="pill">RESTful API</span><span class="pill">AI API Integration</span>
               </div>
             </div>
-            <p class="text-sm hairline-t pt-4" style="color:var(--muted)">Dipakai di ERP toko, platform donasi, dan CMS enterprise.</p>
+            <p class="reveal text-sm hairline-t pt-4" style="color:var(--muted)" data-role="backend">Dipakai di ERP toko, platform donasi, dan CMS enterprise.</p>
           </div>
 
-          <div class="reveal tile p-8 md:p-10 md:col-span-5 flex flex-col justify-between" data-tone="blue" data-role="frontend">
+          <div class="tile p-8 md:p-10 md:col-span-5 flex flex-col justify-between" data-tone="blue" data-role="frontend">
             <div>
-              <h3 class="text-xl font-semibold tracking-tight mb-4">Frontend &amp; Mobile</h3>
-              <div class="flex flex-wrap gap-2 mb-6">
+              <h3 class="reveal text-xl font-semibold tracking-tight mb-4" data-role="frontend">Frontend &amp; Mobile</h3>
+              <div class="reveal flex flex-wrap gap-2 mb-6" data-role="frontend">
                 <span class="pill">React</span><span class="pill">Ionic Angular</span><span class="pill">Flutter</span><span class="pill">HTML5</span><span class="pill">CSS3</span><span class="pill">SCSS</span><span class="pill">Tailwind CSS</span>
               </div>
             </div>
-            <p class="text-sm hairline-t pt-4" style="color:var(--muted)">Ionic Angular untuk CMS selama magang.</p>
+            <p class="reveal text-sm hairline-t pt-4" style="color:var(--muted)" data-role="frontend">Ionic Angular untuk CMS selama magang.</p>
           </div>
 
-          <div class="reveal tile p-8 md:p-10 md:col-span-4 flex flex-col justify-between" data-tone="orange" data-role="database">
+          <div class="tile p-8 md:p-10 md:col-span-4 flex flex-col justify-between" data-tone="orange" data-role="database">
             <div>
-              <h3 class="text-xl font-semibold tracking-tight mb-4">Database</h3>
-              <div class="flex flex-wrap gap-2 mb-6">
+              <h3 class="reveal text-xl font-semibold tracking-tight mb-4" data-role="database">Database</h3>
+              <div class="reveal flex flex-wrap gap-2 mb-6" data-role="database">
                 <span class="pill">MySQL</span><span class="pill">PostgreSQL</span><span class="pill">Microsoft SQL Server</span>
               </div>
             </div>
-            <p class="text-sm hairline-t pt-4" style="color:var(--muted)">Migrasi MySQL ke MS SQL Server tanpa downtime.</p>
+            <p class="reveal text-sm hairline-t pt-4" style="color:var(--muted)" data-role="database">Migrasi MySQL ke MS SQL Server tanpa downtime.</p>
           </div>
 
-          <div class="reveal tile p-8 md:p-10 md:col-span-4 flex flex-col justify-between" data-tone="purple" data-role="analis">
+          <div class="tile p-8 md:p-10 md:col-span-4 flex flex-col justify-between" data-tone="purple" data-role="analis">
             <div>
-              <h3 class="text-xl font-semibold tracking-tight mb-4">Arsitektur &amp; Analisis</h3>
-              <div class="flex flex-wrap gap-2 mb-6">
+              <h3 class="reveal text-xl font-semibold tracking-tight mb-4" data-role="analis">Arsitektur &amp; Analisis</h3>
+              <div class="reveal flex flex-wrap gap-2 mb-6" data-role="analis">
                 <span class="pill">System Analysis</span><span class="pill">ERD Design</span><span class="pill">RBAC Design</span><span class="pill">Decision Support System</span><span class="pill">Technical Documentation</span>
               </div>
             </div>
-            <p class="text-sm hairline-t pt-4" style="color:var(--muted)">Spesifikasi, diagram ER, dan SPK di proyek freelance.</p>
+            <p class="reveal text-sm hairline-t pt-4" style="color:var(--muted)" data-role="analis">Spesifikasi, diagram ER, dan SPK di proyek freelance.</p>
           </div>
 
-          <div class="reveal tile p-8 md:p-10 md:col-span-4 flex flex-col justify-between" data-tone="coral" data-role="qa">
+          <div class="tile p-8 md:p-10 md:col-span-4 flex flex-col justify-between" data-tone="coral" data-role="qa">
             <div>
-              <h3 class="text-xl font-semibold tracking-tight mb-4">Kualitas &amp; Legacy</h3>
-              <div class="flex flex-wrap gap-2 mb-6">
+              <h3 class="reveal text-xl font-semibold tracking-tight mb-4" data-role="qa">Kualitas &amp; Legacy</h3>
+              <div class="reveal flex flex-wrap gap-2 mb-6" data-role="qa">
                 <span class="pill">Legacy Refactoring</span><span class="pill">Database Migration</span><span class="pill">Data Validation</span><span class="pill">Data Auditing</span>
               </div>
             </div>
-            <p class="text-sm hairline-t pt-4" style="color:var(--muted)">Refactoring kode legacy dan audit data BPS, Panwaslu, KPU.</p>
+            <p class="reveal text-sm hairline-t pt-4" style="color:var(--muted)" data-role="qa">Refactoring kode legacy dan audit data BPS, Panwaslu, KPU.</p>
           </div>
 
-          <div class="reveal tile p-8 md:p-10 md:col-span-5 flex flex-col justify-between" data-tone="teal" data-role="devops">
+          <div class="tile p-8 md:p-10 md:col-span-5 flex flex-col justify-between" data-tone="teal" data-role="devops">
             <div>
-              <h3 class="text-xl font-semibold tracking-tight mb-4">DevOps &amp; Tools</h3>
-              <div class="flex flex-wrap gap-2 mb-6">
+              <h3 class="reveal text-xl font-semibold tracking-tight mb-4" data-role="devops">DevOps &amp; Tools</h3>
+              <div class="reveal flex flex-wrap gap-2 mb-6" data-role="devops">
                 <span class="pill">Git</span><span class="pill">GitHub</span><span class="pill">Web Deployment</span>
               </div>
             </div>
-            <p class="text-sm hairline-t pt-4" style="color:var(--muted)">Mengelola deployment aplikasi freelance.</p>
+            <p class="reveal text-sm hairline-t pt-4" style="color:var(--muted)" data-role="devops">Mengelola deployment aplikasi freelance.</p>
           </div>
 
-          <div class="reveal tile p-8 md:p-10 md:col-span-7" data-tone="yellow" data-role="docs">
-            <h3 class="text-xl font-semibold tracking-tight mb-6">Cara kerja</h3>
+          <div class="tile p-8 md:p-10 md:col-span-7" data-tone="yellow" data-role="docs">
+            <h3 class="reveal text-xl font-semibold tracking-tight mb-6" data-role="docs">Cara kerja</h3>
             <div class="space-y-4">
-              <div><h4 class="font-semibold">Teliti pada data.</h4><p class="text-sm" style="color:var(--muted)">Standar validasi zero-discrepancy dari lapangan diterapkan langsung ke integritas database.</p></div>
-              <div><h4 class="font-semibold">Terdokumentasi sejak awal.</h4><p class="text-sm" style="color:var(--muted)">Spesifikasi sistem dan relasi ER dirancang rapi sebelum menulis baris kode pertama.</p></div>
-              <div><h4 class="font-semibold">Adaptif lintas stack.</h4><p class="text-sm" style="color:var(--muted)">Cepat beradaptasi dari PHP dan Laravel ke ekosistem Node.js, Express, dan Ionic Angular.</p></div>
+              <div class="reveal" data-role="docs"><h4 class="font-semibold">Teliti pada data.</h4><p class="text-sm" style="color:var(--muted)">Standar validasi zero-discrepancy dari lapangan diterapkan langsung ke integritas database.</p></div>
+              <div class="reveal" data-role="docs"><h4 class="font-semibold">Terdokumentasi sejak awal.</h4><p class="text-sm" style="color:var(--muted)">Spesifikasi sistem dan relasi ER dirancang rapi sebelum menulis baris kode pertama.</p></div>
+              <div class="reveal" data-role="docs"><h4 class="font-semibold">Adaptif lintas stack.</h4><p class="text-sm" style="color:var(--muted)">Cepat beradaptasi dari PHP dan Laravel ke ekosistem Node.js, Express, dan Ionic Angular.</p></div>
             </div>
           </div>
 
@@ -746,10 +735,10 @@
     <!-- TENTANG -->
     <section id="about" class="py-28 md:py-40">
       <div class="max-w-5xl mx-auto px-6">
-        <div class="reveal max-w-2xl" data-role="analis">
-          <p class="frame-label mb-3" data-tone="pink"><i data-lucide="frame"></i>Tentang</p>
-          <h2 class="headline mb-8">Mulai dari <span class="hl" data-tone="pink">masalahnya</span>.</h2>
-          <p class="leading-relaxed" style="color:var(--muted)">
+        <div class="max-w-2xl">
+          <p class="reveal frame-label mb-3" data-tone="pink" data-role="audit"><i data-lucide="frame"></i>Tentang</p>
+          <h2 class="reveal headline mb-8" data-tone="pink" data-role="audit">Mulai dari <span class="hl" data-tone="pink">masalahnya</span>.</h2>
+          <p class="reveal leading-relaxed" style="color:var(--muted)" data-role="analis">
             Latar belakang saya di Rekayasa Perangkat Lunak dan Sistem Informasi membuat saya selalu mulai dari masalahnya, bukan dari tools-nya. Sejak 2024, mengaudit dan memvalidasi silang data lapangan untuk BPS, Panwaslu, dan KPU mengajarkan saya bahwa satu selisih kecil bisa merusak seluruh laporan. Standar itu saya bawa ke kode: skema yang jelas, hak akses yang eksplisit, dan migrasi yang bisa dipertanggungjawabkan.
           </p>
         </div>
@@ -759,18 +748,18 @@
     <!-- KONTAK -->
     <section id="contact" class="pb-28 md:pb-40">
       <div class="max-w-5xl mx-auto px-6">
-        <div class="reveal tile tile-invert p-8 md:p-16 text-center max-w-3xl mx-auto flex flex-col items-center">
-          <h2 class="headline mb-4">Mari <span class="hl" data-tone="yellow">bicara</span>.</h2>
-          <p class="subhead mb-8">Terbuka untuk full-time, magang, dan freelance. 40+ jam/minggu.</p>
+        <div class="tile tile-invert p-8 md:p-16 text-center max-w-3xl mx-auto flex flex-col items-center" data-tone="yellow" data-role="frontend">
+          <h2 class="reveal headline mb-4" data-tone="yellow" data-role="frontend">Mari <span class="hl" data-tone="yellow">bicara</span>.</h2>
+          <p class="reveal subhead mb-8" data-tone="yellow" data-role="frontend">Terbuka untuk full-time, magang, dan freelance. 40+ jam/minggu.</p>
 
-          <div class="inline-flex items-center gap-3 px-5 py-3 rounded-2xl hairline-all mb-8 max-w-full" style="background:var(--card)">
+          <div class="reveal inline-flex items-center gap-3 px-5 py-3 rounded-2xl hairline-all mb-8 max-w-full" style="background:var(--card)" data-role="frontend">
             <span class="mono text-sm md:text-base select-all break-all">afwangibran19@gmail.com</span>
             <button id="contact-copy-btn" type="button" class="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style="color:var(--muted)" aria-label="Salin alamat email">
               <i data-lucide="copy" class="w-4 h-4"></i>
             </button>
           </div>
 
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
+          <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-4 w-full" data-role="frontend">
             <a href="https://wa.me/6285814701149" target="_blank" rel="noopener noreferrer" class="btn-primary w-full sm:w-auto">WhatsApp 0858-1470-1149</a>
             <a href="https://github.com/gibrandevlab" target="_blank" rel="noopener noreferrer" class="action-link py-2" style="color:var(--text)">github.com/gibrandevlab <span aria-hidden="true">›</span></a>
           </div>
@@ -930,11 +919,9 @@
       }
 
       /* ---------- 6. Kursor multiplayer ala Figma ----------
-         Setiap elemen .reveal yang masuk viewport "dibangun" oleh satu kursor:
+         Setiap elemen teks .reveal yang masuk viewport dibangun oleh satu kursor:
          kursor terbang ke pojok kiri atas, menarik frame seleksi ke pojok kanan bawah,
-         dan konten tersingkap mengikuti tarikan itu (clip-path). Setelah selesai kursor
-         berkeliaran di elemennya selama elemen masih terlihat. Elemen keluar viewport
-         -> kursor pergi. Jumlah kursor = jumlah elemen yang sedang terlihat (dibatasi). */
+         dan konten teks tersingkap mengikuti tarikan itu (clip-path). */
       function initMultiplayer() {
         if (!root.classList.contains('mp-on')) return;
         if (!('IntersectionObserver' in window) || !Element.prototype.animate) {
@@ -944,7 +931,7 @@
 
         var EASE_OUT = 'cubic-bezier(.22,.8,.3,1)';
         var EASE_IO = 'cubic-bezier(.65,0,.35,1)';
-        var FLY_MS = 560;
+        var FLY_MS = 460;
 
         var PEOPLE = [
           { id: 'frontend', name: 'Frontend',    abbr: 'FE', tone: 'blue',   msg: 'Merapikan layout' },
@@ -960,67 +947,42 @@
         PEOPLE.forEach(function (p) { byId[p.id] = p; });
 
         var layer = document.getElementById('mp-layer');
-        var stack = document.getElementById('pres-stack');
-        var countEl = document.getElementById('pres-count');
-        var inUse = new Set();
-        var avatars = {};
         var rotor = 0;
         var states = new Map();
 
         var ARROW = '<svg viewBox="0 0 13 20" aria-hidden="true"><path d="M.9.9v15.2l3.6-3.4 2.6 6.2 2.3-1-2.6-6.1h5z" fill="currentColor" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/></svg>';
 
-        /* --- presence di navbar --- */
-        if (stack) {
-          PEOPLE.forEach(function (p) {
-            var a = document.createElement('span');
-            a.className = 'pres-av';
-            a.setAttribute('data-tone', p.tone);
-            a.textContent = p.abbr;
-            stack.appendChild(a);
-            avatars[p.id] = a;
-          });
-        }
-        function renderPresence() {
-          PEOPLE.forEach(function (p) {
-            if (avatars[p.id]) avatars[p.id].classList.toggle('is-active', inUse.has(p.id));
-          });
-          if (countEl) countEl.textContent = inUse.size + ' aktif';
-        }
-
-        /* --- util geometri (koordinat dokumen) --- */
         function docRect(el) {
           var r = el.getBoundingClientRect();
           return { x: r.left + window.scrollX, y: r.top + window.scrollY, w: r.width, h: r.height };
         }
         function docWidth() { return root.clientWidth; }
         function startPoint(r) {
-          var left = rand() < 0.5;
-          var x = left ? r.x - 90 - rand() * 180 : r.x + r.w + 40 + rand() * 160;
-          var y = r.y - 50 - rand() * 120;
-          return { x: clamp(x, 6, docWidth() - 70), y: Math.max(6, y) };
-        }
-        function pointIn(el) {
-          var r = docRect(el);
-          var vTop = window.scrollY, vBot = vTop + window.innerHeight;
-          var top = Math.max(r.y, vTop + 24), bot = Math.min(r.y + r.h, vBot - 40);
-          var y = bot > top ? top + rand() * (bot - top) : r.y + r.h / 2;
-          var x = clamp(r.x + r.w * (0.1 + rand() * 0.8), 8, docWidth() - 100);
-          return { x: x, y: y };
+          var left = Math.random() < 0.5;
+          var x = left ? r.x - 70 - Math.random() * 120 : r.x + r.w + 30 + Math.random() * 100;
+          var y = r.y - 30 - Math.random() * 80;
+          return { x: Math.max(6, Math.min(docWidth() - 70, x)), y: Math.max(6, y) };
         }
 
-        /* --- pemilihan "orang" --- */
-        function maxCursors() { return Math.min(PEOPLE.length, window.innerWidth < 640 ? 5 : 8); }
-        function pickPerson(preferId) {
-          if (inUse.size >= maxCursors()) return null;
-          if (preferId && byId[preferId] && !inUse.has(preferId)) return byId[preferId];
-          for (var i = 0; i < PEOPLE.length; i++) {
-            var p = PEOPLE[(rotor + i) % PEOPLE.length];
-            if (!inUse.has(p.id)) { rotor = (rotor + i + 1) % PEOPLE.length; return p; }
+        function getRole(el) {
+          return el.getAttribute('data-role') || (el.closest('[data-role]') && el.closest('[data-role]').getAttribute('data-role')) || null;
+        }
+        function getTone(el) {
+          return el.getAttribute('data-tone') || (el.closest('[data-tone]') && el.closest('[data-tone]').getAttribute('data-tone')) || null;
+        }
+
+        function pickPerson(preferId, preferTone) {
+          if (preferId && byId[preferId]) return byId[preferId];
+          if (preferTone) {
+            for (var i = 0; i < PEOPLE.length; i++) {
+              if (PEOPLE[i].tone === preferTone) return PEOPLE[i];
+            }
           }
-          return null;
+          var p = PEOPLE[rotor % PEOPLE.length];
+          rotor++;
+          return p;
         }
 
-        /* --- elemen kursor & frame --- */
         function makeCursor(p) {
           var c = document.createElement('div');
           c.className = 'mp-cursor';
@@ -1030,9 +992,10 @@
           layer.appendChild(c);
           return c;
         }
+
         function makeFrame(p, r) {
           var f = document.createElement('div');
-          f.className = 'mp-frame' + (r.w < 120 || r.h < 40 ? ' no-handles' : '');
+          f.className = 'mp-frame' + (r.w < 120 || r.h < 34 ? ' no-handles' : '');
           f.setAttribute('data-tone', p.tone);
           f.style.left = r.x + 'px'; f.style.top = r.y + 'px';
           f.style.width = '0px'; f.style.height = '0px';
@@ -1041,38 +1004,25 @@
           layer.appendChild(f);
           return f;
         }
+
         function place(c, x, y) {
           c.style.transition = 'none';
           c.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)';
-          void c.offsetWidth; /* paksa reflow sebelum transisi */
+          void c.offsetWidth;
         }
+
         function move(c, x, y, ms, ease) {
           c.style.transition = 'opacity .35s ease, transform ' + ms + 'ms ' + (ease || EASE_OUT);
           c.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)';
         }
 
-        /* --- chat bubble pada label --- */
         function chat(cu) {
           var msg = cu.c.querySelector('.mp-msg');
+          if (!msg) return;
           msg.textContent = cu.p.msg;
           cu.c.classList.add('has-msg');
           clearTimeout(cu.msgT);
-          cu.msgT = setTimeout(function () { cu.c.classList.remove('has-msg'); }, 2300);
-        }
-
-        /* --- keliling saat idle --- */
-        function wander(el, st, wait) {
-          var cu = st.cursor;
-          if (!cu) return;
-          cu.timer = setTimeout(function tick() {
-            if (st.cursor !== cu) return;
-            if (!document.hidden) {
-              var t = pointIn(el);
-              move(cu.c, t.x, t.y, 1200 + rand() * 900, EASE_IO);
-              if (rand() < 0.25) chat(cu);
-            }
-            cu.timer = setTimeout(tick, 2200 + rand() * 2600);
-          }, wait);
+          cu.msgT = setTimeout(function () { cu.c.classList.remove('has-msg'); }, 2200);
         }
 
         function release(st) {
@@ -1080,63 +1030,50 @@
           if (!cu) return;
           clearTimeout(cu.timer);
           clearTimeout(cu.msgT);
-          cu.c.style.transition = 'opacity .35s ease, transform .6s ' + EASE_OUT;
+          cu.c.style.transition = 'opacity .35s ease, transform .5s ' + EASE_OUT;
           cu.c.classList.remove('is-on');
           if (cu.f) cu.f.remove();
-          inUse.delete(cu.p.id);
-          renderPresence();
-          setTimeout(function () { cu.c.remove(); }, 450);
+          setTimeout(function () { cu.c.remove(); }, 400);
           st.cursor = null;
         }
 
-        function settle(el, st) {
-          var cu = st.cursor;
-          if (!cu) return;
-          if (st.pendingLeave) { release(st); return; }
-          setTimeout(function () {
-            if (!cu.f) return;
-            cu.f.classList.remove('is-on');
-            setTimeout(function () { if (cu.f) cu.f.remove(); }, 600);
-          }, 1000);
-          if (rand() < 0.55) setTimeout(function () { if (st.cursor === cu) chat(cu); }, 500);
-          wander(el, st, 1400);
-        }
-
-        /* --- bangun elemen untuk pertama kali --- */
         function build(el, st, delay) {
           var r = docRect(el);
-          var p = pickPerson(el.getAttribute('data-role'));
-          var fly = p ? FLY_MS : 0;
-          var dur = clamp(650 + (r.w + r.h) * 0.32, 800, 1500);
+          if (r.w === 0 && r.h === 0) {
+            el.classList.add('is-built');
+            st.built = true;
+            return;
+          }
+          var p = pickPerson(getRole(el), getTone(el));
+          var fly = FLY_MS;
+          var dur = Math.max(500, Math.min(1000, 480 + (r.w + r.h) * 0.22));
           st.state = 'building';
 
-          if (p) {
-            var c = makeCursor(p);
-            var f = makeFrame(p, r);
-            st.cursor = { c: c, p: p, f: f, timer: null, msgT: null };
-            inUse.add(p.id);
-            renderPresence();
+          var c = makeCursor(p);
+          var f = makeFrame(p, r);
+          st.cursor = { c: c, p: p, f: f, timer: null, msgT: null };
 
-            var s = startPoint(r);
-            place(c, s.x, s.y);
-            setTimeout(function () {
-              c.classList.add('is-on');
-              move(c, r.x, r.y, fly, EASE_OUT);
-            }, delay);
-            setTimeout(function () {
-              f.classList.add('is-on');
-              var fa = f.animate(
-                [{ width: '0px', height: '0px' }, { width: r.w + 'px', height: r.h + 'px' }],
-                { duration: dur, easing: EASE_IO, fill: 'forwards' }
-              );
-              fa.onfinish = function () {
-                f.style.width = r.w + 'px'; f.style.height = r.h + 'px';
-                fa.cancel();
-                f.classList.add('is-built');
-              };
-              move(c, r.x + r.w, r.y + r.h, dur, EASE_IO);
-            }, delay + fly);
-          }
+          var s = startPoint(r);
+          place(c, s.x, s.y);
+
+          setTimeout(function () {
+            c.classList.add('is-on');
+            move(c, r.x, r.y, fly, EASE_OUT);
+          }, delay);
+
+          setTimeout(function () {
+            f.classList.add('is-on');
+            var fa = f.animate(
+              [{ width: '0px', height: '0px' }, { width: r.w + 'px', height: r.h + 'px' }],
+              { duration: dur, easing: EASE_IO, fill: 'forwards' }
+            );
+            fa.onfinish = function () {
+              f.style.width = r.w + 'px'; f.style.height = r.h + 'px';
+              fa.cancel();
+              f.classList.add('is-built');
+            };
+            move(c, r.x + r.w, r.y + r.h, dur, EASE_IO);
+          }, delay + fly);
 
           var anim = el.animate(
             [{ clipPath: 'inset(0 100% 100% 0)', opacity: 1 }, { clipPath: 'inset(0 0% 0% 0)', opacity: 1 }],
@@ -1147,29 +1084,24 @@
             anim.cancel();
             st.built = true;
             st.state = 'idle';
-            settle(el, st);
-          };
-        }
 
-        /* --- elemen yang sudah jadi masuk viewport lagi --- */
-        function reenter(el, st) {
-          var p = pickPerson(el.getAttribute('data-role'));
-          if (!p) return;
-          var r = docRect(el);
-          var c = makeCursor(p);
-          st.cursor = { c: c, p: p, f: null, timer: null, msgT: null };
-          inUse.add(p.id);
-          renderPresence();
-          var s = startPoint(r);
-          place(c, s.x, s.y);
-          requestAnimationFrame(function () {
-            if (st.cursor && st.cursor.c === c) {
-              c.classList.add('is-on');
-              var t = pointIn(el);
-              move(c, t.x, t.y, 900, EASE_OUT);
+            if (Math.random() < 0.45) {
+              setTimeout(function () { if (st.cursor === c) chat(st.cursor); }, 250);
             }
-          });
-          wander(el, st, 1500);
+
+            setTimeout(function () {
+              if (f) {
+                f.classList.remove('is-on');
+                setTimeout(function () { f.remove(); }, 400);
+              }
+            }, 800);
+
+            setTimeout(function () {
+              if (st.cursor && st.cursor.c === c) {
+                release(st);
+              }
+            }, 1800);
+          };
         }
 
         /* --- pengamat viewport --- */
@@ -1185,20 +1117,20 @@
             if (!st) return;
             if (entry.isIntersecting) {
               st.visible = true;
-              st.pendingLeave = false;
-              if (!st.built && st.state !== 'building') build(el, st, Math.min(order++ * 140, 800));
-              else if (st.built && !st.cursor) reenter(el, st);
+              if (!st.built && st.state !== 'building') {
+                build(el, st, Math.min(order++ * 80, 800));
+              }
             } else {
               st.visible = false;
-              if (st.state === 'building') st.pendingLeave = true;
-              else release(st);
+              if (st.state !== 'building' && st.cursor) {
+                release(st);
+              }
             }
           });
-        }, { rootMargin: '0px 0px -12% 0px' });
+        }, { rootMargin: '0px 0px -8% 0px' });
 
         states.forEach(function (_, el) { io.observe(el); });
 
-        /* Hemat tenaga: sembunyikan kursor saat tab tidak aktif */
         document.addEventListener('visibilitychange', function () {
           layer.style.visibility = document.hidden ? 'hidden' : '';
         });
