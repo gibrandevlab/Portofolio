@@ -772,7 +772,7 @@
   <footer class="hairline-t py-12 text-xs" style="color:var(--muted)">
     <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
       <p>© 2026 Afwan Gibran Muhammad Algiffari</p>
-      <p class="mono text-[11px]">Kursor kolaborator = simulasi pengerjaan setiap bagian proyek.</p>
+      <p class="mono text-[11px]">Kursor agen = simulasi pengerjaan setiap bagian proyek.</p>
       <p>Built with HTML, Tailwind CSS &amp; Vanilla JS</p>
     </div>
   </footer>
@@ -920,7 +920,7 @@
 
       /* ---------- 6. Kursor multiplayer ala Figma ----------
          Setiap elemen teks .reveal yang masuk viewport dibangun oleh kursor kolaborator:
-         setiap kursor memiliki nama unik yang berbeda-beda ala tim desain & engineer. */
+         setiap kursor diberi identitas Agent#xxxxx dengan 5 digit angka acak unik. */
       function initMultiplayer() {
         if (!root.classList.contains('mp-on')) return;
         if (!('IntersectionObserver' in window) || !Element.prototype.animate) {
@@ -934,20 +934,15 @@
 
         var TONES = ['blue', 'green', 'orange', 'purple', 'coral', 'teal', 'yellow', 'pink'];
 
-        var NAMES = [
-          'Afwan', 'Sarah', 'Dimas', 'Nadia', 'Gibran', 'Rizky', 'Alya', 'Kevin',
-          'Tiara', 'Farhan', 'Citra', 'Bagas', 'Dita', 'Reza', 'Maya', 'Gilang',
-          'Putri', 'Yoga', 'Hendra', 'Bella', 'Fahmi', 'Laras', 'Doni', 'Tania',
-          'Aris', 'Vina', 'Fajar', 'Rani', 'Ilham', 'Dina', 'Agus', 'Winda',
-          'Rifky', 'Sari', 'Adit', 'Rina', 'Budi', 'Tari', 'Eko', 'Lia',
-          'Dani', 'Intan', 'Satria', 'Melati', 'Bayu', 'Annisa', 'Rangga', 'Pratiwi',
-          'Eka', 'Dewi', 'Radit', 'Nabila', 'Fikri', 'Syifa', 'Arya', 'Zahra',
-          'Wahyu', 'Cindy', 'Danu', 'Gita', 'Taufik', 'Indah', 'Lukman', 'Ayu',
-          'Galih', 'Sinta', 'Ridwan', 'Meisya', 'Agung', 'Ratna', 'Pandu', 'Farah',
-          'Rian', 'Nurul', 'Alif', 'Keisha', 'Wildan', 'Mutiara', 'Sandy', 'Safira',
-          'Surya', 'Sabrina', 'Rio', 'Aliyah', 'Iqbal', 'Sheila', 'Zaki', 'Tasya',
-          'Panji', 'Hanum', 'Bram', 'Kirana', 'Daffa', 'Amalia', 'Fauzan', 'Naufal'
-        ];
+        var usedAgentIds = new Set();
+        function getUniqueAgentName() {
+          var id;
+          do {
+            id = Math.floor(10000 + Math.random() * 90000);
+          } while (usedAgentIds.has(id));
+          usedAgentIds.add(id);
+          return 'Agent#' + id;
+        }
 
         var MESSAGES = [
           'Merapikan layout', 'Menyambung endpoint', 'Memeriksa skema database',
@@ -1108,7 +1103,7 @@
         revealList.forEach(function (el, idx) {
           var tone = getTone(el) || TONES[idx % TONES.length];
           var person = {
-            name: NAMES[idx % NAMES.length],
+            name: getUniqueAgentName(),
             tone: tone,
             msg: MESSAGES[idx % MESSAGES.length]
           };
