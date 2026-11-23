@@ -28,7 +28,7 @@
     } catch (e) {}
     d.classList.add('mp-on');
   })();
-</script>
+  </script>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -101,7 +101,6 @@
       --yellow: #FFD633; --yellow-soft: #2A2408; --yellow-ink: #FFE066;
     }
 
-    /* Tone: satu atribut data-tone memasang --t (solid), --t-soft (latar), --t-ink (teks aman), --t-on (teks di atas solid) */
     [data-tone="blue"]   { --t: var(--blue);   --t-soft: var(--blue-soft);   --t-ink: var(--blue-ink);   --t-on: #fff; }
     [data-tone="green"]  { --t: var(--green);  --t-soft: var(--green-soft);  --t-ink: var(--green-ink);  --t-on: #fff; }
     [data-tone="orange"] { --t: var(--orange); --t-soft: var(--orange-soft); --t-ink: var(--orange-ink); --t-on: #fff; }
@@ -134,7 +133,6 @@
     .subhead  { font-size: clamp(1.25rem, 2.5vw, 1.5rem); font-weight: 400; color: var(--muted); line-height: 1.35; }
     .mono     { font-family: "SF Mono", "JetBrains Mono", ui-monospace, monospace; }
 
-    /* Label ala nama frame di Figma */
     .frame-label {
       display: inline-flex; align-items: center; gap: 6px;
       font-family: "SF Mono", "JetBrains Mono", ui-monospace, monospace;
@@ -143,7 +141,6 @@
     }
     .frame-label svg { width: 14px; height: 14px; color: var(--t); }
 
-    /* Highlight teks seperti seleksi Figma, lengkap dengan caret berwarna */
     .hl {
       position: relative;
       background: color-mix(in srgb, var(--t) 26%, transparent);
@@ -161,7 +158,6 @@
     .hairline-r { border-right: 1px solid var(--hairline); }
     .hairline-all { border: 1px solid var(--hairline); }
 
-    /* Latar canvas titik di hero (pola SVG, bukan gradien warna) */
     .canvas-dots {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='1.5' cy='1.5' r='1' fill='%2317171A' fill-opacity='.18'/%3E%3C/svg%3E");
       -webkit-mask-image: linear-gradient(to bottom, #000 65%, transparent);
@@ -187,16 +183,13 @@
     .tile:hover { box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06); }
     .tile-sm { border-radius: 20px; }
 
-    .tile.tile-invert,
-    .tile.tile-invert[data-tone] {
-      background: var(--ink);
-      color: var(--on-ink);
-      border-color: transparent;
+    .tile-invert {
+      background: var(--ink); color: var(--on-ink); border-color: transparent;
       --text: var(--on-ink);
-      --muted: color-mix(in srgb, var(--on-ink) 74%, transparent);
-      --hairline: color-mix(in srgb, var(--on-ink) 24%, transparent);
-      --card: color-mix(in srgb, var(--on-ink) 12%, transparent);
-      --surface: color-mix(in srgb, var(--on-ink) 16%, transparent);
+      --muted: color-mix(in srgb, var(--on-ink) 66%, transparent);
+      --hairline: color-mix(in srgb, var(--on-ink) 22%, transparent);
+      --card: color-mix(in srgb, var(--on-ink) 10%, transparent);
+      --surface: color-mix(in srgb, var(--on-ink) 14%, transparent);
     }
     .tile-invert .btn-primary { background: var(--on-ink); color: var(--ink); }
 
@@ -232,7 +225,6 @@
 
     .dot { display: inline-block; width: 10px; height: 10px; border-radius: 9999px; background: var(--t); flex-shrink: 0; }
 
-    /* Navbar: satu-satunya tempat blur */
     .navbar-glass {
       backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
       background: color-mix(in srgb, var(--bg) 82%, transparent);
@@ -246,12 +238,10 @@
     .theme-moon { display: block; } .theme-sun { display: none; }
     .dark .theme-moon { display: none; } .dark .theme-sun { display: block; }
 
-    /* Mockup antarmuka */
     .mock { border-radius: 16px; border: 1px solid var(--hairline); background: var(--card); overflow: hidden; }
     .mock-bar { height: 36px; border-bottom: 1px solid var(--hairline); background: var(--surface); display: flex; align-items: center; justify-content: space-between; padding: 0 12px; }
     .tag-solid { background: var(--t-ink); color: var(--card); }
 
-    /* Timeline */
     .timeline { position: relative; }
     .timeline::before { content: ''; position: absolute; top: 8px; bottom: 8px; left: 5px; width: 1px; background: var(--hairline); }
     .tl-item { position: relative; padding-left: 28px; display: grid; grid-template-columns: 1fr; gap: 6px; }
@@ -263,14 +253,12 @@
       .tl-date { text-align: right; }
     }
 
-    /* Status dot */
     @keyframes pulse-status { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(.85); } }
     .status-pulse { animation: pulse-status 2.4s ease-in-out infinite; }
 
     /* =========================================================
-       REVEAL + KURSOR MULTIPLAYER
+       REVEAL + KURSOR MULTIPLAYER ORGANIK
        ========================================================= */
-    /* Elemen disembunyikan hanya saat JS aktif & gerak diizinkan; dibangun lewat WAAPI (clip-path) */
     html.mp-on .reveal:not(.is-built) { opacity: 0; }
 
     #mp-layer {
@@ -279,11 +267,11 @@
     }
     html.menu-open #mp-layer { visibility: hidden; }
 
-    .mp-cursor { position: absolute; top: 0; left: 0; opacity: 0; will-change: transform; }
+    .mp-cursor { position: absolute; top: 0; left: 0; opacity: 0; will-change: transform; transition: opacity .3s ease; }
     .mp-cursor.is-on { opacity: 1; }
-    .mp-cursor svg { display: block; width: 16px; height: 22px; color: var(--t); filter: drop-shadow(0 1px 2px rgba(0,0,0,.28)); }
+    .mp-cursor svg { display: block; width: 18px; height: 22px; color: var(--t); filter: drop-shadow(0 1px 2px rgba(0,0,0,.28)); }
     .mp-label {
-      position: absolute; left: 13px; top: 17px; white-space: nowrap;
+      position: absolute; left: 14px; top: 17px; white-space: nowrap;
       display: flex; align-items: center;
       font: 600 11px/1 -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
       padding: 5px 9px; border-radius: 9999px; background: var(--t); color: var(--t-on);
@@ -308,8 +296,27 @@
     }
     .mp-frame.is-built .mp-size { opacity: 1; }
 
+    /* Efek klik/tap ripple saat menaruh komponen atau mengetuk node */
+    .mp-ripple {
+      position: absolute; width: 12px; height: 12px; border-radius: 9999px;
+      border: 2px solid var(--t); pointer-events: none;
+      transform: translate(-50%, -50%) scale(0.4); opacity: 0.95;
+    }
+
+    /* Garis bantu presisi ala Figma Smart Guides saat micro-nudge */
+    .mp-guide {
+      position: absolute; width: 1px; pointer-events: none;
+      background: repeating-linear-gradient(to bottom, var(--coral) 0 4px, transparent 4px 7px);
+      opacity: 0;
+    }
+    .mp-guide::before, .mp-guide::after {
+      content: ''; position: absolute; left: -2.5px; width: 6px; height: 1px; background: var(--coral);
+    }
+    .mp-guide::before { top: 0; }
+    .mp-guide::after { bottom: 0; }
+
     @media (max-width: 639px) {
-      .mp-cursor svg { width: 13px; height: 18px; }
+      .mp-cursor svg { width: 14px; height: 18px; }
       .mp-label { font-size: 10px; padding: 4px 7px; left: 10px; top: 14px; }
     }
   </style>
@@ -429,40 +436,398 @@
         <div class="space-y-12">
 
           <!-- ERP -->
+<!-- ERP -->
           <article class="tile p-8 md:p-12" data-tone="green" data-role="backend">
             <div class="reveal mb-8" data-role="backend">
-              <div class="mock">
+              <div class="mock relative">
+                <!-- Browser Topbar -->
                 <div class="mock-bar">
                   <div class="flex items-center gap-1.5">
                     <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
                     <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
                     <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
                   </div>
-                  <span class="mono text-[11px]" style="color:var(--muted)">erp-frozenfood.local/inventory</span>
+                  <span class="mono text-[11px]" style="color:var(--muted)">erp-frozenfood.local/stok-produk</span>
                   <div class="w-10"></div>
                 </div>
-                <div class="p-4 md:p-6 grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
-                  <div class="hidden md:flex flex-col gap-1 hairline-r pr-4 mono" style="color:var(--muted)">
-                    <div class="px-3 py-1.5 rounded-lg font-medium flex items-center justify-between" style="background:var(--t-soft);color:var(--t-ink)"><span>Stok</span><span class="text-[10px]">5 item</span></div>
-                    <div class="px-3 py-1.5 rounded-lg">Pembukuan</div>
-                    <div class="px-3 py-1.5 rounded-lg">Pelanggan</div>
-                    <div class="px-3 py-1.5 rounded-lg">Restock</div>
+
+                <!-- App Top Header -->
+                <div class="px-4 py-2.5 hairline-b flex items-center justify-between gap-3" style="background:var(--card)">
+                  <div class="flex items-center gap-2.5">
+                    <i data-lucide="menu" class="w-4 h-4 shrink-0" style="color:var(--muted)"></i>
+                    <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 tag-solid">
+                      <i data-lucide="box" class="w-4 h-4"></i>
+                    </div>
+                    <div class="leading-tight">
+                      <p class="font-semibold text-xs tracking-tight">Inventory Dashboard</p>
+                      <p class="text-[10px]" style="color:var(--muted)">Sistem Manajemen Inventaris</p>
+                    </div>
                   </div>
-                  <div class="md:col-span-3 overflow-x-auto">
-                    <table class="w-full text-left mono">
-                      <thead>
-                        <tr class="hairline-b text-[11px]" style="color:var(--muted)">
-                          <th class="pb-2 font-medium">PRODUK</th><th class="pb-2 font-medium">STOK</th><th class="pb-2 font-medium">STATUS</th>
-                        </tr>
-                      </thead>
-                      <tbody class="text-[12px]">
-                        <tr class="hairline-b"><td class="py-2.5 font-sans">Daging Sapi Slice 500g</td><td class="py-2.5">48 pack</td><td class="py-2.5" style="color:var(--muted)">Normal</td></tr>
-                        <tr class="hairline-b" style="background:var(--t-soft)"><td class="py-2.5 px-2 font-sans font-medium">Nugget Ayam Crispy 1kg</td><td class="py-2.5 font-semibold">8 pack</td><td class="py-2.5"><span class="tag-solid inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium">Prioritas restock</span></td></tr>
-                        <tr class="hairline-b"><td class="py-2.5 font-sans">Sosis Sapi Bakar 500g</td><td class="py-2.5">32 pack</td><td class="py-2.5" style="color:var(--muted)">Normal</td></tr>
-                        <tr class="hairline-b"><td class="py-2.5 font-sans">Fillet Ikan Dori 1kg</td><td class="py-2.5">14 pack</td><td class="py-2.5" style="color:var(--muted)">Menipis</td></tr>
-                        <tr><td class="py-2.5 font-sans">Kentang Shoestring 1kg</td><td class="py-2.5">25 pack</td><td class="py-2.5" style="color:var(--muted)">Normal</td></tr>
-                      </tbody>
-                    </table>
+                  <div class="flex items-center gap-3">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-medium tag-solid">
+                      <i data-lucide="sparkles" class="w-3 h-3"></i>
+                      <span>Asisten AI</span>
+                    </span>
+                    <div class="hidden sm:block text-right leading-tight">
+                      <p class="text-[10px] font-medium">Monday, 23 November 2026</p>
+                      <p class="text-[9px]" style="color:var(--muted)">Ringkasan Sistem</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- App Body: Sidebar + Main -->
+                <div class="grid grid-cols-1 md:grid-cols-12 text-xs relative" style="background:var(--bg)">
+<!-- Sidebar Navigasi -->
+                  <aside class="hidden md:block md:col-span-3 hairline-r relative" style="background:var(--card)">
+                    <div class="md:absolute md:inset-0 overflow-y-auto p-2.5 flex flex-col justify-between text-[10.5px] [scrollbar-width:thin]">
+                      <div class="space-y-2.5">
+                        <p class="mono text-[9px] font-semibold tracking-wider uppercase px-2" style="color:var(--muted)">Menu Aplikasi</p>
+
+                        <!-- 1. Utama -->
+                        <div>
+                          <div class="flex items-center justify-between px-2 mb-1 text-[9px] font-semibold uppercase tracking-wider" style="color:var(--muted)">
+                            <span>Utama</span>
+                            <i data-lucide="chevron-up" class="w-3 h-3"></i>
+                          </div>
+                          <div class="space-y-0.5" style="color:var(--muted)">
+                            <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                              <i data-lucide="home" class="w-3.5 h-3.5 shrink-0"></i>
+                              <span class="truncate">Dashboard</span>
+                            </div>
+                            <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                              <i data-lucide="sparkles" class="w-3.5 h-3.5 shrink-0"></i>
+                              <span class="truncate">Asisten AI</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- 2. Akses Cepat -->
+                        <div>
+                          <div class="flex items-center justify-between px-2 mb-1 text-[9px] font-semibold uppercase tracking-wider" style="color:var(--muted)">
+                            <span>Akses Cepat</span>
+                            <i data-lucide="chevron-up" class="w-3 h-3"></i>
+                          </div>
+                          <div class="space-y-0.5" style="color:var(--muted)">
+                            <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                              <i data-lucide="plus" class="w-3.5 h-3.5 shrink-0"></i>
+                              <span class="truncate">Tambah Produk</span>
+                            </div>
+                            <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                              <i data-lucide="square-pen" class="w-3.5 h-3.5 shrink-0"></i>
+                              <span class="truncate">Catat Transaksi</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- 3. Stok & Inventaris -->
+                        <div>
+                          <div class="flex items-center justify-between px-2 mb-1 text-[9px] font-semibold uppercase tracking-wider" style="color:var(--muted)">
+                            <span>Stok &amp; Inventaris</span>
+                            <i data-lucide="chevron-up" class="w-3 h-3"></i>
+                          </div>
+                          <div class="space-y-0.5" style="color:var(--muted)">
+                            <div class="px-2 py-1 rounded-lg font-medium flex items-center justify-between gap-1" style="background:var(--t-soft);color:var(--t-ink)">
+                              <span class="flex items-center gap-2 min-w-0">
+                                <i data-lucide="box" class="w-3.5 h-3.5 shrink-0"></i>
+                                <span class="truncate">Stok Produk</span>
+                              </span>
+                              <span class="w-1.5 h-1.5 rounded-full shrink-0" style="background:var(--t)"></span>
+                            </div>
+                            <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                              <i data-lucide="map-pin" class="w-3.5 h-3.5 shrink-0"></i>
+                              <span class="truncate">Stok per Lokasi</span>
+                            </div>
+                            <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                              <i data-lucide="arrow-left-right" class="w-3.5 h-3.5 shrink-0"></i>
+                              <span class="truncate">Mutasi Stok</span>
+                            </div>
+                            <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                              <i data-lucide="tag" class="w-3.5 h-3.5 shrink-0"></i>
+                              <span class="truncate">Kategori</span>
+                            </div>
+                            <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                              <i data-lucide="map-pin" class="w-3.5 h-3.5 shrink-0"></i>
+                              <span class="truncate">Lokasi Stok</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- 4. Relasi Bisnis -->
+                        <div>
+                          <div class="flex items-center justify-between px-2 mb-1 text-[9px] font-semibold uppercase tracking-wider" style="color:var(--muted)">
+                            <span>Relasi Bisnis</span>
+                            <i data-lucide="chevron-up" class="w-3 h-3"></i>
+                          </div>
+                          <div class="space-y-0.5" style="color:var(--muted)">
+                            <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                              <i data-lucide="users" class="w-3.5 h-3.5 shrink-0"></i>
+                              <span class="truncate">Pelanggan</span>
+                            </div>
+                            <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                              <i data-lucide="truck" class="w-3.5 h-3.5 shrink-0"></i>
+                              <span class="truncate">Supplier</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- 5. Pembelian -->
+                        <div>
+                          <div class="flex items-center justify-between px-2 mb-1 text-[9px] font-semibold uppercase tracking-wider" style="color:var(--muted)">
+                            <span>Pembelian</span>
+                            <i data-lucide="chevron-up" class="w-3 h-3"></i>
+                          </div>
+                          <div class="space-y-0.5" style="color:var(--muted)">
+                            <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                              <i data-lucide="file-plus" class="w-3.5 h-3.5 shrink-0"></i>
+                              <span class="truncate">Permintaan Pembelian</span>
+                            </div>
+                            <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                              <i data-lucide="file-check" class="w-3.5 h-3.5 shrink-0"></i>
+                              <span class="truncate">Persetujuan PR</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- 6. Perencanaan Restock -->
+                        <div>
+                          <div class="flex items-center justify-between px-2 mb-1 text-[9px] font-semibold uppercase tracking-wider" style="color:var(--muted)">
+                            <span>Perencanaan Restock</span>
+                            <i data-lucide="chevron-up" class="w-3 h-3"></i>
+                          </div>
+                          <div class="space-y-0.5" style="color:var(--muted)">
+                            <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                              <i data-lucide="trending-up" class="w-3.5 h-3.5 shrink-0"></i>
+                              <span class="truncate">Forecast Restock</span>
+                            </div>
+                            <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                              <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5 shrink-0"></i>
+                              <span class="truncate">SPK Restock</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- 7. Keuangan -->
+                        <div>
+                          <div class="flex items-center justify-between px-2 mb-1 text-[9px] font-semibold uppercase tracking-wider" style="color:var(--muted)">
+                            <span>Keuangan</span>
+                            <i data-lucide="chevron-up" class="w-3 h-3"></i>
+                          </div>
+                          <div class="space-y-0.5" style="color:var(--muted)">
+                            <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                              <i data-lucide="receipt" class="w-3.5 h-3.5 shrink-0"></i>
+                              <span class="truncate">Transaksi</span>
+                            </div>
+                            <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                              <i data-lucide="clock" class="w-3.5 h-3.5 shrink-0"></i>
+                              <span class="truncate">Histori Transaksi</span>
+                            </div>
+                            <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                              <i data-lucide="bar-chart-3" class="w-3.5 h-3.5 shrink-0"></i>
+                              <span class="truncate">Ringkasan</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- 8. Administrasi -->
+                        <div>
+                          <div class="flex items-center justify-between px-2 mb-1 text-[9px] font-semibold uppercase tracking-wider" style="color:var(--muted)">
+                            <span>Administrasi</span>
+                            <i data-lucide="chevron-up" class="w-3 h-3"></i>
+                          </div>
+                          <div class="space-y-0.5" style="color:var(--muted)">
+                            <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                              <i data-lucide="shield-check" class="w-3.5 h-3.5 shrink-0"></i>
+                              <span class="truncate">Pengguna &amp; Hak Akses</span>
+                            </div>
+                            <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                              <i data-lucide="cpu" class="w-3.5 h-3.5 shrink-0"></i>
+                              <span class="truncate">Penggunaan Token AI</span>
+                            </div>
+                            <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                              <i data-lucide="activity" class="w-3.5 h-3.5 shrink-0"></i>
+                              <span class="truncate">Riwayat Aktivitas</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Footer Sidebar -->
+                      <div class="pt-2.5 mt-2.5 hairline-t space-y-0.5" style="color:var(--muted)">
+                        <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                          <i data-lucide="user" class="w-3.5 h-3.5 shrink-0"></i>
+                          <span class="truncate">Profil</span>
+                        </div>
+                        <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                          <i data-lucide="log-out" class="w-3.5 h-3.5 shrink-0"></i>
+                          <span class="truncate">Keluar</span>
+                        </div>
+                      </div>
+                    </div>
+                  </aside>
+
+                  <!-- Konten Utama -->
+                  <div class="md:col-span-9 p-4 md:p-5 space-y-3.5">
+                    <!-- Banner Header Katalog -->
+                    <div class="p-3.5 rounded-xl hairline-all flex flex-wrap items-center justify-between gap-3" style="background:var(--card)">
+                      <div>
+                        <span class="inline-block px-2 py-0.5 rounded-full text-[9px] font-semibold uppercase tracking-wider mb-1" style="background:var(--t-soft);color:var(--t-ink)">Katalog Inventaris</span>
+                        <div class="flex items-center gap-1.5">
+                          <i data-lucide="box" class="w-4 h-4" style="color:var(--t-ink)"></i>
+                          <h4 class="font-semibold text-sm tracking-tight">Stok Produk</h4>
+                        </div>
+                        <p class="text-[11px] mt-0.5" style="color:var(--muted)">22 produk terdaftar dalam sistem.</p>
+                      </div>
+                      <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium tag-solid">
+                        <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                        <span>Tambah Produk</span>
+                      </span>
+                    </div>
+
+                    <!-- Tab Navigasi -->
+                    <div class="flex items-center gap-5 hairline-b text-[11px]">
+                      <span class="pb-2 font-semibold border-b-2" style="border-color:var(--t-ink);color:var(--text)">Daftar Produk</span>
+                      <span class="pb-2" style="color:var(--muted)">Stok per Lokasi</span>
+                    </div>
+
+                    <!-- Bar Pencarian & Filter Dropdown -->
+                    <div class="flex flex-wrap items-center gap-2 text-[10px]">
+                      <div class="flex-1 min-w-[160px] px-2.5 py-1.5 rounded-lg hairline-all flex items-center gap-1.5" style="background:var(--card);color:var(--muted)">
+                        <i data-lucide="search" class="w-3 h-3 shrink-0"></i>
+                        <span>Cari nama atau SKU produk...</span>
+                      </div>
+                      <div class="px-2.5 py-1.5 rounded-lg hairline-all inline-flex items-center gap-1.5" style="background:var(--card)">
+                        <span>Semua Lokasi</span>
+                        <i data-lucide="chevron-down" class="w-3 h-3" style="color:var(--muted)"></i>
+                      </div>
+                      <div class="px-2.5 py-1.5 rounded-lg hairline-all inline-flex items-center gap-1.5" style="background:var(--card)">
+                        <span>Semua Kategori</span>
+                        <i data-lucide="chevron-down" class="w-3 h-3" style="color:var(--muted)"></i>
+                      </div>
+                      <div class="hidden sm:inline-flex px-2.5 py-1.5 rounded-lg hairline-all items-center gap-1.5" style="background:var(--card)">
+                        <span>Semua Status</span>
+                        <i data-lucide="chevron-down" class="w-3 h-3" style="color:var(--muted)"></i>
+                      </div>
+                    </div>
+
+                    <!-- Tabel Produk -->
+                    <div class="rounded-xl hairline-all overflow-x-auto" style="background:var(--card)">
+                      <table class="w-full text-left border-collapse">
+                        <thead>
+                          <tr class="hairline-b text-[9px] uppercase tracking-wider" style="color:var(--muted)">
+                            <th class="py-2.5 px-3 font-semibold">Detail Produk</th>
+                            <th class="py-2.5 px-2.5 font-semibold">Kategori</th>
+                            <th class="py-2.5 px-2.5 font-semibold">Stok</th>
+                            <th class="py-2.5 px-2.5 font-semibold">Harga Jual</th>
+                            <th class="py-2.5 px-2.5 font-semibold">Status</th>
+                            <th class="py-2.5 px-3 font-semibold text-right">Aksi</th>
+                          </tr>
+                        </thead>
+                        <tbody class="text-[11px]">
+                          <tr class="hairline-b">
+                            <td class="py-2.5 px-3">
+                              <p class="font-semibold leading-snug">Dimsum Udang isi 15</p>
+                              <p class="mono text-[9px]" style="color:var(--muted)">FRZ-3012</p>
+                            </td>
+                            <td class="py-2.5 px-2.5 whitespace-nowrap" style="color:var(--muted)">Dimsum &amp; Seafood</td>
+                            <td class="py-2.5 px-2.5 whitespace-nowrap"><span class="font-semibold">55</span> <span style="color:var(--muted)">pack</span></td>
+                            <td class="py-2.5 px-2.5 font-semibold whitespace-nowrap">Rp 38.000</td>
+                            <td class="py-2.5 px-2.5">
+                              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-semibold uppercase" style="background:var(--t-soft);color:var(--t-ink)">Aktif</span>
+                            </td>
+                            <td class="py-2.5 px-3 text-right whitespace-nowrap">
+                              <div class="inline-flex items-center gap-1">
+                                <span class="px-2 py-0.5 rounded-md hairline-all text-[10px]" style="background:var(--card)">Detail</span>
+                                <span class="w-5 h-5 rounded-md inline-flex items-center justify-center" style="background:var(--t-soft);color:var(--t-ink)"><i data-lucide="square-pen" class="w-3 h-3"></i></span>
+                                <span class="w-5 h-5 rounded-md inline-flex items-center justify-center" style="background:var(--coral-soft);color:var(--coral-ink)"><i data-lucide="trash-2" class="w-3 h-3"></i></span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr class="hairline-b">
+                            <td class="py-2.5 px-3">
+                              <p class="font-semibold leading-snug">Fillet Dada Ayam 1kg</p>
+                              <p class="mono text-[9px]" style="color:var(--muted)">FRZ-5022</p>
+                            </td>
+                            <td class="py-2.5 px-2.5 whitespace-nowrap" style="color:var(--muted)">Daging Beku</td>
+                            <td class="py-2.5 px-2.5 whitespace-nowrap"><span class="font-semibold">69</span> <span style="color:var(--muted)">pack</span></td>
+                            <td class="py-2.5 px-2.5 font-semibold whitespace-nowrap">Rp 48.000</td>
+                            <td class="py-2.5 px-2.5">
+                              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-semibold uppercase" style="background:var(--t-soft);color:var(--t-ink)">Aktif</span>
+                            </td>
+                            <td class="py-2.5 px-3 text-right whitespace-nowrap">
+                              <div class="inline-flex items-center gap-1">
+                                <span class="px-2 py-0.5 rounded-md hairline-all text-[10px]" style="background:var(--card)">Detail</span>
+                                <span class="w-5 h-5 rounded-md inline-flex items-center justify-center" style="background:var(--t-soft);color:var(--t-ink)"><i data-lucide="square-pen" class="w-3 h-3"></i></span>
+                                <span class="w-5 h-5 rounded-md inline-flex items-center justify-center" style="background:var(--coral-soft);color:var(--coral-ink)"><i data-lucide="trash-2" class="w-3 h-3"></i></span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr class="hairline-b">
+                            <td class="py-2.5 px-3">
+                              <p class="font-semibold leading-snug">Daging Sapi Slice 500g</p>
+                              <p class="mono text-[9px]" style="color:var(--muted)">FRZ-5021</p>
+                            </td>
+                            <td class="py-2.5 px-2.5 whitespace-nowrap" style="color:var(--muted)">Daging Beku</td>
+                            <td class="py-2.5 px-2.5 whitespace-nowrap"><span class="font-semibold">51</span> <span style="color:var(--muted)">pack</span></td>
+                            <td class="py-2.5 px-2.5 font-semibold whitespace-nowrap">Rp 75.000</td>
+                            <td class="py-2.5 px-2.5">
+                              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-semibold uppercase" style="background:var(--t-soft);color:var(--t-ink)">Aktif</span>
+                            </td>
+                            <td class="py-2.5 px-3 text-right whitespace-nowrap">
+                              <div class="inline-flex items-center gap-1">
+                                <span class="px-2 py-0.5 rounded-md hairline-all text-[10px]" style="background:var(--card)">Detail</span>
+                                <span class="w-5 h-5 rounded-md inline-flex items-center justify-center" style="background:var(--t-soft);color:var(--t-ink)"><i data-lucide="square-pen" class="w-3 h-3"></i></span>
+                                <span class="w-5 h-5 rounded-md inline-flex items-center justify-center" style="background:var(--coral-soft);color:var(--coral-ink)"><i data-lucide="trash-2" class="w-3 h-3"></i></span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr class="hairline-b">
+                            <td class="py-2.5 px-3">
+                              <p class="font-semibold leading-snug">Tempura Udang isi 10</p>
+                              <p class="mono text-[9px]" style="color:var(--muted)">FRZ-3016</p>
+                            </td>
+                            <td class="py-2.5 px-2.5 whitespace-nowrap" style="color:var(--muted)">Dimsum &amp; Seafood</td>
+                            <td class="py-2.5 px-2.5 whitespace-nowrap"><span class="font-semibold">18</span> <span style="color:var(--muted)">pack</span></td>
+                            <td class="py-2.5 px-2.5 font-semibold whitespace-nowrap">Rp 50.000</td>
+                            <td class="py-2.5 px-2.5">
+                              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-semibold uppercase" style="background:var(--t-soft);color:var(--t-ink)">Aktif</span>
+                            </td>
+                            <td class="py-2.5 px-3 text-right whitespace-nowrap">
+                              <div class="inline-flex items-center gap-1">
+                                <span class="px-2 py-0.5 rounded-md hairline-all text-[10px]" style="background:var(--card)">Detail</span>
+                                <span class="w-5 h-5 rounded-md inline-flex items-center justify-center" style="background:var(--t-soft);color:var(--t-ink)"><i data-lucide="square-pen" class="w-3 h-3"></i></span>
+                                <span class="w-5 h-5 rounded-md inline-flex items-center justify-center" style="background:var(--coral-soft);color:var(--coral-ink)"><i data-lucide="trash-2" class="w-3 h-3"></i></span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="py-2.5 px-3">
+                              <p class="font-semibold leading-snug">Nugget Ayam Original 500g</p>
+                              <p class="mono text-[9px]" style="color:var(--muted)">FRZ-1001</p>
+                            </td>
+                            <td class="py-2.5 px-2.5 whitespace-nowrap" style="color:var(--muted)">Olahan Ayam</td>
+                            <td class="py-2.5 px-2.5 whitespace-nowrap"><span class="font-semibold">136</span> <span style="color:var(--muted)">pack</span></td>
+                            <td class="py-2.5 px-2.5 font-semibold whitespace-nowrap">Rp 35.000</td>
+                            <td class="py-2.5 px-2.5">
+                              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-semibold uppercase" style="background:var(--t-soft);color:var(--t-ink)">Aktif</span>
+                            </td>
+                            <td class="py-2.5 px-3 text-right whitespace-nowrap">
+                              <div class="inline-flex items-center gap-1">
+                                <span class="px-2 py-0.5 rounded-md hairline-all text-[10px]" style="background:var(--card)">Detail</span>
+                                <span class="w-5 h-5 rounded-md inline-flex items-center justify-center" style="background:var(--t-soft);color:var(--t-ink)"><i data-lucide="square-pen" class="w-3 h-3"></i></span>
+                                <span class="w-5 h-5 rounded-md inline-flex items-center justify-center" style="background:var(--coral-soft);color:var(--coral-ink)"><i data-lucide="trash-2" class="w-3 h-3"></i></span>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <!-- Floating Button Tanya AI di pojok kanan bawah -->
+                  <div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-medium shadow-md tag-solid absolute bottom-3 right-3">
+                    <i data-lucide="sparkles" class="w-3 h-3"></i>
+                    <span>Tanya AI</span>
+                    <span class="w-2 h-2 rounded-full border border-white/60 absolute -top-0.5 -right-0.5" style="background:var(--t)"></span>
                   </div>
                 </div>
               </div>
@@ -478,46 +843,331 @@
             </div>
           </article>
 
-          <!-- Vita Dulcedo -->
-          <article class="tile p-8 md:p-12" data-tone="blue" data-role="frontend">
+<!-- PT Kem Jaya Mandiri (ERP & Procurement) -->
+          <article class="tile p-8 md:p-12" data-tone="coral" data-role="frontend">
             <div class="reveal mb-8" data-role="frontend">
               <div class="mock">
+                <!-- Browser Topbar -->
                 <div class="mock-bar">
                   <div class="flex items-center gap-1.5">
                     <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
                     <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
                     <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
                   </div>
-                  <span class="mono text-[11px]" style="color:var(--muted)">vitadulcedo.org/donor/dashboard</span>
+                  <span class="mono text-[11px]" style="color:var(--muted)">kjm-erp.local/admin</span>
                   <div class="w-10"></div>
                 </div>
-                <div class="p-4 md:p-6 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
-                  <div class="md:hairline-r md:pr-4 mono">
-                    <p class="text-[11px] mb-3 font-semibold uppercase tracking-wider" style="color:var(--muted)">Status Verifikasi</p>
-                    <div class="space-y-4">
-                      <div class="flex items-start gap-2.5"><span class="w-2 h-2 rounded-full mt-1" style="background:var(--t)"></span><div><p class="font-semibold">Diverifikasi</p><p class="text-[10px]" style="color:var(--muted)">Tim verifikasi panti</p></div></div>
-                      <div class="flex items-start gap-2.5"><span class="w-2 h-2 rounded-full mt-1" style="background:var(--hairline)"></span><div><p class="font-medium">Diterima</p><p class="text-[10px]" style="color:var(--muted)">Distribusi ke anak asuh</p></div></div>
-                      <div class="flex items-start gap-2.5"><span class="w-2 h-2 rounded-full mt-1" style="background:var(--hairline)"></span><div><p class="font-normal" style="color:var(--muted)">Ditolak</p><p class="text-[10px]" style="color:var(--muted)">Jika data tidak valid</p></div></div>
+
+                <!-- App Top Header -->
+                <div class="px-4 py-2 hairline-b flex items-center justify-between" style="background:var(--card)">
+                  <div class="flex items-center gap-2.5">
+                    <i data-lucide="chevron-left" class="w-3.5 h-3.5" style="color:var(--muted)"></i>
+                    <div class="flex items-center gap-1.5">
+                      <div class="w-6 h-6 rounded flex flex-col items-center justify-center font-bold leading-none text-[9px] tracking-tighter" style="background:var(--orange-soft);color:var(--orange-ink);border:1px solid color-mix(in srgb, var(--orange) 35%, transparent)">
+                        <span>KJM</span>
+                      </div>
+                      <span class="hidden sm:inline text-[9px] font-semibold tracking-tight" style="color:var(--muted)">PT. KEM JAYA MANDIRI</span>
                     </div>
                   </div>
-                  <div class="md:col-span-2">
-                    <p class="mono text-[11px] mb-3 font-semibold uppercase tracking-wider" style="color:var(--muted)">Riwayat Donasi Donatur</p>
-                    <div class="space-y-2.5 mono text-[12px]">
-                      <div class="p-2.5 rounded-lg flex items-center justify-between" style="background:var(--t-soft)"><div><p class="font-sans font-medium">Paket Sembako Bulanan</p><p class="text-[11px]" style="color:var(--muted)">10 paket beras &amp; minyak goreng</p></div><span class="font-semibold">Diverifikasi</span></div>
-                      <div class="p-2.5 rounded-lg flex items-center justify-between" style="background:var(--surface)"><div><p class="font-sans font-medium">Bantuan Dana Pendidikan</p><p class="text-[11px]" style="color:var(--muted)">Transfer via Virtual Account</p></div><span class="font-medium">Diterima</span></div>
+                  <div class="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-semibold" style="background:var(--ink);color:var(--on-ink)">M</div>
+                </div>
+
+                <!-- App Body: Sidebar + Main -->
+                <div class="grid grid-cols-1 md:grid-cols-12 text-xs" style="background:var(--bg)">
+                  <!-- Sidebar Navigasi -->
+<!-- Sidebar Navigasi -->
+                  <aside class="hidden md:block md:col-span-3 hairline-r relative" style="background:var(--card)">
+                    <div class="md:absolute md:inset-0 overflow-y-auto p-2.5 space-y-2.5 text-[10.5px] [scrollbar-width:thin]">
+                      <!-- Menu Utama (Tanpa Grup) -->
+                      <div class="space-y-0.5">
+                        <div class="px-2 py-1 rounded-lg font-medium flex items-center gap-2" style="background:var(--coral-soft);color:var(--coral-ink)">
+                          <i data-lucide="home" class="w-3.5 h-3.5 shrink-0"></i>
+                          <span class="truncate">Dashboard</span>
+                        </div>
+                        <div class="px-2 py-1 rounded-lg flex items-center gap-2" style="background:var(--surface);color:var(--muted)">
+                          <i data-lucide="user" class="w-3.5 h-3.5 shrink-0"></i>
+                          <span class="truncate">Profil Saya</span>
+                        </div>
+                      </div>
+
+                      <!-- Grup: Transaksi -->
+                      <div>
+                        <div class="flex items-center justify-between px-2 mb-1 text-[9.5px] font-semibold" style="color:var(--muted)">
+                          <span>Transaksi</span>
+                          <i data-lucide="chevron-up" class="w-3 h-3"></i>
+                        </div>
+                        <div class="space-y-0.5" style="color:var(--muted)">
+                          <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                            <i data-lucide="file-text" class="w-3.5 h-3.5 shrink-0"></i>
+                            <span class="truncate">Penawaran</span>
+                          </div>
+                          <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                            <i data-lucide="clipboard-list" class="w-3.5 h-3.5 shrink-0"></i>
+                            <span class="truncate">Purchase Order</span>
+                          </div>
+                          <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                            <i data-lucide="truck" class="w-3.5 h-3.5 shrink-0"></i>
+                            <span class="truncate">Surat Jalan</span>
+                          </div>
+                          <div class="px-2 py-1 rounded-lg flex items-center justify-between gap-1">
+                            <span class="flex items-center gap-2 min-w-0">
+                              <i data-lucide="receipt" class="w-3.5 h-3.5 shrink-0"></i>
+                              <span class="truncate">Invoice</span>
+                            </span>
+                            <span class="px-1.5 py-0.2 rounded text-[8.5px] font-medium shrink-0" style="background:var(--coral-soft);color:var(--coral-ink)">Finance</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Grup: History -->
+                      <div>
+                        <div class="flex items-center justify-between px-2 mb-1 text-[9.5px] font-semibold" style="color:var(--muted)">
+                          <span>History</span>
+                          <i data-lucide="chevron-up" class="w-3 h-3"></i>
+                        </div>
+                        <div class="space-y-0.5" style="color:var(--muted)">
+                          <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                            <i data-lucide="clock" class="w-3.5 h-3.5 shrink-0"></i>
+                            <span class="truncate">History Penawaran</span>
+                          </div>
+                          <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                            <i data-lucide="clock" class="w-3.5 h-3.5 shrink-0"></i>
+                            <span class="truncate">History Purchase Order</span>
+                          </div>
+                          <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                            <i data-lucide="clock" class="w-3.5 h-3.5 shrink-0"></i>
+                            <span class="truncate">History Surat Jalan</span>
+                          </div>
+                          <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                            <i data-lucide="clock" class="w-3.5 h-3.5 shrink-0"></i>
+                            <span class="truncate">History Invoice</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Grup: Inventory -->
+                      <div>
+                        <div class="flex items-center justify-between px-2 mb-1 text-[9.5px] font-semibold" style="color:var(--muted)">
+                          <span>Inventory</span>
+                          <i data-lucide="chevron-up" class="w-3 h-3"></i>
+                        </div>
+                        <div class="space-y-0.5" style="color:var(--muted)">
+                          <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                            <i data-lucide="package" class="w-3.5 h-3.5 shrink-0"></i>
+                            <span class="truncate">Data Barang</span>
+                          </div>
+                          <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                            <i data-lucide="warehouse" class="w-3.5 h-3.5 shrink-0"></i>
+                            <span class="truncate">Stock Gudang</span>
+                          </div>
+                          <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                            <i data-lucide="tag" class="w-3.5 h-3.5 shrink-0"></i>
+                            <span class="truncate">Kategori Barang</span>
+                          </div>
+                          <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                            <i data-lucide="building-2" class="w-3.5 h-3.5 shrink-0"></i>
+                            <span class="truncate">Customer</span>
+                          </div>
+                          <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                            <i data-lucide="store" class="w-3.5 h-3.5 shrink-0"></i>
+                            <span class="truncate">Vendor</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Grup: Admin -->
+                      <div>
+                        <div class="flex items-center justify-between px-2 mb-1 text-[9.5px] font-semibold" style="color:var(--muted)">
+                          <span>Admin</span>
+                          <i data-lucide="chevron-up" class="w-3 h-3"></i>
+                        </div>
+                        <div class="space-y-0.5" style="color:var(--muted)">
+                          <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                            <i data-lucide="bar-chart-3" class="w-3.5 h-3.5 shrink-0"></i>
+                            <span class="truncate">Laporan</span>
+                          </div>
+                          <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                            <i data-lucide="landmark" class="w-3.5 h-3.5 shrink-0"></i>
+                            <span class="truncate">Data Bank</span>
+                          </div>
+                          <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                            <i data-lucide="credit-card" class="w-3.5 h-3.5 shrink-0"></i>
+                            <span class="truncate">Term of Payment</span>
+                          </div>
+                          <div class="px-2 py-1 rounded-lg flex items-center gap-2">
+                            <i data-lucide="users" class="w-3.5 h-3.5 shrink-0"></i>
+                            <span class="truncate">Kelola User &amp; Akses</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </aside>
+
+                  <!-- Workspace Utama -->
+                  <div class="md:col-span-9 p-4 md:p-5 space-y-3.5">
+                    <h4 class="font-semibold text-base tracking-tight">Dasbor</h4>
+
+                    <!-- Grid 9 Kartu KPI (3x3) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                      <!-- 1. Penawaran Bulan Ini -->
+                      <div class="rounded-xl hairline-all overflow-hidden flex flex-col justify-between" style="background:var(--card)">
+                        <div class="p-3 pb-2">
+                          <p class="text-[10px]" style="color:var(--muted)">Penawaran Bulan Ini</p>
+                          <p class="text-lg font-bold tracking-tight my-0.5">6</p>
+                          <p class="text-[9px] font-medium inline-flex items-center gap-1" style="color:var(--blue-ink)">
+                            <span>Total katalog penawaran</span>
+                            <i data-lucide="file-text" class="w-2.5 h-2.5"></i>
+                          </p>
+                        </div>
+                        <svg viewBox="0 0 200 12" preserveAspectRatio="none" class="w-full h-2.5 block" aria-hidden="true">
+                          <path d="M0 9 Q 55 2, 110 8 T 200 6" fill="none" stroke="var(--blue)" stroke-width="2.5"/>
+                        </svg>
+                      </div>
+
+                      <!-- 2. Pesanan Pembelian Bulan Ini -->
+                      <div class="rounded-xl hairline-all overflow-hidden flex flex-col justify-between" style="background:var(--card)">
+                        <div class="p-3 pb-2">
+                          <p class="text-[10px]" style="color:var(--muted)">Pesanan Pembelian Bulan Ini</p>
+                          <p class="text-lg font-bold tracking-tight my-0.5">9</p>
+                          <p class="text-[9px] font-medium inline-flex items-center gap-1" style="color:var(--orange-ink)">
+                            <span>Pesanan pembelian masuk</span>
+                            <i data-lucide="shopping-bag" class="w-2.5 h-2.5"></i>
+                          </p>
+                        </div>
+                        <svg viewBox="0 0 200 12" preserveAspectRatio="none" class="w-full h-2.5 block" aria-hidden="true">
+                          <path d="M0 8 Q 60 11, 120 5 T 200 8" fill="none" stroke="var(--orange)" stroke-width="2.5"/>
+                        </svg>
+                      </div>
+
+                      <!-- 3. Surat Jalan Bulan Ini -->
+                      <div class="rounded-xl hairline-all overflow-hidden flex flex-col justify-between" style="background:var(--card)">
+                        <div class="p-3 pb-2">
+                          <p class="text-[10px]" style="color:var(--muted)">Surat Jalan Bulan Ini</p>
+                          <p class="text-lg font-bold tracking-tight my-0.5">0</p>
+                          <p class="text-[9px] font-medium inline-flex items-center gap-1" style="color:var(--green-ink)">
+                            <span>Pengiriman aktif</span>
+                            <i data-lucide="truck" class="w-2.5 h-2.5"></i>
+                          </p>
+                        </div>
+                        <svg viewBox="0 0 200 12" preserveAspectRatio="none" class="w-full h-2.5 block" aria-hidden="true">
+                          <path d="M0 9 Q 70 11, 130 5 T 200 9" fill="none" stroke="var(--green)" stroke-width="2.5"/>
+                        </svg>
+                      </div>
+
+                      <!-- 4. Faktur Bulan Ini -->
+                      <div class="rounded-xl hairline-all overflow-hidden flex flex-col justify-between" style="background:var(--card)">
+                        <div class="p-3 pb-2">
+                          <p class="text-[10px]" style="color:var(--muted)">Faktur Bulan Ini</p>
+                          <p class="text-lg font-bold tracking-tight my-0.5">0</p>
+                          <p class="text-[9px] font-medium inline-flex items-center gap-1" style="color:var(--coral-ink)">
+                            <span>Tagihan terbit</span>
+                            <i data-lucide="receipt" class="w-2.5 h-2.5"></i>
+                          </p>
+                        </div>
+                        <svg viewBox="0 0 200 12" preserveAspectRatio="none" class="w-full h-2.5 block" aria-hidden="true">
+                          <path d="M0 8 Q 65 2, 135 8 T 200 9" fill="none" stroke="var(--coral)" stroke-width="2.5"/>
+                        </svg>
+                      </div>
+
+                      <!-- 5. Faktur Belum Dibayar -->
+                      <div class="rounded-xl hairline-all overflow-hidden flex flex-col justify-between" style="background:var(--card)">
+                        <div class="p-3 pb-2">
+                          <p class="text-[10px]" style="color:var(--muted)">Faktur Belum Dibayar</p>
+                          <p class="text-lg font-bold tracking-tight my-0.5">0</p>
+                          <p class="text-[9px] font-medium inline-flex items-center gap-1" style="color:var(--green-ink)">
+                            <span>Status pembayaran belum lunas</span>
+                            <i data-lucide="clock" class="w-2.5 h-2.5"></i>
+                          </p>
+                        </div>
+                        <svg viewBox="0 0 200 12" preserveAspectRatio="none" class="w-full h-2.5 block" aria-hidden="true">
+                          <path d="M0 9 Q 70 11, 130 4 T 200 9" fill="none" stroke="var(--green)" stroke-width="2.5"/>
+                        </svg>
+                      </div>
+
+                      <!-- 6. Total Item Barang -->
+                      <div class="rounded-xl hairline-all overflow-hidden flex flex-col justify-between" style="background:var(--card)">
+                        <div class="p-3 pb-2">
+                          <p class="text-[10px]" style="color:var(--muted)">Total Item Barang</p>
+                          <p class="text-lg font-bold tracking-tight my-0.5">1,355</p>
+                          <p class="text-[9px] font-medium inline-flex items-center gap-1" style="color:var(--muted)">
+                            <span>Data induk barang</span>
+                            <i data-lucide="package" class="w-2.5 h-2.5"></i>
+                          </p>
+                        </div>
+                        <svg viewBox="0 0 200 12" preserveAspectRatio="none" class="w-full h-2.5 block" aria-hidden="true">
+                          <path d="M0 8 Q 65 3, 135 8 T 200 9" fill="none" stroke="var(--muted)" stroke-opacity="0.5" stroke-width="2.5"/>
+                        </svg>
+                      </div>
+
+                      <!-- 7. Total Item Gudang -->
+                      <div class="rounded-xl hairline-all overflow-hidden flex flex-col justify-between" style="background:var(--card)">
+                        <div class="p-3 pb-2">
+                          <p class="text-[10px]" style="color:var(--muted)">Total Item Gudang</p>
+                          <p class="text-lg font-bold tracking-tight my-0.5">18.525</p>
+                          <p class="text-[9px] font-medium inline-flex items-center gap-1" style="color:var(--blue-ink)">
+                            <span>Unit stok seluruh jenis barang</span>
+                            <i data-lucide="box" class="w-2.5 h-2.5"></i>
+                          </p>
+                        </div>
+                        <svg viewBox="0 0 200 12" preserveAspectRatio="none" class="w-full h-2.5 block" aria-hidden="true">
+                          <path d="M0 9 Q 60 3, 125 8 T 200 7" fill="none" stroke="var(--blue)" stroke-width="2.5"/>
+                        </svg>
+                      </div>
+
+                      <!-- 8. Stok Menipis -->
+                      <div class="rounded-xl hairline-all overflow-hidden flex flex-col justify-between" style="background:var(--card)">
+                        <div class="p-3 pb-2">
+                          <p class="text-[10px]" style="color:var(--muted)">Stok Menipis</p>
+                          <p class="text-lg font-bold tracking-tight my-0.5">0</p>
+                          <p class="text-[9px] font-medium inline-flex items-center gap-1" style="color:var(--green-ink)">
+                            <span>Semua stok dalam batas aman</span>
+                            <i data-lucide="alert-triangle" class="w-2.5 h-2.5"></i>
+                          </p>
+                        </div>
+                        <svg viewBox="0 0 200 12" preserveAspectRatio="none" class="w-full h-2.5 block" aria-hidden="true">
+                          <path d="M0 9 Q 75 11, 135 5 T 200 9" fill="none" stroke="var(--green)" stroke-width="2.5"/>
+                        </svg>
+                      </div>
+
+                      <!-- 9. Stok Habis (Kosong) -->
+                      <div class="rounded-xl hairline-all overflow-hidden flex flex-col justify-between" style="background:var(--card)">
+                        <div class="p-3 pb-2">
+                          <p class="text-[10px]" style="color:var(--muted)">Stok Habis (Kosong)</p>
+                          <p class="text-lg font-bold tracking-tight my-0.5">4</p>
+                          <p class="text-[9px] font-medium inline-flex items-center gap-1" style="color:var(--coral-ink)">
+                            <span>Kritis: segera lakukan restock!</span>
+                            <i data-lucide="x-circle" class="w-2.5 h-2.5"></i>
+                          </p>
+                        </div>
+                        <svg viewBox="0 0 200 12" preserveAspectRatio="none" class="w-full h-2.5 block" aria-hidden="true">
+                          <path d="M0 8 Q 65 2, 130 8 T 200 9" fill="none" stroke="var(--coral)" stroke-width="2.5"/>
+                        </svg>
+                      </div>
+                    </div>
+
+                    <!-- Widget Tren Keuangan -->
+                    <div class="p-3.5 rounded-xl hairline-all flex flex-wrap items-center justify-between gap-2" style="background:var(--card)">
+                      <div>
+                        <p class="font-semibold text-xs">Tren Keuangan (6 Bulan Terakhir)</p>
+                        <p class="text-[10px]" style="color:var(--muted)">Pendapatan Bulan Ini: Rp 0</p>
+                      </div>
+                      <span class="px-2.5 py-1 rounded-lg hairline-all text-[10px] inline-flex items-center gap-1.5" style="background:var(--surface)">
+                        <span>6 Bulan Terakhir</span>
+                        <i data-lucide="chevron-down" class="w-3 h-3" style="color:var(--muted)"></i>
+                      </span>
                     </div>
                   </div>
                 </div>
               </div>
               <p class="mono text-[11px] mt-2.5 text-right" style="color:var(--muted)">Ilustrasi antarmuka</p>
             </div>
-            <h3 class="reveal text-2xl font-semibold tracking-tight mb-3" data-role="frontend">Vita Dulcedo, Sistem Manajemen Donasi Panti Asuhan</h3>
-            <p class="reveal leading-relaxed mb-6" style="color:var(--muted)" data-role="frontend">Platform donasi uang dan barang dengan dashboard terpisah untuk admin dan donatur. Setiap donatur punya profil untuk melacak status donasinya. SPK merekomendasikan alokasi donasi sesuai preferensi donatur.</p>
+            <h3 class="reveal text-2xl font-semibold tracking-tight mb-3" data-role="frontend">Sistem ERP &amp; Operasional PT Kem Jaya Mandiri</h3>
+            <p class="reveal leading-relaxed mb-6" style="color:var(--muted)" data-role="frontend">Modernisasi sistem pengadaan, inventaris gudang, dan logistik pengiriman dari database legacy ke arsitektur Laravel. Mendukung alur transaksi end-to-end mulai dari Penawaran, Purchase Order, Surat Jalan, hingga Invoice otomatis, dilengkapi audit trail mutasi stok, form draft auto-save, cetak dokumen resmi, dan RBAC per-user.</p>
             <div class="reveal flex flex-wrap items-center gap-2 mb-6" data-role="frontend">
-              <span class="pill">Laravel</span><span class="pill">PHP</span><span class="pill">Blade</span><span class="pill">MySQL</span><span class="pill">Decision Support</span>
+              <span class="pill">Laravel 13</span><span class="pill">Filament v5</span><span class="pill">Livewire</span><span class="pill">Tailwind CSS v4</span><span class="pill">MySQL</span><span class="pill">Playwright</span>
             </div>
             <div class="reveal" data-role="frontend">
-              <a href="https://github.com/gibrandevlab/Vita-Dulcedo" target="_blank" rel="noopener noreferrer" class="action-link">Lihat di GitHub <span aria-hidden="true">›</span></a>
+              <a href="https://github.com/gibrandevlab/PT-KEM-JAYA-MANDIRI" target="_blank" rel="noopener noreferrer" class="action-link">Lihat di GitHub <span aria-hidden="true">›</span></a>
             </div>
           </article>
 
@@ -772,11 +1422,14 @@
 
   </main>
 
-  <footer class="hairline-t py-12 text-xs" style="color:var(--muted)">
-    <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+<footer class="hairline-t py-12 text-xs" style="color:var(--muted)">
+    <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
       <p>© 2026 Afwan Gibran Muhammad Algiffari</p>
-      <p class="mono text-[11px]">Kursor agen = simulasi pengerjaan setiap bagian proyek.</p>
-      <p>Built with HTML, Tailwind CSS &amp; Vanilla JS</p>
+      <div class="flex items-center gap-6">
+        <a href="https://github.com/gibrandevlab" target="_blank" rel="noopener noreferrer" class="nav-link">GitHub</a>
+        <a href="mailto:afwangibran19@gmail.com" class="nav-link">Email</a>
+        <a href="#" class="nav-link">Kembali ke atas ↑</a>
+      </div>
     </div>
   </footer>
 
@@ -798,6 +1451,7 @@
       var root = document.documentElement;
       var rand = Math.random;
       function clamp(n, a, b) { return Math.min(b, Math.max(a, n)); }
+      function randRange(a, b) { return a + rand() * (b - a); }
 
       /* ---------- localStorage aman ---------- */
       var storage = {
@@ -921,9 +1575,9 @@
         });
       }
 
-      /* ---------- 6. Kursor multiplayer ala Figma ----------
-         Setiap elemen teks .reveal yang masuk viewport dibangun oleh kursor kolaborator:
-         setiap kursor diberi identitas Agent#xxxxx dengan 5 digit angka acak unik. */
+      /* ---------- 6. Kursor multiplayer organik ala Figma ----------
+         5 Archetype render berbeda per tipe elemen + lintasan melengkung,
+         jeda mikro (hesitation), pergantian ikon kursor, dan post-action drift. */
       function initMultiplayer() {
         if (!root.classList.contains('mp-on')) return;
         if (!('IntersectionObserver' in window) || !Element.prototype.animate) {
@@ -932,16 +1586,24 @@
         }
 
         var EASE_OUT = 'cubic-bezier(.22,.8,.3,1)';
-        var EASE_IO = 'cubic-bezier(.65,0,.35,1)';
-        var FLY_MS = 460;
+        var EASE_IO  = 'cubic-bezier(.65,0,.35,1)';
+        var EASE_SPRING = 'cubic-bezier(.34,1.38,.64,1)';
 
         var TONES = ['blue', 'green', 'orange', 'purple', 'coral', 'teal', 'yellow', 'pink'];
+
+        /* Kamus ikon kursor Figma sesuai aksi */
+        var ICONS = {
+          pointer: '<svg viewBox="0 0 16 22" aria-hidden="true"><path d="M1.2 1.2v15.2l3.6-3.4 2.6 6.2 2.3-1-2.6-6.1h5z" fill="currentColor" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/></svg>',
+          crosshair: '<svg viewBox="0 0 18 22" aria-hidden="true"><path d="M8 2h2v6h6v2h-6v6H8v-6H2V8h6V2z" fill="currentColor" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/></svg>',
+          ibeam: '<svg viewBox="0 0 16 22" aria-hidden="true"><path d="M4 2h8v2.2H9.2v13.6H12V20H4v-2.2h2.8V4.2H4V2z" fill="currentColor" stroke="#fff" stroke-width="1.1" stroke-linejoin="round"/></svg>',
+          grab: '<svg viewBox="0 0 18 22" aria-hidden="true"><path d="M6.5 9V4.5a1.3 1.3 0 0 1 2.6 0V8h.4V3.8a1.3 1.3 0 0 1 2.6 0V8h.4V4.8a1.3 1.3 0 0 1 2.6 0v6.7c0 3.3-2.2 5.5-5.3 5.5-2.4 0-4.1-1.2-5.2-3.4l-1.5-3a1.3 1.3 0 0 1 2.2-1.3L6.5 11V9z" fill="currentColor" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/></svg>'
+        };
 
         var usedAgentIds = new Set();
         function getUniqueAgentName() {
           var id;
           do {
-            id = Math.floor(10000 + Math.random() * 90000);
+            id = Math.floor(10000 + rand() * 90000);
           } while (usedAgentIds.has(id));
           usedAgentIds.add(id);
           return 'Agent#' + id;
@@ -959,35 +1621,64 @@
           'Dokumentasi API contract', 'Audit rekonsiliasi data', 'Mengecek konsistensi warna'
         ];
 
+        /* Profil ritme kepribadian agar tiap agen bergerak dalam tempo berbeda */
+        var PROFILES = [
+          { name: 'snappy',     flyScale: 0.78, hesitate: [45, 95],   chatChance: 0.25 },
+          { name: 'balanced',   flyScale: 1.00, hesitate: [80, 145],  chatChance: 0.45 },
+          { name: 'deliberate', flyScale: 1.25, hesitate: [120, 200], chatChance: 0.65 }
+        ];
+
         var layer = document.getElementById('mp-layer');
         var states = new Map();
-
-        var ARROW = '<svg viewBox="0 0 13 20" aria-hidden="true"><path d="M.9.9v15.2l3.6-3.4 2.6 6.2 2.3-1-2.6-6.1h5z" fill="currentColor" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/></svg>';
 
         function docRect(el) {
           var r = el.getBoundingClientRect();
           return { x: r.left + window.scrollX, y: r.top + window.scrollY, w: r.width, h: r.height };
         }
         function docWidth() { return root.clientWidth; }
-        function startPoint(r) {
-          var left = Math.random() < 0.5;
-          var x = left ? r.x - 70 - Math.random() * 120 : r.x + r.w + 30 + Math.random() * 100;
-          var y = r.y - 30 - Math.random() * 80;
-          return { x: Math.max(6, Math.min(docWidth() - 70, x)), y: Math.max(6, y) };
+
+        function startPointNear(tx, ty) {
+          var angle = randRange(0, Math.PI * 2);
+          var dist = randRange(75, 175);
+          var x = clamp(tx + Math.cos(angle) * dist, 8, docWidth() - 80);
+          var y = Math.max(8, ty + Math.sin(angle) * dist - 20);
+          return { x: x, y: y };
         }
 
         function getTone(el) {
           return el.getAttribute('data-tone') || (el.closest('[data-tone]') && el.closest('[data-tone]').getAttribute('data-tone')) || null;
         }
 
+        /* Deteksi tipe elemen untuk memilih 1 dari 5 gaya render */
+        function detectArchetype(el) {
+          if (el.querySelector('.mock') || el.querySelector('.pill') || el.querySelector('.btn-primary')) {
+            return 'box4'; // 4-Corner Bounding Box Drag
+          }
+          if (el.matches('h1, h2, h3, h4') || el.classList.contains('headline')) {
+            return 'textSweep'; // I-Beam Text Sweep + Highlight Drag
+          }
+          if (el.classList.contains('frame-label') || el.classList.contains('inline-flex')) {
+            return 'stamp'; // Grab & Drop Component Stamp + Ripple
+          }
+          if (el.matches('li') || el.classList.contains('tl-date') || el.closest('.tl-item')) {
+            return 'nodeTap'; // Timeline Node Tap + Horizontal Wipe
+          }
+          return 'nudge'; // Block Reveal + Smart Alignment Micro-Nudge
+        }
+
         function makeCursor(p) {
           var c = document.createElement('div');
           c.className = 'mp-cursor';
           c.setAttribute('data-tone', p.tone);
-          c.innerHTML = ARROW + '<div class="mp-label"><span class="mp-name"></span><span class="mp-msg"></span></div>';
+          c.innerHTML = '<span class="mp-ico">' + ICONS.pointer + '</span><div class="mp-label"><span class="mp-name"></span><span class="mp-msg"></span></div>';
           c.querySelector('.mp-name').textContent = p.name;
           layer.appendChild(c);
           return c;
+        }
+
+        function setTool(c, tool) {
+          var ico = c.querySelector('.mp-ico');
+          if (ico && ICONS[tool]) ico.innerHTML = ICONS[tool];
         }
 
         function makeFrame(p, r) {
@@ -1002,15 +1693,70 @@
           return f;
         }
 
-        function place(c, x, y) {
-          c.style.transition = 'none';
-          c.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)';
-          void c.offsetWidth;
+        function spawnRipple(tone, x, y) {
+          var rp = document.createElement('div');
+          rp.className = 'mp-ripple';
+          rp.setAttribute('data-tone', tone);
+          rp.style.left = x + 'px';
+          rp.style.top = y + 'px';
+          layer.appendChild(rp);
+          var a = rp.animate(
+            [
+              { transform: 'translate(-50%, -50%) scale(0.35)', opacity: 0.95 },
+              { transform: 'translate(-50%, -50%) scale(2.1)', opacity: 0 }
+            ],
+            { duration: 420, easing: EASE_OUT, fill: 'forwards' }
+          );
+          a.onfinish = function () { a.cancel(); rp.remove(); };
         }
 
-        function move(c, x, y, ms, ease) {
-          c.style.transition = 'opacity .35s ease, transform ' + ms + 'ms ' + (ease || EASE_OUT);
+        function spawnGuide(x, y, h) {
+          var g = document.createElement('div');
+          g.className = 'mp-guide';
+          g.style.left = x + 'px';
+          g.style.top = (y - 12) + 'px';
+          g.style.height = (h + 24) + 'px';
+          layer.appendChild(g);
+          var a = g.animate(
+            [
+              { opacity: 0 },
+              { opacity: 0.9, offset: 0.2 },
+              { opacity: 0.9, offset: 0.75 },
+              { opacity: 0 }
+            ],
+            { duration: 560, easing: 'ease', fill: 'forwards' }
+          );
+          a.onfinish = function () { a.cancel(); g.remove(); };
+        }
+
+        function place(c, x, y) {
           c.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)';
+        }
+
+        /* Gerakan melengkung organik (Curved Bézier Flight) via WAAPI */
+        function flyCurved(c, fromX, fromY, toX, toY, ms, arcAmp) {
+          var dx = toX - fromX;
+          var dy = toY - fromY;
+          var dist = Math.hypot(dx, dy) || 1;
+          var nx = -dy / dist;
+          var ny = dx / dist;
+          var bend = (arcAmp !== undefined ? arcAmp : randRange(24, 68)) * (rand() < 0.5 ? 1 : -1);
+          var midX = fromX + dx * 0.48 + nx * bend;
+          var midY = fromY + dy * 0.48 + ny * bend;
+
+          var anim = c.animate(
+            [
+              { transform: 'translate3d(' + fromX + 'px,' + fromY + 'px,0)' },
+              { transform: 'translate3d(' + midX + 'px,' + midY + 'px,0)', offset: 0.48 },
+              { transform: 'translate3d(' + toX + 'px,' + toY + 'px,0)' }
+            ],
+            { duration: ms, easing: EASE_OUT, fill: 'forwards' }
+          );
+          anim.onfinish = function () {
+            place(c, toX, toY);
+            anim.cancel();
+          };
+          return anim;
         }
 
         function chat(cu) {
@@ -1022,18 +1768,321 @@
           cu.msgT = setTimeout(function () { cu.c.classList.remove('has-msg'); }, 2200);
         }
 
+        function finishAndDrift(el, st, cu, endX, endY, extraCleanup) {
+          el.classList.add('is-built');
+          el.style.clipPath = '';
+          el.style.transform = '';
+          el.style.opacity = '';
+          if (extraCleanup) extraCleanup();
+
+          st.built = true;
+          st.state = 'idle';
+          setTool(cu.c, 'pointer');
+
+          if (rand() < st.profile.chatChance) {
+            setTimeout(function () { if (st.cursor === cu) chat(cu); }, 180);
+          }
+
+          /* Kursor tidak diam kaku: meluncur santai menjauh sebelum memudar */
+          var driftX = clamp(endX + randRange(-38, 48), 8, docWidth() - 80);
+          var driftY = Math.max(8, endY + randRange(12, 42));
+          flyCurved(cu.c, endX, endY, driftX, driftY, 750, 14);
+
+          setTimeout(function () {
+            if (st.cursor === cu) release(st);
+          }, 1450);
+        }
+
         function release(st) {
           var cu = st.cursor;
           if (!cu) return;
-          clearTimeout(cu.timer);
           clearTimeout(cu.msgT);
-          cu.c.style.transition = 'opacity .35s ease, transform .5s ' + EASE_OUT;
           cu.c.classList.remove('is-on');
           if (cu.f) cu.f.remove();
-          setTimeout(function () { cu.c.remove(); }, 400);
+          setTimeout(function () { cu.c.remove(); }, 350);
           st.cursor = null;
         }
 
+        /* =========================================================
+           ARCHETYPE 1: 4-CORNER BOUNDING BOX DRAG
+           ========================================================= */
+        function runBox4(el, st, r, cu, flyMs, hesMs) {
+          var corners = ['tl', 'tr', 'bl', 'br'];
+          var anchor = corners[Math.floor(rand() * corners.length)];
+          var sx = (anchor === 'tl' || anchor === 'bl') ? r.x : r.x + r.w;
+          var sy = (anchor === 'tl' || anchor === 'tr') ? r.y : r.y + r.h;
+          var ex = (anchor === 'tl' || anchor === 'bl') ? r.x + r.w : r.x;
+          var ey = (anchor === 'tl' || anchor === 'tr') ? r.y + r.h : r.y;
+
+          var clipStart =
+            anchor === 'tl' ? 'inset(0 100% 100% 0)' :
+            anchor === 'tr' ? 'inset(0 0 100% 100%)' :
+            anchor === 'bl' ? 'inset(100% 100% 0 0)' :
+                              'inset(100% 0 0 100%)';
+
+          var dur = clamp(500 + (r.w + r.h) * 0.22, 540, 1020);
+          var f = makeFrame(st.person, r);
+          cu.f = f;
+
+          var start = startPointNear(sx, sy);
+          place(cu.c, start.x, start.y);
+          cu.c.classList.add('is-on');
+          flyCurved(cu.c, start.x, start.y, sx, sy, flyMs);
+
+          setTimeout(function () {
+            setTool(cu.c, 'crosshair');
+            f.classList.add('is-on');
+
+            var fa = f.animate(
+              [
+                { left: sx + 'px', top: sy + 'px', width: '0px', height: '0px' },
+                { left: r.x + 'px', top: r.y + 'px', width: r.w + 'px', height: r.h + 'px' }
+              ],
+              { duration: dur, easing: EASE_IO, fill: 'forwards' }
+            );
+            fa.onfinish = function () {
+              f.style.left = r.x + 'px'; f.style.top = r.y + 'px';
+              f.style.width = r.w + 'px'; f.style.height = r.h + 'px';
+              fa.cancel();
+              f.classList.add('is-built');
+            };
+
+            flyCurved(cu.c, sx, sy, ex, ey, dur, 12);
+
+            var ea = el.animate(
+              [
+                { clipPath: clipStart, opacity: 1 },
+                { clipPath: 'inset(0 0% 0% 0)', opacity: 1 }
+              ],
+              { duration: dur, easing: EASE_IO, fill: 'forwards' }
+            );
+            ea.onfinish = function () {
+              ea.cancel();
+              setTimeout(function () {
+                f.classList.remove('is-on');
+                setTimeout(function () { f.remove(); }, 350);
+              }, 700);
+              finishAndDrift(el, st, cu, ex, ey);
+            };
+          }, flyMs + hesMs);
+        }
+
+        /* =========================================================
+           ARCHETYPE 2: I-BEAM TEXT SWEEP + HIGHLIGHT (.hl) DRAG
+           ========================================================= */
+        function runTextSweep(el, st, r, cu, flyMs, hesMs) {
+          var sx = r.x;
+          var sy = r.y + Math.min(r.h * 0.45, 28);
+          var ex = r.x + r.w;
+          var ey = r.y + r.h * 0.65;
+          var dur = clamp(420 + r.w * 0.45, 450, 820);
+
+          var hl = el.querySelector('.hl');
+          var hlSingleLine = false;
+          if (hl) {
+            hlSingleLine = hl.getClientRects().length === 1;
+            hl.style.opacity = '0';
+          }
+
+          var start = startPointNear(sx, sy);
+          place(cu.c, start.x, start.y);
+          cu.c.classList.add('is-on');
+          flyCurved(cu.c, start.x, start.y, sx, sy, flyMs);
+
+          setTimeout(function () {
+            setTool(cu.c, 'ibeam');
+
+            /* Sapuan kursor teks (2 lintasan jika judul membungkus > 1 baris) */
+            var isMulti = r.h > 75;
+            var cursorFrames = isMulti ? [
+              { transform: 'translate3d(' + sx + 'px,' + (r.y + r.h * 0.25) + 'px,0)' },
+              { transform: 'translate3d(' + (r.x + r.w * 0.92) + 'px,' + (r.y + r.h * 0.25) + 'px,0)', offset: 0.46 },
+              { transform: 'translate3d(' + (r.x + r.w * 0.1) + 'px,' + (r.y + r.h * 0.72) + 'px,0)', offset: 0.54 },
+              { transform: 'translate3d(' + ex + 'px,' + (r.y + r.h * 0.72) + 'px,0)' }
+            ] : [
+              { transform: 'translate3d(' + sx + 'px,' + sy + 'px,0)' },
+              { transform: 'translate3d(' + ex + 'px,' + sy + 'px,0)' }
+            ];
+
+            var ca = cu.c.animate(cursorFrames, { duration: dur, easing: EASE_IO, fill: 'forwards' });
+            ca.onfinish = function () {
+              place(cu.c, ex, isMulti ? (r.y + r.h * 0.72) : sy);
+              ca.cancel();
+            };
+
+            var ea = el.animate(
+              [
+                { clipPath: 'inset(0 100% 0 0)', opacity: 1 },
+                { clipPath: 'inset(0 0% 0 0)', opacity: 1 }
+              ],
+              { duration: dur, easing: EASE_IO, fill: 'forwards' }
+            );
+
+            ea.onfinish = function () {
+              ea.cancel();
+
+              /* Jika ada kata ber-highlight (.hl), kursor balik menarik blok seleksi warna */
+              if (hl) {
+                var hr = docRect(hl);
+                var hStartX = hr.x;
+                var hEndX = hr.x + hr.w;
+                var hY = hr.y + hr.h * 0.5;
+                var curEndY = isMulti ? (r.y + r.h * 0.72) : sy;
+
+                flyCurved(cu.c, ex, curEndY, hStartX, hY, 220, 18);
+                setTimeout(function () {
+                  if (hlSingleLine) hl.style.display = 'inline-block';
+                  hl.style.opacity = '1';
+                  flyCurved(cu.c, hStartX, hY, hEndX, hY, 260, 4);
+                  var ha = hl.animate(
+                    hlSingleLine
+                      ? [{ clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)' }]
+                      : [{ opacity: 0 }, { opacity: 1 }],
+                    { duration: 260, easing: EASE_OUT, fill: 'forwards' }
+                  );
+                  ha.onfinish = function () {
+                    ha.cancel();
+                    finishAndDrift(el, st, cu, hEndX, hY, function () {
+                      hl.style.display = '';
+                      hl.style.opacity = '';
+                      hl.style.clipPath = '';
+                    });
+                  };
+                }, 230);
+              } else {
+                finishAndDrift(el, st, cu, ex, isMulti ? (r.y + r.h * 0.72) : sy);
+              }
+            };
+          }, flyMs + hesMs);
+        }
+
+        /* =========================================================
+           ARCHETYPE 3: COMPONENT STAMP & CLICK RIPPLE
+           ========================================================= */
+        function runStamp(el, st, r, cu, flyMs, hesMs) {
+          var offsetX = randRange(-26, 26);
+          var offsetY = randRange(-28, -14);
+          var tilt = randRange(-2.5, 2.5);
+          var dropX = r.x + Math.min(r.w * 0.35, 64);
+          var dropY = r.y + r.h * 0.5;
+
+          var start = startPointNear(dropX + offsetX, dropY + offsetY);
+          place(cu.c, start.x, start.y);
+          cu.c.classList.add('is-on');
+          flyCurved(cu.c, start.x, start.y, dropX + offsetX, dropY + offsetY, flyMs);
+
+          setTimeout(function () {
+            setTool(cu.c, 'grab');
+            var dropDur = 360;
+
+            flyCurved(cu.c, dropX + offsetX, dropY + offsetY, dropX, dropY, dropDur, 8);
+
+            var ea = el.animate(
+              [
+                {
+                  opacity: 0,
+                  transform: 'translate3d(' + offsetX + 'px,' + offsetY + 'px,0) scale(0.92) rotate(' + tilt + 'deg)'
+                },
+                {
+                  opacity: 1,
+                  transform: 'translate3d(0px,0px,0) scale(1) rotate(0deg)'
+                }
+              ],
+              { duration: dropDur, easing: EASE_SPRING, fill: 'forwards' }
+            );
+
+            ea.onfinish = function () {
+              ea.cancel();
+              spawnRipple(st.person.tone, dropX, dropY);
+              finishAndDrift(el, st, cu, dropX, dropY);
+            };
+          }, flyMs + hesMs);
+        }
+
+        /* =========================================================
+           ARCHETYPE 4: TIMELINE NODE TAP + HORIZONTAL WIPE
+           ========================================================= */
+        function runNodeTap(el, st, r, cu, flyMs, hesMs) {
+          var tlItem = el.closest('.tl-item');
+          var nodeEl = tlItem ? tlItem.querySelector('.node') : null;
+          var nr = nodeEl ? docRect(nodeEl) : null;
+
+          var tapX = nr ? (nr.x + nr.w * 0.5) : (r.x - 10);
+          var tapY = nr ? (nr.y + nr.h * 0.5) : (r.y + 10);
+          var endX = r.x + Math.min(r.w * 0.75, 220);
+          var endY = r.y + Math.min(r.h * 0.5, 16);
+          var dur = clamp(380 + r.w * 0.3, 400, 720);
+
+          var start = startPointNear(tapX, tapY);
+          place(cu.c, start.x, start.y);
+          cu.c.classList.add('is-on');
+          flyCurved(cu.c, start.x, start.y, tapX, tapY, flyMs);
+
+          setTimeout(function () {
+            spawnRipple(st.person.tone, tapX, tapY);
+            if (nodeEl) {
+              nodeEl.animate(
+                [
+                  { transform: 'scale(1)' },
+                  { transform: 'scale(1.65)', offset: 0.45 },
+                  { transform: 'scale(1)' }
+                ],
+                { duration: 360, easing: EASE_OUT }
+              );
+            }
+
+            flyCurved(cu.c, tapX, tapY, endX, endY, dur, 14);
+            var ea = el.animate(
+              [
+                { clipPath: 'inset(0 100% 0 0)', opacity: 1 },
+                { clipPath: 'inset(0 0% 0 0)', opacity: 1 }
+              ],
+              { duration: dur, easing: EASE_IO, fill: 'forwards' }
+            );
+            ea.onfinish = function () {
+              ea.cancel();
+              finishAndDrift(el, st, cu, endX, endY);
+            };
+          }, flyMs + hesMs);
+        }
+
+        /* =========================================================
+           ARCHETYPE 5: BLOCK REVEAL + SMART ALIGNMENT MICRO-NUDGE
+           ========================================================= */
+        function runNudge(el, st, r, cu, flyMs, hesMs) {
+          var sx = r.x + 12;
+          var sy = r.y + 14;
+          var nudgeShift = rand() < 0.5 ? 6 : -6;
+          var dur = clamp(420 + r.h * 1.1, 440, 760);
+
+          var start = startPointNear(sx, sy);
+          place(cu.c, start.x, start.y);
+          cu.c.classList.add('is-on');
+          flyCurved(cu.c, start.x, start.y, sx, sy, flyMs);
+
+          setTimeout(function () {
+            var ea = el.animate(
+              [
+                { clipPath: 'inset(0 0 100% 0)', opacity: 1, transform: 'translate3d(' + nudgeShift + 'px,0,0)' },
+                { clipPath: 'inset(0 0 0% 0)', opacity: 1, transform: 'translate3d(' + nudgeShift + 'px,0,0)', offset: 0.72 },
+                { clipPath: 'inset(0 0 0% 0)', opacity: 1, transform: 'translate3d(0px,0,0)' }
+              ],
+              { duration: dur, easing: EASE_OUT, fill: 'forwards' }
+            );
+
+            setTimeout(function () {
+              spawnGuide(r.x, r.y, r.h);
+              flyCurved(cu.c, sx, sy, sx - nudgeShift, sy + 4, 180, 3);
+            }, dur * 0.65);
+
+            ea.onfinish = function () {
+              ea.cancel();
+              finishAndDrift(el, st, cu, sx - nudgeShift, sy + 4);
+            };
+          }, flyMs + hesMs);
+        }
+
+        /* --- Dispatcher utama --- */
         function build(el, st, delay) {
           var r = docRect(el);
           if (r.w === 0 && r.h === 0) {
@@ -1041,67 +2090,27 @@
             st.built = true;
             return;
           }
-          var p = st.person;
-          var fly = FLY_MS;
-          var dur = Math.max(500, Math.min(1000, 480 + (r.w + r.h) * 0.22));
+
           st.state = 'building';
-
-          var c = makeCursor(p);
-          var f = makeFrame(p, r);
-          st.cursor = { c: c, p: p, f: f, timer: null, msgT: null };
-
-          var s = startPoint(r);
-          place(c, s.x, s.y);
+          var p = st.person;
+          var prof = st.profile;
+          var flyMs = Math.round(randRange(380, 520) * prof.flyScale);
+          var hesMs = Math.round(randRange(prof.hesitate[0], prof.hesitate[1]));
 
           setTimeout(function () {
-            c.classList.add('is-on');
-            move(c, r.x, r.y, fly, EASE_OUT);
+            var c = makeCursor(p);
+            var cu = { c: c, p: p, f: null, msgT: null };
+            st.cursor = cu;
+
+            if (st.archetype === 'box4') runBox4(el, st, r, cu, flyMs, hesMs);
+            else if (st.archetype === 'textSweep') runTextSweep(el, st, r, cu, flyMs, hesMs);
+            else if (st.archetype === 'stamp') runStamp(el, st, r, cu, flyMs, hesMs);
+            else if (st.archetype === 'nodeTap') runNodeTap(el, st, r, cu, flyMs, hesMs);
+            else runNudge(el, st, r, cu, flyMs, hesMs);
           }, delay);
-
-          setTimeout(function () {
-            f.classList.add('is-on');
-            var fa = f.animate(
-              [{ width: '0px', height: '0px' }, { width: r.w + 'px', height: r.h + 'px' }],
-              { duration: dur, easing: EASE_IO, fill: 'forwards' }
-            );
-            fa.onfinish = function () {
-              f.style.width = r.w + 'px'; f.style.height = r.h + 'px';
-              fa.cancel();
-              f.classList.add('is-built');
-            };
-            move(c, r.x + r.w, r.y + r.h, dur, EASE_IO);
-          }, delay + fly);
-
-          var anim = el.animate(
-            [{ clipPath: 'inset(0 100% 100% 0)', opacity: 1 }, { clipPath: 'inset(0 0% 0% 0)', opacity: 1 }],
-            { duration: dur, delay: delay + fly, easing: EASE_IO, fill: 'both' }
-          );
-          anim.onfinish = function () {
-            el.classList.add('is-built');
-            anim.cancel();
-            st.built = true;
-            st.state = 'idle';
-
-            if (Math.random() < 0.45) {
-              setTimeout(function () { if (st.cursor === c) chat(st.cursor); }, 250);
-            }
-
-            setTimeout(function () {
-              if (f) {
-                f.classList.remove('is-on');
-                setTimeout(function () { f.remove(); }, 400);
-              }
-            }, 800);
-
-            setTimeout(function () {
-              if (st.cursor && st.cursor.c === c) {
-                release(st);
-              }
-            }, 1800);
-          };
         }
 
-        /* --- inisialisasi state & penetapan nama unik per elemen --- */
+        /* --- Inisialisasi state & kepribadian tiap elemen --- */
         var revealList = document.querySelectorAll('.reveal');
         revealList.forEach(function (el, idx) {
           var tone = getTone(el) || TONES[idx % TONES.length];
@@ -1115,7 +2124,9 @@
             state: 'idle',
             visible: false,
             cursor: null,
-            person: person
+            person: person,
+            archetype: detectArchetype(el),
+            profile: PROFILES[idx % PROFILES.length]
           });
         });
 
@@ -1128,7 +2139,9 @@
             if (entry.isIntersecting) {
               st.visible = true;
               if (!st.built && st.state !== 'building') {
-                build(el, st, Math.min(order++ * 80, 800));
+                var organicJitter = randRange(0, 110);
+                var delay = Math.min(order++ * 85 + organicJitter, 880);
+                build(el, st, delay);
               }
             } else {
               st.visible = false;
@@ -1157,7 +2170,6 @@
         try {
           initMultiplayer();
         } catch (err) {
-          /* Bila sistem kursor gagal, tampilkan konten apa adanya */
           root.classList.remove('mp-on');
           if (window.console) console.warn('Kursor multiplayer dinonaktifkan:', err);
         }
