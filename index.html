@@ -486,6 +486,7 @@
     </section>
 
     <!-- PROYEK -->
+<!-- PROYEK -->
     <section id="projects" class="py-28 md:py-40" style="background:var(--surface)">
       <div class="max-w-5xl mx-auto px-6">
         <div class="mb-16">
@@ -497,35 +498,36 @@
         <div class="space-y-12">
 
           <!-- ERP -->
-<!-- ERP -->
-          <article class="tile p-8 md:p-12" data-tone="green" data-role="backend">
-            <div class="reveal mb-8" data-role="backend">
+          <article class="tile p-5 sm:p-8 md:p-12" data-tone="green" data-role="backend">
+            <div class="reveal mb-6 sm:mb-8" data-role="backend">
               <div class="mock relative">
                 <!-- Browser Topbar -->
-                <div class="mock-bar">
-                  <div class="flex items-center gap-1.5">
+                <div class="mock-bar gap-2">
+                  <div class="flex items-center gap-1.5 shrink-0">
                     <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
                     <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
                     <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
                   </div>
-                  <span class="mono text-[11px]" style="color:var(--muted)">erp-frozenfood.local/stok-produk</span>
-                  <div class="w-10"></div>
+                  <span class="mono text-[10px] sm:text-[11px] truncate text-center" style="color:var(--muted)">erp-frozenfood.local/stok-produk</span>
+                  <div class="w-6 sm:w-10 shrink-0"></div>
                 </div>
 
                 <!-- App Top Header -->
-                <div class="px-4 py-2.5 hairline-b flex items-center justify-between gap-3" style="background:var(--card)">
-                  <div class="flex items-center gap-2.5">
-                    <i data-lucide="menu" class="w-4 h-4 shrink-0" style="color:var(--muted)"></i>
+                <div class="px-3 sm:px-4 py-2.5 hairline-b flex items-center justify-between gap-2 sm:gap-3" style="background:var(--card)">
+                  <div class="flex items-center gap-2 sm:gap-2.5 min-w-0">
+                    <button type="button" data-mock-toggle="erp-frozen-sidebar" aria-label="Buka menu navigasi" class="p-1.5 -ml-1.5 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer shrink-0" style="color:var(--text)">
+                      <i data-lucide="menu" class="w-4 h-4"></i>
+                    </button>
                     <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 tag-solid">
                       <i data-lucide="box" class="w-4 h-4"></i>
                     </div>
-                    <div class="leading-tight">
-                      <p class="font-semibold text-xs tracking-tight">Inventory Dashboard</p>
-                      <p class="text-[10px]" style="color:var(--muted)">Sistem Manajemen Inventaris</p>
+                    <div class="leading-tight min-w-0">
+                      <p class="font-semibold text-xs tracking-tight truncate">Inventory Dashboard</p>
+                      <p class="text-[10px] truncate" style="color:var(--muted)">Sistem Manajemen Inventaris</p>
                     </div>
                   </div>
-                  <div class="flex items-center gap-3">
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-medium tag-solid">
+                  <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                    <span class="inline-flex items-center gap-1.5 px-2 sm:px-2.5 py-1 rounded-lg text-[10px] font-medium tag-solid">
                       <i data-lucide="sparkles" class="w-3 h-3"></i>
                       <span>Asisten AI</span>
                     </span>
@@ -537,12 +539,20 @@
                 </div>
 
                 <!-- App Body: Sidebar + Main -->
-                <div class="grid grid-cols-1 md:grid-cols-12 text-xs relative" style="background:var(--bg)">
-<!-- Sidebar Navigasi -->
-                  <aside class="hidden md:block md:col-span-3 hairline-r relative" style="background:var(--card)">
-                    <div class="md:absolute md:inset-0 overflow-y-auto p-2.5 flex flex-col justify-between text-[10.5px] [scrollbar-width:thin]">
+                <div class="grid grid-cols-1 md:grid-cols-12 text-xs relative overflow-hidden" style="background:var(--bg)">
+                  <!-- Backdrop Mobile Sidebar -->
+                  <div data-mock-backdrop="erp-frozen-sidebar" class="hidden md:hidden absolute inset-0 z-20 bg-black/40 backdrop-blur-[1px] transition-opacity"></div>
+
+                  <!-- Sidebar Navigasi -->
+                  <aside id="erp-frozen-sidebar" class="hidden md:block md:col-span-3 hairline-r absolute md:relative inset-y-0 left-0 z-30 w-60 max-w-[80%] md:w-auto md:max-w-none shadow-xl md:shadow-none" style="background:var(--card)">
+                    <div class="h-full md:absolute md:inset-0 overflow-y-auto p-2.5 flex flex-col justify-between text-[10.5px] [scrollbar-width:thin]">
                       <div class="space-y-2.5">
-                        <p class="mono text-[9px] font-semibold tracking-wider uppercase px-2" style="color:var(--muted)">Menu Aplikasi</p>
+                        <div class="flex items-center justify-between px-2 pt-0.5">
+                          <p class="mono text-[9px] font-semibold tracking-wider uppercase" style="color:var(--muted)">Menu Aplikasi</p>
+                          <button type="button" data-mock-close="erp-frozen-sidebar" aria-label="Tutup menu" class="md:hidden p-1 rounded-md hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer" style="color:var(--muted)">
+                            <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                          </button>
+                        </div>
 
                         <!-- 1. Utama -->
                         <div>
@@ -727,34 +737,34 @@
                   </aside>
 
                   <!-- Konten Utama -->
-                  <div class="md:col-span-9 p-4 md:p-5 space-y-3.5">
+                  <div class="md:col-span-9 p-3.5 sm:p-4 md:p-5 space-y-3.5 min-w-0">
                     <!-- Banner Header Katalog -->
-                    <div class="p-3.5 rounded-xl hairline-all flex flex-wrap items-center justify-between gap-3" style="background:var(--card)">
+                    <div class="p-3 sm:p-3.5 rounded-xl hairline-all flex flex-wrap items-center justify-between gap-2.5" style="background:var(--card)">
                       <div>
                         <span class="inline-block px-2 py-0.5 rounded-full text-[9px] font-semibold uppercase tracking-wider mb-1" style="background:var(--t-soft);color:var(--t-ink)">Katalog Inventaris</span>
                         <div class="flex items-center gap-1.5">
-                          <i data-lucide="box" class="w-4 h-4" style="color:var(--t-ink)"></i>
+                          <i data-lucide="box" class="w-4 h-4 shrink-0" style="color:var(--t-ink)"></i>
                           <h4 class="font-semibold text-sm tracking-tight">Stok Produk</h4>
                         </div>
                         <p class="text-[11px] mt-0.5" style="color:var(--muted)">22 produk terdaftar dalam sistem.</p>
                       </div>
-                      <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium tag-solid">
+                      <span class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-[10px] sm:text-[11px] font-medium tag-solid shrink-0">
                         <i data-lucide="plus" class="w-3.5 h-3.5"></i>
                         <span>Tambah Produk</span>
                       </span>
                     </div>
 
                     <!-- Tab Navigasi -->
-                    <div class="flex items-center gap-5 hairline-b text-[11px]">
-                      <span class="pb-2 font-semibold border-b-2" style="border-color:var(--t-ink);color:var(--text)">Daftar Produk</span>
-                      <span class="pb-2" style="color:var(--muted)">Stok per Lokasi</span>
+                    <div class="flex items-center gap-4 sm:gap-5 hairline-b text-[11px] overflow-x-auto">
+                      <span class="pb-2 font-semibold border-b-2 whitespace-nowrap" style="border-color:var(--t-ink);color:var(--text)">Daftar Produk</span>
+                      <span class="pb-2 whitespace-nowrap" style="color:var(--muted)">Stok per Lokasi</span>
                     </div>
 
                     <!-- Bar Pencarian & Filter Dropdown -->
                     <div class="flex flex-wrap items-center gap-2 text-[10px]">
-                      <div class="flex-1 min-w-[160px] px-2.5 py-1.5 rounded-lg hairline-all flex items-center gap-1.5" style="background:var(--card);color:var(--muted)">
+                      <div class="w-full sm:w-auto sm:flex-1 sm:min-w-[160px] px-2.5 py-1.5 rounded-lg hairline-all flex items-center gap-1.5" style="background:var(--card);color:var(--muted)">
                         <i data-lucide="search" class="w-3 h-3 shrink-0"></i>
-                        <span>Cari nama atau SKU produk...</span>
+                        <span class="truncate">Cari nama atau SKU produk...</span>
                       </div>
                       <div class="px-2.5 py-1.5 rounded-lg hairline-all inline-flex items-center gap-1.5" style="background:var(--card)">
                         <span>Semua Lokasi</span>
@@ -772,7 +782,7 @@
 
                     <!-- Tabel Produk -->
                     <div class="rounded-xl hairline-all overflow-x-auto" style="background:var(--card)">
-                      <table class="w-full text-left border-collapse">
+                      <table class="w-full text-left border-collapse min-w-[520px]">
                         <thead>
                           <tr class="hairline-b text-[9px] uppercase tracking-wider" style="color:var(--muted)">
                             <th class="py-2.5 px-3 font-semibold">Detail Produk</th>
@@ -885,7 +895,7 @@
                   </div>
 
                   <!-- Floating Button Tanya AI di pojok kanan bawah -->
-                  <div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-medium shadow-md tag-solid absolute bottom-3 right-3">
+                  <div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-medium shadow-md tag-solid absolute bottom-3 right-3 z-10">
                     <i data-lucide="sparkles" class="w-3 h-3"></i>
                     <span>Tanya AI</span>
                     <span class="w-2 h-2 rounded-full border border-white/60 absolute -top-0.5 -right-0.5" style="background:var(--t)"></span>
@@ -894,8 +904,8 @@
               </div>
               <p class="mono text-[11px] mt-2.5 text-right" style="color:var(--muted)">Ilustrasi antarmuka</p>
             </div>
-            <h3 class="reveal text-2xl font-semibold tracking-tight mb-3" data-role="backend">Sistem Manajemen Toko Frozen Food (ERP)</h3>
-            <p class="reveal leading-relaxed mb-6" style="color:var(--muted)" data-role="backend">Sistem operasional toko dengan modul stok, pembukuan, data pelanggan, dan alur permintaan restok ke supplier. Sistem Penunjang Keputusan (SPK) memprioritaskan produk yang perlu di-restock. Akses dikontrol dengan RBAC per model dan per aksi: view, edit, detail, update.</p>
+            <h3 class="reveal text-xl sm:text-2xl font-semibold tracking-tight mb-3" data-role="backend">Sistem Manajemen Toko Frozen Food (ERP)</h3>
+            <p class="reveal text-sm sm:text-base leading-relaxed mb-6" style="color:var(--muted)" data-role="backend">Sistem operasional toko dengan modul stok, pembukuan, data pelanggan, dan alur permintaan restok ke supplier. Sistem Penunjang Keputusan (SPK) memprioritaskan produk yang perlu di-restock. Akses dikontrol dengan RBAC per model dan per aksi: view, edit, detail, update.</p>
             <div class="reveal flex flex-wrap items-center gap-2 mb-6" data-role="backend">
               <span class="pill">Laravel</span><span class="pill">Blade</span><span class="pill">MySQL</span><span class="pill">RBAC</span><span class="pill">SPK</span>
             </div>
@@ -904,42 +914,55 @@
             </div>
           </article>
 
-<!-- PT Kem Jaya Mandiri (ERP & Procurement) -->
-          <article class="tile p-8 md:p-12" data-tone="coral" data-role="frontend">
-            <div class="reveal mb-8" data-role="frontend">
-              <div class="mock">
+          <!-- PT Kem Jaya Mandiri (ERP & Procurement) -->
+          <article class="tile p-5 sm:p-8 md:p-12" data-tone="coral" data-role="frontend">
+            <div class="reveal mb-6 sm:mb-8" data-role="frontend">
+              <div class="mock relative">
                 <!-- Browser Topbar -->
-                <div class="mock-bar">
-                  <div class="flex items-center gap-1.5">
+                <div class="mock-bar gap-2">
+                  <div class="flex items-center gap-1.5 shrink-0">
                     <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
                     <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
                     <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
                   </div>
-                  <span class="mono text-[11px]" style="color:var(--muted)">kjm-erp.local/admin</span>
-                  <div class="w-10"></div>
+                  <span class="mono text-[10px] sm:text-[11px] truncate text-center" style="color:var(--muted)">kjm-erp.local/admin</span>
+                  <div class="w-6 sm:w-10 shrink-0"></div>
                 </div>
 
                 <!-- App Top Header -->
-                <div class="px-4 py-2 hairline-b flex items-center justify-between" style="background:var(--card)">
-                  <div class="flex items-center gap-2.5">
-                    <i data-lucide="chevron-left" class="w-3.5 h-3.5" style="color:var(--muted)"></i>
+                <div class="px-3 sm:px-4 py-2 hairline-b flex items-center justify-between" style="background:var(--card)">
+                  <div class="flex items-center gap-2 sm:gap-2.5">
+                    <button type="button" data-mock-toggle="kjm-erp-sidebar" aria-label="Buka menu navigasi" class="p-1.5 -ml-1.5 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer shrink-0" style="color:var(--text)">
+                      <i data-lucide="menu" class="w-4 h-4 md:hidden"></i>
+                      <i data-lucide="chevron-left" class="w-3.5 h-3.5 hidden md:block" style="color:var(--muted)"></i>
+                    </button>
                     <div class="flex items-center gap-1.5">
                       <div class="w-6 h-6 rounded flex flex-col items-center justify-center font-bold leading-none text-[9px] tracking-tighter" style="background:var(--orange-soft);color:var(--orange-ink);border:1px solid color-mix(in srgb, var(--orange) 35%, transparent)">
                         <span>KJM</span>
                       </div>
-                      <span class="hidden sm:inline text-[9px] font-semibold tracking-tight" style="color:var(--muted)">PT. KEM JAYA MANDIRI</span>
+                      <span class="text-[9px] font-semibold tracking-tight" style="color:var(--muted)">PT. KEM JAYA MANDIRI</span>
                     </div>
                   </div>
-                  <div class="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-semibold" style="background:var(--ink);color:var(--on-ink)">M</div>
+                  <div class="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-semibold shrink-0" style="background:var(--ink);color:var(--on-ink)">M</div>
                 </div>
 
                 <!-- App Body: Sidebar + Main -->
-                <div class="grid grid-cols-1 md:grid-cols-12 text-xs" style="background:var(--bg)">
+                <div class="grid grid-cols-1 md:grid-cols-12 text-xs relative overflow-hidden" style="background:var(--bg)">
+                  <!-- Backdrop Mobile Sidebar -->
+                  <div data-mock-backdrop="kjm-erp-sidebar" class="hidden md:hidden absolute inset-0 z-20 bg-black/40 backdrop-blur-[1px] transition-opacity"></div>
+
                   <!-- Sidebar Navigasi -->
-<!-- Sidebar Navigasi -->
-                  <aside class="hidden md:block md:col-span-3 hairline-r relative" style="background:var(--card)">
-                    <div class="md:absolute md:inset-0 overflow-y-auto p-2.5 space-y-2.5 text-[10.5px] [scrollbar-width:thin]">
-                      <!-- Menu Utama (Tanpa Grup) -->
+                  <aside id="kjm-erp-sidebar" class="hidden md:block md:col-span-3 hairline-r absolute md:relative inset-y-0 left-0 z-30 w-60 max-w-[80%] md:w-auto md:max-w-none shadow-xl md:shadow-none" style="background:var(--card)">
+                    <div class="h-full md:absolute md:inset-0 overflow-y-auto p-2.5 space-y-2.5 text-[10.5px] [scrollbar-width:thin]">
+                      <!-- Header Drawer Mobile -->
+                      <div class="flex md:hidden items-center justify-between px-2 pt-0.5 pb-1 hairline-b">
+                        <span class="mono text-[9px] font-semibold uppercase tracking-wider" style="color:var(--muted)">Navigasi ERP</span>
+                        <button type="button" data-mock-close="kjm-erp-sidebar" aria-label="Tutup menu" class="p-1 rounded-md hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer" style="color:var(--muted)">
+                          <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                        </button>
+                      </div>
+
+                      <!-- Menu Utama -->
                       <div class="space-y-0.5">
                         <div class="px-2 py-1 rounded-lg font-medium flex items-center gap-2" style="background:var(--coral-soft);color:var(--coral-ink)">
                           <i data-lucide="home" class="w-3.5 h-3.5 shrink-0"></i>
@@ -1065,19 +1088,19 @@
                   </aside>
 
                   <!-- Workspace Utama -->
-                  <div class="md:col-span-9 p-4 md:p-5 space-y-3.5">
+                  <div class="md:col-span-9 p-3.5 sm:p-4 md:p-5 space-y-3.5 min-w-0">
                     <h4 class="font-semibold text-base tracking-tight">Dasbor</h4>
 
-                    <!-- Grid 9 Kartu KPI (3x3) -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                      <!-- 1. Penawaran Bulan Ini -->
+                    <!-- Grid 9 Kartu KPI -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-2.5">
+                      <!-- 1 -->
                       <div class="rounded-xl hairline-all overflow-hidden flex flex-col justify-between" style="background:var(--card)">
-                        <div class="p-3 pb-2">
+                        <div class="p-2.5 sm:p-3 pb-2">
                           <p class="text-[10px]" style="color:var(--muted)">Penawaran Bulan Ini</p>
-                          <p class="text-lg font-bold tracking-tight my-0.5">6</p>
+                          <p class="text-base sm:text-lg font-bold tracking-tight my-0.5">6</p>
                           <p class="text-[9px] font-medium inline-flex items-center gap-1" style="color:var(--blue-ink)">
                             <span>Total katalog penawaran</span>
-                            <i data-lucide="file-text" class="w-2.5 h-2.5"></i>
+                            <i data-lucide="file-text" class="w-2.5 h-2.5 shrink-0"></i>
                           </p>
                         </div>
                         <svg viewBox="0 0 200 12" preserveAspectRatio="none" class="w-full h-2.5 block" aria-hidden="true">
@@ -1085,14 +1108,14 @@
                         </svg>
                       </div>
 
-                      <!-- 2. Pesanan Pembelian Bulan Ini -->
+                      <!-- 2 -->
                       <div class="rounded-xl hairline-all overflow-hidden flex flex-col justify-between" style="background:var(--card)">
-                        <div class="p-3 pb-2">
+                        <div class="p-2.5 sm:p-3 pb-2">
                           <p class="text-[10px]" style="color:var(--muted)">Pesanan Pembelian Bulan Ini</p>
-                          <p class="text-lg font-bold tracking-tight my-0.5">9</p>
+                          <p class="text-base sm:text-lg font-bold tracking-tight my-0.5">9</p>
                           <p class="text-[9px] font-medium inline-flex items-center gap-1" style="color:var(--orange-ink)">
                             <span>Pesanan pembelian masuk</span>
-                            <i data-lucide="shopping-bag" class="w-2.5 h-2.5"></i>
+                            <i data-lucide="shopping-bag" class="w-2.5 h-2.5 shrink-0"></i>
                           </p>
                         </div>
                         <svg viewBox="0 0 200 12" preserveAspectRatio="none" class="w-full h-2.5 block" aria-hidden="true">
@@ -1100,14 +1123,14 @@
                         </svg>
                       </div>
 
-                      <!-- 3. Surat Jalan Bulan Ini -->
+                      <!-- 3 -->
                       <div class="rounded-xl hairline-all overflow-hidden flex flex-col justify-between" style="background:var(--card)">
-                        <div class="p-3 pb-2">
+                        <div class="p-2.5 sm:p-3 pb-2">
                           <p class="text-[10px]" style="color:var(--muted)">Surat Jalan Bulan Ini</p>
-                          <p class="text-lg font-bold tracking-tight my-0.5">0</p>
+                          <p class="text-base sm:text-lg font-bold tracking-tight my-0.5">0</p>
                           <p class="text-[9px] font-medium inline-flex items-center gap-1" style="color:var(--green-ink)">
                             <span>Pengiriman aktif</span>
-                            <i data-lucide="truck" class="w-2.5 h-2.5"></i>
+                            <i data-lucide="truck" class="w-2.5 h-2.5 shrink-0"></i>
                           </p>
                         </div>
                         <svg viewBox="0 0 200 12" preserveAspectRatio="none" class="w-full h-2.5 block" aria-hidden="true">
@@ -1115,14 +1138,14 @@
                         </svg>
                       </div>
 
-                      <!-- 4. Faktur Bulan Ini -->
+                      <!-- 4 -->
                       <div class="rounded-xl hairline-all overflow-hidden flex flex-col justify-between" style="background:var(--card)">
-                        <div class="p-3 pb-2">
+                        <div class="p-2.5 sm:p-3 pb-2">
                           <p class="text-[10px]" style="color:var(--muted)">Faktur Bulan Ini</p>
-                          <p class="text-lg font-bold tracking-tight my-0.5">0</p>
+                          <p class="text-base sm:text-lg font-bold tracking-tight my-0.5">0</p>
                           <p class="text-[9px] font-medium inline-flex items-center gap-1" style="color:var(--coral-ink)">
                             <span>Tagihan terbit</span>
-                            <i data-lucide="receipt" class="w-2.5 h-2.5"></i>
+                            <i data-lucide="receipt" class="w-2.5 h-2.5 shrink-0"></i>
                           </p>
                         </div>
                         <svg viewBox="0 0 200 12" preserveAspectRatio="none" class="w-full h-2.5 block" aria-hidden="true">
@@ -1130,14 +1153,14 @@
                         </svg>
                       </div>
 
-                      <!-- 5. Faktur Belum Dibayar -->
+                      <!-- 5 -->
                       <div class="rounded-xl hairline-all overflow-hidden flex flex-col justify-between" style="background:var(--card)">
-                        <div class="p-3 pb-2">
+                        <div class="p-2.5 sm:p-3 pb-2">
                           <p class="text-[10px]" style="color:var(--muted)">Faktur Belum Dibayar</p>
-                          <p class="text-lg font-bold tracking-tight my-0.5">0</p>
+                          <p class="text-base sm:text-lg font-bold tracking-tight my-0.5">0</p>
                           <p class="text-[9px] font-medium inline-flex items-center gap-1" style="color:var(--green-ink)">
                             <span>Status pembayaran belum lunas</span>
-                            <i data-lucide="clock" class="w-2.5 h-2.5"></i>
+                            <i data-lucide="clock" class="w-2.5 h-2.5 shrink-0"></i>
                           </p>
                         </div>
                         <svg viewBox="0 0 200 12" preserveAspectRatio="none" class="w-full h-2.5 block" aria-hidden="true">
@@ -1145,14 +1168,14 @@
                         </svg>
                       </div>
 
-                      <!-- 6. Total Item Barang -->
+                      <!-- 6 -->
                       <div class="rounded-xl hairline-all overflow-hidden flex flex-col justify-between" style="background:var(--card)">
-                        <div class="p-3 pb-2">
+                        <div class="p-2.5 sm:p-3 pb-2">
                           <p class="text-[10px]" style="color:var(--muted)">Total Item Barang</p>
-                          <p class="text-lg font-bold tracking-tight my-0.5">1,355</p>
+                          <p class="text-base sm:text-lg font-bold tracking-tight my-0.5">1,355</p>
                           <p class="text-[9px] font-medium inline-flex items-center gap-1" style="color:var(--muted)">
                             <span>Data induk barang</span>
-                            <i data-lucide="package" class="w-2.5 h-2.5"></i>
+                            <i data-lucide="package" class="w-2.5 h-2.5 shrink-0"></i>
                           </p>
                         </div>
                         <svg viewBox="0 0 200 12" preserveAspectRatio="none" class="w-full h-2.5 block" aria-hidden="true">
@@ -1160,14 +1183,14 @@
                         </svg>
                       </div>
 
-                      <!-- 7. Total Item Gudang -->
+                      <!-- 7 -->
                       <div class="rounded-xl hairline-all overflow-hidden flex flex-col justify-between" style="background:var(--card)">
-                        <div class="p-3 pb-2">
+                        <div class="p-2.5 sm:p-3 pb-2">
                           <p class="text-[10px]" style="color:var(--muted)">Total Item Gudang</p>
-                          <p class="text-lg font-bold tracking-tight my-0.5">18.525</p>
+                          <p class="text-base sm:text-lg font-bold tracking-tight my-0.5">18.525</p>
                           <p class="text-[9px] font-medium inline-flex items-center gap-1" style="color:var(--blue-ink)">
                             <span>Unit stok seluruh jenis barang</span>
-                            <i data-lucide="box" class="w-2.5 h-2.5"></i>
+                            <i data-lucide="box" class="w-2.5 h-2.5 shrink-0"></i>
                           </p>
                         </div>
                         <svg viewBox="0 0 200 12" preserveAspectRatio="none" class="w-full h-2.5 block" aria-hidden="true">
@@ -1175,14 +1198,14 @@
                         </svg>
                       </div>
 
-                      <!-- 8. Stok Menipis -->
+                      <!-- 8 -->
                       <div class="rounded-xl hairline-all overflow-hidden flex flex-col justify-between" style="background:var(--card)">
-                        <div class="p-3 pb-2">
+                        <div class="p-2.5 sm:p-3 pb-2">
                           <p class="text-[10px]" style="color:var(--muted)">Stok Menipis</p>
-                          <p class="text-lg font-bold tracking-tight my-0.5">0</p>
+                          <p class="text-base sm:text-lg font-bold tracking-tight my-0.5">0</p>
                           <p class="text-[9px] font-medium inline-flex items-center gap-1" style="color:var(--green-ink)">
                             <span>Semua stok dalam batas aman</span>
-                            <i data-lucide="alert-triangle" class="w-2.5 h-2.5"></i>
+                            <i data-lucide="alert-triangle" class="w-2.5 h-2.5 shrink-0"></i>
                           </p>
                         </div>
                         <svg viewBox="0 0 200 12" preserveAspectRatio="none" class="w-full h-2.5 block" aria-hidden="true">
@@ -1190,14 +1213,14 @@
                         </svg>
                       </div>
 
-                      <!-- 9. Stok Habis (Kosong) -->
-                      <div class="rounded-xl hairline-all overflow-hidden flex flex-col justify-between" style="background:var(--card)">
-                        <div class="p-3 pb-2">
+                      <!-- 9 -->
+                      <div class="col-span-2 sm:col-span-1 rounded-xl hairline-all overflow-hidden flex flex-col justify-between" style="background:var(--card)">
+                        <div class="p-2.5 sm:p-3 pb-2">
                           <p class="text-[10px]" style="color:var(--muted)">Stok Habis (Kosong)</p>
-                          <p class="text-lg font-bold tracking-tight my-0.5">4</p>
+                          <p class="text-base sm:text-lg font-bold tracking-tight my-0.5">4</p>
                           <p class="text-[9px] font-medium inline-flex items-center gap-1" style="color:var(--coral-ink)">
                             <span>Kritis: segera lakukan restock!</span>
-                            <i data-lucide="x-circle" class="w-2.5 h-2.5"></i>
+                            <i data-lucide="x-circle" class="w-2.5 h-2.5 shrink-0"></i>
                           </p>
                         </div>
                         <svg viewBox="0 0 200 12" preserveAspectRatio="none" class="w-full h-2.5 block" aria-hidden="true">
@@ -1207,7 +1230,7 @@
                     </div>
 
                     <!-- Widget Tren Keuangan -->
-                    <div class="p-3.5 rounded-xl hairline-all flex flex-wrap items-center justify-between gap-2" style="background:var(--card)">
+                    <div class="p-3 sm:p-3.5 rounded-xl hairline-all flex flex-wrap items-center justify-between gap-2" style="background:var(--card)">
                       <div>
                         <p class="font-semibold text-xs">Tren Keuangan (6 Bulan Terakhir)</p>
                         <p class="text-[10px]" style="color:var(--muted)">Pendapatan Bulan Ini: Rp 0</p>
@@ -1222,8 +1245,8 @@
               </div>
               <p class="mono text-[11px] mt-2.5 text-right" style="color:var(--muted)">Ilustrasi antarmuka</p>
             </div>
-            <h3 class="reveal text-2xl font-semibold tracking-tight mb-3" data-role="frontend">Sistem ERP &amp; Operasional PT Kem Jaya Mandiri</h3>
-            <p class="reveal leading-relaxed mb-6" style="color:var(--muted)" data-role="frontend">Modernisasi sistem pengadaan, inventaris gudang, dan logistik pengiriman dari database legacy ke arsitektur Laravel. Mendukung alur transaksi end-to-end mulai dari Penawaran, Purchase Order, Surat Jalan, hingga Invoice otomatis, dilengkapi audit trail mutasi stok, form draft auto-save, cetak dokumen resmi, dan RBAC per-user.</p>
+            <h3 class="reveal text-xl sm:text-2xl font-semibold tracking-tight mb-3" data-role="frontend">Sistem ERP &amp; Operasional PT Kem Jaya Mandiri</h3>
+            <p class="reveal text-sm sm:text-base leading-relaxed mb-6" style="color:var(--muted)" data-role="frontend">Modernisasi sistem pengadaan, inventaris gudang, dan logistik pengiriman dari database legacy ke arsitektur Laravel. Mendukung alur transaksi end-to-end mulai dari Penawaran, Purchase Order, Surat Jalan, hingga Invoice otomatis, dilengkapi audit trail mutasi stok, form draft auto-save, cetak dokumen resmi, dan RBAC per-user.</p>
             <div class="reveal flex flex-wrap items-center gap-2 mb-6" data-role="frontend">
               <span class="pill">Laravel 13</span><span class="pill">Filament v5</span><span class="pill">Livewire</span><span class="pill">Tailwind CSS v4</span><span class="pill">MySQL</span><span class="pill">Playwright</span>
             </div>
@@ -1232,34 +1255,34 @@
             </div>
           </article>
 
-<!-- Enterprise ERP-MR (MOC) & IT Helpdesk -->
-          <article class="tile p-8 md:p-12" data-tone="orange" data-role="database">
-            <div class="reveal mb-8" data-role="database">
+          <!-- Enterprise ERP-MR (MOC) & IT Helpdesk -->
+          <article class="tile p-5 sm:p-8 md:p-12" data-tone="orange" data-role="database">
+            <div class="reveal mb-6 sm:mb-8" data-role="database">
               <div class="mock">
                 <!-- Browser Topbar -->
-                <div class="mock-bar">
-                  <div class="flex items-center gap-1.5">
+                <div class="mock-bar gap-2">
+                  <div class="flex items-center gap-1.5 shrink-0">
                     <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
                     <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
                     <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
                   </div>
-                  <span class="mono text-[11px]" style="color:var(--muted)">enterprise-portal.local · microservices &amp; monorepo</span>
-                  <div class="w-10"></div>
+                  <span class="mono text-[10px] sm:text-[11px] truncate text-center" style="color:var(--muted)">enterprise-portal.local · microservices &amp; monorepo</span>
+                  <div class="w-6 sm:w-10 shrink-0"></div>
                 </div>
 
                 <!-- Dual-System Architecture Mockup -->
-                <div class="p-5 md:p-6 text-xs space-y-4" style="background:var(--bg)">
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-3.5 sm:p-5 md:p-6 text-xs space-y-3.5 sm:space-y-4" style="background:var(--bg)">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
 
                     <!-- Sistem 1: ERP-MR & Unified Approval -->
-                    <div class="p-4 rounded-xl hairline-all flex flex-col justify-between gap-3" style="background:var(--card)">
+                    <div class="p-3.5 sm:p-4 rounded-xl hairline-all flex flex-col justify-between gap-3" style="background:var(--card)">
                       <div>
-                        <div class="flex items-center justify-between gap-2 pb-2.5 mb-2.5 hairline-b">
+                        <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 mb-2.5 hairline-b">
                           <span class="inline-flex items-center gap-1.5 font-semibold text-xs">
-                            <i data-lucide="shield-check" class="w-3.5 h-3.5" style="color:var(--t-ink)"></i>
+                            <i data-lucide="shield-check" class="w-3.5 h-3.5 shrink-0" style="color:var(--t-ink)"></i>
                             <span>01 · ERP-MR &amp; Approval</span>
                           </span>
-                          <span class="mono text-[9.5px] px-2 py-0.5 rounded-full font-medium" style="background:var(--t-soft);color:var(--t-ink)">ISO MOC &amp; CAR</span>
+                          <span class="mono text-[9.5px] px-2 py-0.5 rounded-full font-medium shrink-0" style="background:var(--t-soft);color:var(--t-ink)">ISO MOC &amp; CAR</span>
                         </div>
                         <ul class="space-y-1.5 text-[11px]" style="color:var(--muted)">
                           <li class="flex items-start gap-2">
@@ -1283,14 +1306,14 @@
                     </div>
 
                     <!-- Sistem 2: IT Helpdesk & Preventive Maintenance -->
-                    <div class="p-4 rounded-xl hairline-all flex flex-col justify-between gap-3" style="background:var(--card)">
+                    <div class="p-3.5 sm:p-4 rounded-xl hairline-all flex flex-col justify-between gap-3" style="background:var(--card)">
                       <div>
-                        <div class="flex items-center justify-between gap-2 pb-2.5 mb-2.5 hairline-b">
+                        <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 mb-2.5 hairline-b">
                           <span class="inline-flex items-center gap-1.5 font-semibold text-xs">
-                            <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5" style="color:var(--blue-ink)"></i>
+                            <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5 shrink-0" style="color:var(--blue-ink)"></i>
                             <span>02 · Helpdesk &amp; Maintenance</span>
                           </span>
-                          <span class="mono text-[9.5px] px-2 py-0.5 rounded-full font-medium" style="background:var(--blue-soft);color:var(--blue-ink)">Monorepo</span>
+                          <span class="mono text-[9.5px] px-2 py-0.5 rounded-full font-medium shrink-0" style="background:var(--blue-soft);color:var(--blue-ink)">Monorepo</span>
                         </div>
                         <ul class="space-y-1.5 text-[11px]" style="color:var(--muted)">
                           <li class="flex items-start gap-2">
@@ -1316,7 +1339,7 @@
                   </div>
 
                   <!-- Database Migration Footer Strip -->
-                  <div class="p-3 rounded-xl hairline-all mono text-[11px] flex flex-wrap items-center justify-between gap-2" style="background:var(--card)">
+                  <div class="p-3 rounded-xl hairline-all mono text-[10px] sm:text-[11px] flex flex-wrap items-center justify-between gap-2" style="background:var(--card)">
                     <div class="flex items-center gap-2">
                       <span class="px-2 py-0.5 rounded font-semibold" style="background:var(--surface)">MySQL Legacy</span>
                       <span class="font-semibold" style="color:var(--t-ink)">→</span>
@@ -1331,9 +1354,9 @@
 
             <div class="reveal inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs mono mb-3" style="background:var(--card);border:1px solid color-mix(in srgb, var(--t) 35%, transparent);color:var(--t-ink)" data-role="database">Studi kasus enterprise · 2 sistem internal</div>
 
-            <h3 class="reveal text-2xl font-semibold tracking-tight mb-3" data-role="database">Enterprise Audit (MOC &amp; CAR) &amp; IT Helpdesk System</h3>
+            <h3 class="reveal text-xl sm:text-2xl font-semibold tracking-tight mb-3" data-role="database">Enterprise Audit (MOC &amp; CAR) &amp; IT Helpdesk System</h3>
 
-            <p class="reveal leading-relaxed mb-6" style="color:var(--muted)" data-role="database">Mengembangkan dan memodernisasi dua sistem operasional internal perusahaan berbasis Ionic Angular, Node.js (Express), dan Microsoft SQL Server. Pada ekosistem ERP-MR, saya membangun modul ISO Management of Change (MOC) end-to-end dengan routing approval berjenjang otomatis, penguncian status permanen pasca-approval, serta cetak PDF Jasper ber-QR Code dinamis. Secara paralel, saya merestrukturisasi aplikasi IT Helpdesk menjadi monorepo, memigrasikan database dari MySQL ke MS SQL Server dengan 30+ model Sequelize, dan membangun penjadwalan Preventive Maintenance otomatis berbasis checklist snapshot.</p>
+            <p class="reveal text-sm sm:text-base leading-relaxed mb-6" style="color:var(--muted)" data-role="database">Mengembangkan dan memodernisasi dua sistem operasional internal perusahaan berbasis Ionic Angular, Node.js (Express), dan Microsoft SQL Server. Pada ekosistem ERP-MR, saya membangun modul ISO Management of Change (MOC) end-to-end dengan routing approval berjenjang otomatis, penguncian status permanen pasca-approval, serta cetak PDF Jasper ber-QR Code dinamis. Secara paralel, saya merestrukturisasi aplikasi IT Helpdesk menjadi monorepo, memigrasikan database dari MySQL ke MS SQL Server dengan 30+ model Sequelize, dan membangun penjadwalan Preventive Maintenance otomatis berbasis checklist snapshot.</p>
 
             <div class="reveal flex flex-wrap items-center gap-2 mb-6" data-role="database">
               <span class="pill">Ionic Angular</span>
