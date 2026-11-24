@@ -1232,50 +1232,120 @@
             </div>
           </article>
 
-          <!-- CMS + migrasi -->
+<!-- Enterprise ERP-MR (MOC) & IT Helpdesk -->
           <article class="tile p-8 md:p-12" data-tone="orange" data-role="database">
             <div class="reveal mb-8" data-role="database">
               <div class="mock">
+                <!-- Browser Topbar -->
                 <div class="mock-bar">
                   <div class="flex items-center gap-1.5">
                     <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
                     <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
                     <span class="w-2.5 h-2.5 rounded-full" style="background:var(--hairline)"></span>
                   </div>
-                  <span class="mono text-[11px]" style="color:var(--muted)">db-migration · schema</span>
+                  <span class="mono text-[11px]" style="color:var(--muted)">enterprise-portal.local · microservices &amp; monorepo</span>
                   <div class="w-10"></div>
                 </div>
-                <div class="p-6 mono text-xs">
-                  <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
-                    <div class="md:col-span-2 p-3.5 rounded-xl hairline-all" style="background:var(--surface)">
-                      <div class="flex items-center justify-between pb-2 hairline-b mb-2"><span class="font-semibold">MySQL</span><span class="text-[10px]" style="color:var(--muted)">SUMBER</span></div>
-                      <div class="space-y-1 text-[11px]" style="color:var(--muted)">
-                        <div>users_auth</div><div>cms_articles</div><div>media_assets</div>
+
+                <!-- Dual-System Architecture Mockup -->
+                <div class="p-5 md:p-6 text-xs space-y-4" style="background:var(--bg)">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                    <!-- Sistem 1: ERP-MR & Unified Approval -->
+                    <div class="p-4 rounded-xl hairline-all flex flex-col justify-between gap-3" style="background:var(--card)">
+                      <div>
+                        <div class="flex items-center justify-between gap-2 pb-2.5 mb-2.5 hairline-b">
+                          <span class="inline-flex items-center gap-1.5 font-semibold text-xs">
+                            <i data-lucide="shield-check" class="w-3.5 h-3.5" style="color:var(--t-ink)"></i>
+                            <span>01 · ERP-MR &amp; Approval</span>
+                          </span>
+                          <span class="mono text-[9.5px] px-2 py-0.5 rounded-full font-medium" style="background:var(--t-soft);color:var(--t-ink)">ISO MOC &amp; CAR</span>
+                        </div>
+                        <ul class="space-y-1.5 text-[11px]" style="color:var(--muted)">
+                          <li class="flex items-start gap-2">
+                            <i data-lucide="check" class="w-3.5 h-3.5 shrink-0 mt-0.5" style="color:var(--t-ink)"></i>
+                            <span>Routing approval berjenjang otomatis berbasis hierarki NIP &amp; jabatan HRIS</span>
+                          </li>
+                          <li class="flex items-start gap-2">
+                            <i data-lucide="check" class="w-3.5 h-3.5 shrink-0 mt-0.5" style="color:var(--t-ink)"></i>
+                            <span>Master pohon klausul relasional (Change Type &amp; Reff Section)</span>
+                          </li>
+                          <li class="flex items-start gap-2">
+                            <i data-lucide="check" class="w-3.5 h-3.5 shrink-0 mt-0.5" style="color:var(--t-ink)"></i>
+                            <span>State lock permanen pasca-approval &amp; cetak PDF Jasper + Dynamic QR</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="pt-2 hairline-t mono text-[10px] flex items-center justify-between" style="color:var(--muted)">
+                        <span>3 Microservices</span>
+                        <span style="color:var(--t-ink)">ACID Transaction</span>
                       </div>
                     </div>
-                    <div class="md:col-span-1 text-center py-2 flex flex-col items-center justify-center">
-                      <span class="font-semibold text-lg hidden md:block" style="color:var(--t-ink)">→</span>
-                      <span class="font-semibold text-lg md:hidden" style="color:var(--t-ink)">↓</span>
-                      <span class="text-[10px] tracking-tight" style="color:var(--muted)">tanpa downtime</span>
-                    </div>
-                    <div class="md:col-span-2 p-3.5 rounded-xl" style="background:var(--t-soft);border:1px solid color-mix(in srgb, var(--t) 35%, transparent)">
-                      <div class="flex items-center justify-between pb-2 hairline-b mb-2"><span class="font-semibold">MS SQL Server</span><span class="text-[10px]" style="color:var(--muted)">TUJUAN</span></div>
-                      <div class="space-y-1 text-[11px]" style="color:var(--muted)">
-                        <div>dbo.tbl_Users</div><div>dbo.tbl_Articles</div><div>dbo.tbl_Assets</div>
+
+                    <!-- Sistem 2: IT Helpdesk & Preventive Maintenance -->
+                    <div class="p-4 rounded-xl hairline-all flex flex-col justify-between gap-3" style="background:var(--card)">
+                      <div>
+                        <div class="flex items-center justify-between gap-2 pb-2.5 mb-2.5 hairline-b">
+                          <span class="inline-flex items-center gap-1.5 font-semibold text-xs">
+                            <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5" style="color:var(--blue-ink)"></i>
+                            <span>02 · Helpdesk &amp; Maintenance</span>
+                          </span>
+                          <span class="mono text-[9.5px] px-2 py-0.5 rounded-full font-medium" style="background:var(--blue-soft);color:var(--blue-ink)">Monorepo</span>
+                        </div>
+                        <ul class="space-y-1.5 text-[11px]" style="color:var(--muted)">
+                          <li class="flex items-start gap-2">
+                            <i data-lucide="check" class="w-3.5 h-3.5 shrink-0 mt-0.5" style="color:var(--blue-ink)"></i>
+                            <span>Auto-scheduler Preventive Maintenance (<span class="mono">node-cron</span>) dengan snapshot checklist</span>
+                          </li>
+                          <li class="flex items-start gap-2">
+                            <i data-lucide="check" class="w-3.5 h-3.5 shrink-0 mt-0.5" style="color:var(--blue-ink)"></i>
+                            <span>Modul rating SLA teknisi (1–5 bintang) &amp; chat tiket dengan upload media</span>
+                          </li>
+                          <li class="flex items-start gap-2">
+                            <i data-lucide="check" class="w-3.5 h-3.5 shrink-0 mt-0.5" style="color:var(--blue-ink)"></i>
+                            <span>Shared UI components &amp; pembersihan memory leak RxJS</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="pt-2 hairline-t mono text-[10px] flex items-center justify-between" style="color:var(--muted)">
+                        <span>30+ Sequelize Models</span>
+                        <span style="color:var(--blue-ink)">Automated ERD</span>
                       </div>
                     </div>
+
                   </div>
-                  <div class="mt-4 pt-3 hairline-t text-[11px]" style="color:var(--muted)">Validasi tipe data &amp; foreign key constraints</div>
+
+                  <!-- Database Migration Footer Strip -->
+                  <div class="p-3 rounded-xl hairline-all mono text-[11px] flex flex-wrap items-center justify-between gap-2" style="background:var(--card)">
+                    <div class="flex items-center gap-2">
+                      <span class="px-2 py-0.5 rounded font-semibold" style="background:var(--surface)">MySQL Legacy</span>
+                      <span class="font-semibold" style="color:var(--t-ink)">→</span>
+                      <span class="px-2 py-0.5 rounded font-semibold" style="background:var(--t-soft);color:var(--t-ink)">MS SQL Server</span>
+                    </div>
+                    <span style="color:var(--muted)">Normalisasi skema, dialect converter, &amp; migrasi tanpa downtime</span>
+                  </div>
                 </div>
               </div>
-              <p class="mono text-[11px] mt-2.5 text-right" style="color:var(--muted)">Ilustrasi antarmuka</p>
+              <p class="mono text-[11px] mt-2.5 text-right" style="color:var(--muted)">Ilustrasi arsitektur sistem</p>
             </div>
-            <div class="reveal inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs mono mb-3" style="background:var(--card);border:1px solid color-mix(in srgb, var(--t) 35%, transparent);color:var(--t-ink)" data-role="database">Studi kasus enterprise</div>
-            <h3 class="reveal text-2xl font-semibold tracking-tight mb-3" data-role="database">Enterprise CMS &amp; Migrasi Database</h3>
-            <p class="reveal leading-relaxed mb-6" style="color:var(--muted)" data-role="database">CMS internal perusahaan dengan frontend Ionic Angular dan backend Node.js (Express). Refactoring menyeluruh pada kode legacy agar lebih mudah dirawat, lalu migrasi database dari MySQL ke Microsoft SQL Server tanpa downtime.</p>
+
+            <div class="reveal inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs mono mb-3" style="background:var(--card);border:1px solid color-mix(in srgb, var(--t) 35%, transparent);color:var(--t-ink)" data-role="database">Studi kasus enterprise · 2 sistem internal</div>
+
+            <h3 class="reveal text-2xl font-semibold tracking-tight mb-3" data-role="database">Enterprise Audit (MOC &amp; CAR) &amp; IT Helpdesk System</h3>
+
+            <p class="reveal leading-relaxed mb-6" style="color:var(--muted)" data-role="database">Mengembangkan dan memodernisasi dua sistem operasional internal perusahaan berbasis Ionic Angular, Node.js (Express), dan Microsoft SQL Server. Pada ekosistem ERP-MR, saya membangun modul ISO Management of Change (MOC) end-to-end dengan routing approval berjenjang otomatis, penguncian status permanen pasca-approval, serta cetak PDF Jasper ber-QR Code dinamis. Secara paralel, saya merestrukturisasi aplikasi IT Helpdesk menjadi monorepo, memigrasikan database dari MySQL ke MS SQL Server dengan 30+ model Sequelize, dan membangun penjadwalan Preventive Maintenance otomatis berbasis checklist snapshot.</p>
+
             <div class="reveal flex flex-wrap items-center gap-2 mb-6" data-role="database">
-              <span class="pill">Ionic Angular</span><span class="pill">Node.js</span><span class="pill">Express</span><span class="pill">MS SQL Server</span>
+              <span class="pill">Ionic Angular</span>
+              <span class="pill">Node.js</span>
+              <span class="pill">Express</span>
+              <span class="pill">Sequelize ORM</span>
+              <span class="pill">MS SQL Server</span>
+              <span class="pill">Prisma</span>
+              <span class="pill">node-cron</span>
+              <span class="pill">Jasper PDF</span>
             </div>
+
             <div class="reveal" data-role="database">
               <p class="text-sm mono inline-flex items-center gap-2" style="color:var(--muted)"><i data-lucide="lock" class="w-4 h-4"></i>Repositori privat</p>
             </div>
